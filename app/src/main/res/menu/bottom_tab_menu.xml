@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/bm_main"
+        android:icon="@drawable/ic_home"
+        android:title="@string/main_menu" />
+    <item
+        android:id="@+id/bm_daily"
+        android:icon="@drawable/ic_daily_calendar"
+        android:title="@string/daily" />
+
+    <item
+        android:id="@+id/bm_statistic"
+        android:icon="@drawable/ic_statistics"
+        android:title="@string/statistic" />
+</menu>
