@@ -41,7 +41,7 @@ public class GameActivity extends AppCompatActivity {
     int difficulty, mistakes, currentLevel;
     String difficultyName;
     int[][] answer, question, currentBoardState;
-    boolean isPaused = false;
+    boolean isPaused = false, isPopupOpened = false;
     LinearLayout gameBoard, hintButton, pauseGame, numberRow;
     TextView gameTimer, gameDifficulty, gameMistakes, currentLevelText;
     ImageView backBtn, pauseResumeIcon;
@@ -122,6 +122,16 @@ public class GameActivity extends AppCompatActivity {
             showPausePopup(view);
             pauseGame();
         });
+    }
+
+    @Override
+    public void onWindowFocusChanged(boolean hasFocus){
+        super.onWindowFocusChanged(hasFocus);
+        if (!hasFocus && !isPopupOpened) {
+            isPaused = true;
+            showPausePopup(new View(this));
+            pauseGame();
+        }
     }
 
     private void generateGameBoard() {
@@ -362,6 +372,7 @@ public class GameActivity extends AppCompatActivity {
     }
 
     public void showPausePopup(View view) {
+        isPopupOpened = true;
         LinearLayout popupBg = findViewById(R.id.ll_popup_bg);
         popupBg.setVisibility(View.VISIBLE);
         LayoutInflater inflater = (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
@@ -408,6 +419,7 @@ public class GameActivity extends AppCompatActivity {
 
     private void resumeGame() {
         isPaused = false;
+        isPopupOpened = false;
         pauseResumeIcon.setImageResource(R.drawable.ic_pause);
         int childCount = gameBoard.getChildCount();
         for (int i = 0; i < childCount; i++) {

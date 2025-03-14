@@ -82,24 +82,22 @@ public class CalendarDayAdapter extends BaseAdapter {
                     new StartNewGame(context).createDailyGame(Integer.parseInt(day));
                     Intent intent = new Intent(context, GameActivity.class);
                     context.startActivity(intent);
-
                 });
+                dayText.setClickable(true);
+                if (c2.equals(c)) {
+                    dayText.setTextColor(ContextCompat.getColor(context, R.color.colorPrimary));
+                } else {
+                    dayText.setTextColor(ContextCompat.getColor(context, R.color.black));
+                }
             } else {
                 dayText.setOnClickListener(null);
-                dayText.setClickable(false);
-            }
-
-            if (c.get(Calendar.DATE) == Integer.parseInt(day) && c.get(Calendar.MONTH) == globalStore.getMonth() && c.get(Calendar.YEAR) == globalStore.getYear()) {
-                dayText.setTextColor(ContextCompat.getColor(context, R.color.colorPrimary));
-            } else {
-                dayText.setTextColor(ContextCompat.getColor(context, R.color.black));
+//                dayText.setClickable(false);
+                dayText.setTextColor(ContextCompat.getColor(context, R.color.gray));
             }
         } else if (d.contains(day)) {
             dayText.setTextColor(ContextCompat.getColor(context, R.color.colorPrimary));
             dayText.setTypeface(Typeface.DEFAULT_BOLD);
         }
-
-
 
         if (completedDays.contains(day)) {
             dayLayout.setBackgroundResource(R.drawable.cups_daily);
@@ -121,7 +119,7 @@ public class CalendarDayAdapter extends BaseAdapter {
                 dateList.add(cursor.getString(1));
             } while (cursor.moveToNext());
         }
-            Log.d("getView", cursor.getCount()+"");
+        Log.d("getView", cursor.getCount() + "");
         return dateList;
     }
 }

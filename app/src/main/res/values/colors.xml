@@ -7,4 +7,5 @@
     <color name="colorPrimaryDark">#00579E</color>
     <color name="danger">#DC3545</color>
     <color name="boardText">#555555</color>
+    <color name="gray">#888888</color>
 </resources>

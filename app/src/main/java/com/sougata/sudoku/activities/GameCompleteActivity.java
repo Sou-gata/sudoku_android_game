@@ -71,6 +71,7 @@ public class GameCompleteActivity extends AppCompatActivity {
             LinearLayout bs_difficulty_hard = view1.findViewById(R.id.bs_difficulty_hard);
             LinearLayout bs_difficulty_expert = view1.findViewById(R.id.bs_difficulty_expert);
             LinearLayout bs_difficulty_nightmare = view1.findViewById(R.id.bs_difficulty_nightmare);
+            LinearLayout bs_restart = view1.findViewById(R.id.bs_difficulty_restart);
 
             Intent intent = new Intent(GameCompleteActivity.this, GameActivity.class);
             bs_difficulty_easy.setOnClickListener(view2 -> {
@@ -98,6 +99,7 @@ public class GameCompleteActivity extends AppCompatActivity {
                 startActivity(intent);
                 bottomSheetDialog.cancel();
             });
+            bs_restart.setVisibility(View.GONE);
         });
 
         goToHome.setOnClickListener(view -> {

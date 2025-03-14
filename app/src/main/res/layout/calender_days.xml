@@ -19,6 +19,6 @@
             android:text="@string/day_placeholder"
             android:textAlignment="center"
             android:textColor="@color/black"
-            android:textSize="20sp" />
+            android:textSize="@dimen/calendar_day_text_size" />
     </LinearLayout>
 </LinearLayout>

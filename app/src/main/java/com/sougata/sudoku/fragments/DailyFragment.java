@@ -67,14 +67,15 @@ public class DailyFragment extends Fragment {
             month.set(c.get(Calendar.MONTH));
             generateCalender(month.get(), year.get());
             gridView.animate()
-                    .alpha(0f)
-                    .scaleX(0.75f)
-                    .scaleY(0.75f)
+                    .translationX(gridView.getWidth())
                     .setDuration(150)
                     .withEndAction(() -> {
                         adapter.notifyDataSetChanged();
-                        gridView.animate().alpha(1f).scaleX(1f).scaleY(1f).setDuration(150);
+                        gridView.setTranslationX(-gridView.getWidth());
+                        gridView.animate().translationX(0).setDuration(150);
                     });
+
+
             globalStore.setMonth(month.get());
             globalStore.setYear(year.get());
             String monthYearText = months[month.get()] + " " + year.get();
@@ -92,13 +93,12 @@ public class DailyFragment extends Fragment {
             month.set(c.get(Calendar.MONTH));
             generateCalender(month.get(), year.get());
             gridView.animate()
-                    .alpha(0f)
-                    .scaleX(0.75f)
-                    .scaleY(0.75f)
+                    .translationX(-gridView.getWidth())
                     .setDuration(150)
                     .withEndAction(() -> {
                         adapter.notifyDataSetChanged();
-                        gridView.animate().alpha(1f).scaleX(1f).scaleY(1f).setDuration(150);
+                        gridView.setTranslationX(gridView.getWidth());
+                        gridView.animate().translationX(0).setDuration(150);
                     });
             globalStore.setMonth(month.get());
             globalStore.setYear(year.get());

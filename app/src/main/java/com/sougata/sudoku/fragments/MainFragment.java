@@ -100,6 +100,8 @@ public class MainFragment extends Fragment {
             LinearLayout bs_difficulty_hard = view1.findViewById(R.id.bs_difficulty_hard);
             LinearLayout bs_difficulty_expert = view1.findViewById(R.id.bs_difficulty_expert);
             LinearLayout bs_difficulty_nightmare = view1.findViewById(R.id.bs_difficulty_nightmare);
+            LinearLayout bs_restart = view1.findViewById(R.id.bs_difficulty_restart);
+
             bs_difficulty_easy.setOnClickListener(view2 -> {
                 startNewGame.createEasyGame();
                 startActivity(intent);
@@ -123,6 +125,11 @@ public class MainFragment extends Fragment {
             });
             bs_difficulty_nightmare.setOnClickListener(view2 -> {
                 startNewGame.createNightmareGame();
+                startActivity(intent);
+                bottomSheetDialog.cancel();
+            });
+            bs_restart.setOnClickListener(view2 ->{
+                startNewGame.restartGame();
                 startActivity(intent);
                 bottomSheetDialog.cancel();
             });

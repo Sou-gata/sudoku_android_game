@@ -5,7 +5,7 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#F6F7FC"
+    android:background="@drawable/home_background"
     android:orientation="vertical"
     tools:context=".fragments.MainFragment">
 
@@ -15,7 +15,8 @@
         android:gravity="center"
         android:orientation="vertical"
         android:paddingHorizontal="40dp"
-        android:paddingVertical="25dp">
+        android:paddingVertical="25dp"
+        tools:ignore="UselessParent">
 
         <TextView
             android:layout_width="wrap_content"
@@ -36,7 +37,7 @@
             android:paddingHorizontal="20dp"
             android:text="@string/new_game"
             android:textColor="@color/colorPrimary"
-            android:textSize="20sp"
+            android:textSize="18sp"
             android:textStyle="bold"
             app:backgroundTint="@null" />
 
@@ -55,7 +56,7 @@
                 android:layout_height="wrap_content"
                 android:text="@string/continue_game"
                 android:textColor="@color/white"
-                android:textSize="20sp"
+                android:textSize="18sp"
                 android:textStyle="bold" />
 
             <TextView
@@ -64,7 +65,7 @@
                 android:layout_height="wrap_content"
                 android:text="@string/continue_placeholder"
                 android:textColor="#EEEEEE"
-                android:textSize="12sp"
+                android:textSize="11sp"
                 android:textStyle="normal" />
         </LinearLayout>
 
