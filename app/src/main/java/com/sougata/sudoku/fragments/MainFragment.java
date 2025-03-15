@@ -21,6 +21,8 @@ import com.sougata.sudoku.R;
 import com.sougata.sudoku.StartNewGame;
 import com.sougata.sudoku.activities.GameActivity;
 
+import java.util.Arrays;
+
 public class MainFragment extends Fragment {
 
     Button newGame;
@@ -48,9 +50,10 @@ public class MainFragment extends Fragment {
     }
 
     private void loadOngoingDb() {
-        Cursor c = db.getOngoing();
+        Cursor c = db.getOngoingMatch();
         c.moveToFirst();
-        if (!c.getString(3).equals("none")) {
+        if (c.getCount() != 0) {
+            globalStore.setId(c.getLong(0));
             globalStore.setCurrentLevel(c.getInt(1));
             globalStore.setDifficulty(c.getInt(2));
             globalStore.setDifficultyName(c.getString(3));
@@ -62,12 +65,7 @@ public class MainFragment extends Fragment {
             globalStore.setType(c.getString(10));
 
             resumeGame.setVisibility(View.VISIBLE);
-            String resumeStatusText;
-            if (!globalStore.getType().equals("daily")) {
-                resumeStatusText = HelperFunctions.timerToString(globalStore.getTimer()) + " - " + globalStore.getDifficultyName();
-            } else {
-                resumeStatusText = HelperFunctions.timerToString(globalStore.getTimer()) + " - Daily challenge";
-            }
+            String resumeStatusText = HelperFunctions.timerToString(globalStore.getTimer()) + " - " + globalStore.getDifficultyName();
             resumeStatus.setText(resumeStatusText);
         } else {
             resumeGame.setVisibility(View.GONE);
@@ -87,7 +85,6 @@ public class MainFragment extends Fragment {
         resumeStatus = view.findViewById(R.id.tv_main_resume_status);
 
         Intent intent = new Intent(context, GameActivity.class);
-        db.createFirstOngoing();
         loadOngoingDb();
 
         newGame.setOnClickListener(view3 -> {

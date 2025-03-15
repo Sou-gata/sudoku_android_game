@@ -15,7 +15,10 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.core.content.ContextCompat;
 
+import com.google.android.material.bottomsheet.BottomSheetDialog;
+import com.sougata.Constants;
 import com.sougata.GlobalStore;
+import com.sougata.HelperFunctions;
 import com.sougata.sudoku.Database;
 import com.sougata.sudoku.R;
 import com.sougata.sudoku.StartNewGame;
@@ -77,12 +80,56 @@ public class CalendarDayAdapter extends BaseAdapter {
             Calendar c2 = Calendar.getInstance();
             c2.set(globalStore.getYear(), globalStore.getMonth(), Integer.parseInt(day), 0, 0, 0);
             c2.set(Calendar.MILLISECOND, 0);
+            globalStore.setDay(Integer.parseInt(day));
             if (c2.before(c) || c2.equals(c)) {
                 dayText.setOnClickListener(view1 -> {
-                    new StartNewGame(context).createDailyGame(Integer.parseInt(day));
+                    Calendar calendar = HelperFunctions.getCalendar();
+                    calendar.set(Calendar.YEAR, globalStore.getYear());
+                    calendar.set(Calendar.MONTH, globalStore.getMonth());
+                    calendar.set(Calendar.DATE, Integer.parseInt(day));
                     Intent intent = new Intent(context, GameActivity.class);
-                    context.startActivity(intent);
+                    Cursor cursor = db.getDailyMatch(calendar.getTimeInMillis());
+                    if (cursor.getCount() > 0) {
+                        cursor.moveToFirst();
+                        globalStore.setId(cursor.getLong(0));
+                        globalStore.setCurrentBoardState(HelperFunctions.parseTwoDimArray(cursor.getString(6)));
+
+                        intent.putExtra("date", calendar.get(Calendar.DATE));
+
+                        BottomSheetDialog bottomSheetDialog = new BottomSheetDialog(context);
+                        View v = LayoutInflater.from(context).inflate(R.layout.bottom_sheet_daily, null);
+                        bottomSheetDialog.setContentView(v);
+                        bottomSheetDialog.show();
+                        TextView cancel = v.findViewById(R.id.tv_bs_cancel);
+                        TextView continueTxt = v.findViewById(R.id.tv_bs_continue);
+                        TextView restart = v.findViewById(R.id.tv_bs_restart);
+
+                        restart.setOnClickListener(view2 -> {
+                            db.restartGame(globalStore.getId(), cursor.getString(6));
+                            globalStore.setTimer(0);
+                            globalStore.setMistakes(0);
+                            globalStore.setBoard(HelperFunctions.parseTwoDimArray(cursor.getString(6)));
+                            globalStore.setSolution(HelperFunctions.parseTwoDimArray(cursor.getString(7)));
+                            globalStore.setDifficultyName(cursor.getString(3));
+                            globalStore.setDifficulty(cursor.getInt(2));
+                            globalStore.setCurrentLevel(cursor.getInt(1));
+                            globalStore.setType(Constants.TYPES[1]);
+                            globalStore.setDay(Integer.parseInt(day));
+                        });
+                        continueTxt.setOnClickListener(view2 -> {
+                            new StartNewGame(context).createDailyGame(Integer.parseInt(day));
+                            bottomSheetDialog.cancel();
+                            context.startActivity(intent);
+                        });
+                        cancel.setOnClickListener(view2 -> {
+                            bottomSheetDialog.cancel();
+                        });
+                    } else {
+                        new StartNewGame(context).createDailyGame(Integer.parseInt(day));
+                        context.startActivity(intent);
+                    }
                 });
+
                 dayText.setClickable(true);
                 if (c2.equals(c)) {
                     dayText.setTextColor(ContextCompat.getColor(context, R.color.colorPrimary));
@@ -91,7 +138,7 @@ public class CalendarDayAdapter extends BaseAdapter {
                 }
             } else {
                 dayText.setOnClickListener(null);
-//                dayText.setClickable(false);
+                dayText.setClickable(false);
                 dayText.setTextColor(ContextCompat.getColor(context, R.color.gray));
             }
         } else if (d.contains(day)) {
@@ -116,7 +163,10 @@ public class CalendarDayAdapter extends BaseAdapter {
         if (cursor.getCount() != 0) {
             cursor.moveToFirst();
             do {
-                dateList.add(cursor.getString(1));
+                long d = cursor.getLong(1);
+                Calendar c = Calendar.getInstance();
+                c.setTimeInMillis(d);
+                dateList.add(String.valueOf(c.get(Calendar.DATE)));
             } while (cursor.moveToNext());
         }
         Log.d("getView", cursor.getCount() + "");

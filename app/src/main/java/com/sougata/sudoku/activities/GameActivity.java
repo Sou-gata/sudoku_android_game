@@ -30,6 +30,7 @@ import com.sougata.sudoku.Database;
 import com.sougata.sudoku.Pos;
 import com.sougata.sudoku.R;
 import com.sougata.sudoku.StartNewGame;
+import com.sougata.sudoku.fragments.DailyFragment;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -41,10 +42,11 @@ public class GameActivity extends AppCompatActivity {
     int difficulty, mistakes, currentLevel;
     String difficultyName;
     int[][] answer, question, currentBoardState;
-    boolean isPaused = false, isPopupOpened = false;
+    boolean isPopupOpened = false;
     LinearLayout gameBoard, hintButton, pauseGame, numberRow;
     TextView gameTimer, gameDifficulty, gameMistakes, currentLevelText;
     ImageView backBtn, pauseResumeIcon;
+    PopupWindow popupWindow;
 
     GlobalStore globalStore = GlobalStore.getInstance();
     Database db;
@@ -55,6 +57,7 @@ public class GameActivity extends AppCompatActivity {
     int timer;
     Timer gameTimerObj;
     HashMap<Integer, Integer> numberCounts = new HashMap<>();
+    String[] months = {"Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"};
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -71,6 +74,7 @@ public class GameActivity extends AppCompatActivity {
         } else {
             globalStore.setCurrentLevel(c.getCount() + 1);
         }
+        globalStore.setPaused(false);
         answer = globalStore.getSolution();
         question = globalStore.getBoard();
         difficulty = globalStore.getDifficulty();
@@ -102,20 +106,26 @@ public class GameActivity extends AppCompatActivity {
         gameTimerObj = new Timer();
         gameTimerObj.schedule(task, 1000, 1000);
 
-        gameDifficulty.setText(difficultyName);
         String mistakeString = "Mistake: " + mistakes + "/3";
         gameMistakes.setText(mistakeString);
 
         if (!globalStore.getType().equals("daily")) {
             String curLevelStr = "Level " + (currentLevel == 0 ? "1" : currentLevel);
             currentLevelText.setText(curLevelStr);
+            gameDifficulty.setText(difficultyName);
         } else {
+            Intent intent = getIntent();
+            String date = HelperFunctions.padString(intent.getIntExtra("date", 0), 2) + " " + months[globalStore.getMonth()];
+            gameDifficulty.setText(date);
             currentLevelText.setText(getString(R.string.daily_challenge));
         }
 
         hintButton.setOnClickListener(view -> hitCLicked());
         backBtn.setOnClickListener(view -> {
-            isPaused = true;
+            globalStore.setPaused(true);
+            if (popupWindow != null) {
+                popupWindow.dismiss();
+            }
             finish();
         });
         pauseGame.setOnClickListener(view -> {
@@ -125,10 +135,19 @@ public class GameActivity extends AppCompatActivity {
     }
 
     @Override
-    public void onWindowFocusChanged(boolean hasFocus){
+    protected void onDestroy() {
+        super.onDestroy();
+        popupWindow.dismiss();
+        globalStore.setPaused(true);
+        gameTimerObj.cancel();
+        popupWindow = null;
+    }
+
+    @Override
+    public void onWindowFocusChanged(boolean hasFocus) {
         super.onWindowFocusChanged(hasFocus);
         if (!hasFocus && !isPopupOpened) {
-            isPaused = true;
+            globalStore.setPaused(true);
             showPausePopup(new View(this));
             pauseGame();
         }
@@ -248,7 +267,7 @@ public class GameActivity extends AppCompatActivity {
             textView.setTextSize(35);
             int fi = i;
             textView.setOnClickListener(view -> {
-                if (!isPaused) {
+                if (!globalStore.isPaused()) {
                     numberClicked(fi);
                 }
             });
@@ -292,10 +311,10 @@ public class GameActivity extends AppCompatActivity {
 
     private class Task extends TimerTask {
         public void run() {
-            if (!isPaused) {
+            if (!globalStore.isPaused()) {
                 timer++;
                 globalStore.setTimer(timer);
-                db.updateOngoingTimer(timer);
+                db.updateOngoingTimer(globalStore.getId(), timer);
                 ((Activity) gameTimer.getContext()).runOnUiThread(() -> gameTimer.setText(HelperFunctions.timerToString(timer)));
             }
         }
@@ -344,16 +363,12 @@ public class GameActivity extends AppCompatActivity {
     }
 
     private void updateOngoingDb() {
-        db.updateOngoing(String.valueOf(globalStore.getCurrentLevel()), globalStore.getDifficulty(), globalStore.getDifficultyName(), globalStore.getTimer(), HelperFunctions.twoDimArrayToString(globalStore.getCurrentBoardState()), "0", globalStore.getMistakes(), globalStore.getType());
+        db.updateOngoing(globalStore.getId(), globalStore.getTimer(), HelperFunctions.twoDimArrayToString(globalStore.getCurrentBoardState()), "0", globalStore.getMistakes());
     }
 
     private void onGameComplete() {
         gameTimerObj.cancel();
-        db.emptyOnGoing();
-        db.addCompleted(String.valueOf(globalStore.getCurrentLevel()), globalStore.getDifficulty(), globalStore.getDifficultyName(), globalStore.getTimer(), globalStore.getMistakes(), globalStore.getType());
-        if (globalStore.getType().equals("daily")) {
-            db.addDailyMatch(globalStore.getDay(), globalStore.getMonth(), globalStore.getYear());
-        }
+        db.makeGameComplete(globalStore.getId());
         Intent intent = new Intent(this, GameCompleteActivity.class);
         startActivity(intent);
         finish();
@@ -378,7 +393,7 @@ public class GameActivity extends AppCompatActivity {
         LayoutInflater inflater = (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         @SuppressLint("InflateParams") View popupView = inflater.inflate(R.layout.pause_popup_window, null);
 
-        PopupWindow popupWindow = new PopupWindow(popupView, ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT, true);
+        popupWindow = new PopupWindow(popupView, ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT, true);
         popupWindow.setAnimationStyle(R.style.popupDialogAnim);
         popupWindow.setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
         popupWindow.setOutsideTouchable(true);
@@ -412,13 +427,13 @@ public class GameActivity extends AppCompatActivity {
     }
 
     private void pauseGame() {
-        isPaused = true;
+        globalStore.setPaused(true);
         pauseResumeIcon.setImageResource(R.drawable.ic_resume);
         hideBoard();
     }
 
     private void resumeGame() {
-        isPaused = false;
+        globalStore.setPaused(false);
         isPopupOpened = false;
         pauseResumeIcon.setImageResource(R.drawable.ic_pause);
         int childCount = gameBoard.getChildCount();
@@ -442,7 +457,7 @@ public class GameActivity extends AppCompatActivity {
         String mistakeString = "Mistake: " + mistakes + "/3";
         gameMistakes.setText(mistakeString);
         gameTimer.setText(HelperFunctions.timerToString(timer));
-        isPaused = false;
+        globalStore.setPaused(false);
         gameBoard.removeAllViews();
         generateGameBoard();
         for (int i = 0; i < 9; i++) {
@@ -469,13 +484,12 @@ public class GameActivity extends AppCompatActivity {
         restartGame.setOnClickListener(v -> {
             popupWindow.dismiss();
             popupBg.setVisibility(View.GONE);
-            isPaused = true;
+            globalStore.setPaused(true);
             restartGame();
         });
         LinearLayout goToHome = popupView.findViewById(R.id.ll_game_over_home);
         goToHome.setOnClickListener(v -> {
             globalStore.emptyCurrentState();
-            db.emptyOnGoing();
             finish();
         });
         db.addFailedLevel(globalStore.getDifficultyName(), String.valueOf(globalStore.getCurrentLevel()), globalStore.getType());

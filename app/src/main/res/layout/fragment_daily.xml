@@ -13,22 +13,12 @@
         android:background="@color/colorPrimary">
 
         <com.airbnb.lottie.LottieAnimationView
-            android:layout_width="match_parent"
-            android:layout_height="700dp"
-            android:layout_marginTop="-225dp"
-            app:lottie_autoPlay="true"
-            app:lottie_cacheComposition="true"
-            app:lottie_loop="true"
-            app:lottie_rawRes="@raw/animation_ray_rotate" />
-
-        <com.airbnb.lottie.LottieAnimationView
+            android:id="@+id/lv_challenge_anim"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:alpha="0.5"
             app:lottie_autoPlay="true"
             app:lottie_cacheComposition="true"
-            app:lottie_loop="true"
-            app:lottie_rawRes="@raw/android_sparkle"
             app:lottie_speed="0.75" />
 
         <ImageView

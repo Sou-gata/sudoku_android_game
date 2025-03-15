@@ -3,6 +3,7 @@ package com.sougata;
 import android.content.res.Resources;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Locale;
 
 public class HelperFunctions {
@@ -111,10 +112,21 @@ public class HelperFunctions {
     }
 
     public static String padString(int num, int length) {
-        StringBuilder s = new StringBuilder(String.valueOf(num));
+        String str = String.valueOf(num);
+        if (str.length() == length) return str;
+        StringBuilder s = new StringBuilder(str);
         while (s.length() < length) {
             s.insert(0, "0");
         }
         return s.toString();
+    }
+
+    public static Calendar getCalendar(){
+        Calendar c = Calendar.getInstance();
+        c.set(Calendar.HOUR_OF_DAY, 0);
+        c.set(Calendar.MINUTE, 0);
+        c.set(Calendar.SECOND, 0);
+        c.set(Calendar.MILLISECOND, 0);
+        return c;
     }
 }

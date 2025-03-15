@@ -1,12 +1,14 @@
 package com.sougata.sudoku;
 
 import android.content.Context;
+import android.database.Cursor;
 
 import com.sougata.Constants;
 import com.sougata.GlobalStore;
 import com.sougata.HelperFunctions;
 
 import java.util.Arrays;
+import java.util.Calendar;
 
 public class StartNewGame {
     private final Database db;
@@ -61,6 +63,27 @@ public class StartNewGame {
     }
 
     private void createGame() {
+        Calendar c = HelperFunctions.getCalendar();
+        c.set(Calendar.DATE, globalStore.getDay());
+        c.set(Calendar.MONTH, globalStore.getMonth());
+        c.set(Calendar.YEAR, globalStore.getYear());
+
+        if (globalStore.getType().equals(Constants.TYPES[1])) {
+            Cursor cursor = db.getDailyMatch(c.getTimeInMillis());
+            cursor.moveToFirst();
+            if (cursor.getCount() > 0) {
+                globalStore.setId(cursor.getLong(0));
+                globalStore.setCurrentLevel(cursor.getInt(1));
+                globalStore.setDifficulty(cursor.getInt(2));
+                globalStore.setDifficultyName(cursor.getString(3));
+                globalStore.setTimer(cursor.getInt(4));
+                globalStore.setCurrentBoardState(HelperFunctions.parseTwoDimArray(cursor.getString(5)));
+                globalStore.setBoard(HelperFunctions.parseTwoDimArray(cursor.getString(6)));
+                globalStore.setSolution(HelperFunctions.parseTwoDimArray(cursor.getString(7)));
+                globalStore.setMistakes(cursor.getInt(9));
+                return;
+            }
+        }
         Sudoku sudoku = new Sudoku(globalStore.getDifficulty());
         SudokuQuestionAnswer questionAnswer = sudoku.getQuestionAnswer();
         int[][] question = questionAnswer.question;
@@ -73,12 +96,8 @@ public class StartNewGame {
         globalStore.setMistakes(0);
         globalStore.setCurrentBoardState(currentBoardState);
         globalStore.setTimer(0);
-        updateOngoingDb();
-    }
-
-    private void updateOngoingDb() {
-        db.addStartedMatch(globalStore.getDifficultyName(), globalStore.getType());
-        db.updateOngoing(String.valueOf(globalStore.getCurrentLevel()), globalStore.getDifficulty(), globalStore.getDifficultyName(), globalStore.getTimer(), HelperFunctions.twoDimArrayToString(globalStore.getCurrentBoardState()), HelperFunctions.twoDimArrayToString(globalStore.getBoard()), HelperFunctions.twoDimArrayToString(globalStore.getSolution()), "0", globalStore.getMistakes(), globalStore.getType());
+        long id = db.addNewGame(String.valueOf(globalStore.getCurrentLevel()), globalStore.getDifficulty(), globalStore.getDifficultyName(), globalStore.getTimer(), HelperFunctions.twoDimArrayToString(globalStore.getCurrentBoardState()), HelperFunctions.twoDimArrayToString(globalStore.getBoard()), HelperFunctions.twoDimArrayToString(globalStore.getSolution()), "0", globalStore.getMistakes(), globalStore.getType(), globalStore.getType().equals(Constants.TYPES[0]) ? 0 : c.getTimeInMillis());
+        globalStore.setId(id);
     }
 
     public void restartGame() {
@@ -91,6 +110,6 @@ public class StartNewGame {
         globalStore.setTimer(0);
         globalStore.setMistakes(0);
         globalStore.setCurrentBoardState(currentBoardState);
-        updateOngoingDb();
+        db.restartGame(globalStore.getId(), HelperFunctions.twoDimArrayToString(currentBoardState));
     }
 }

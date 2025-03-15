@@ -60,4 +60,5 @@
     <string name="pause_restart">RESTART</string>
     <string name="flags">flags</string>
     <string name="rays">rays</string>
+    <string name="cancel">Cancel</string>
 </resources>

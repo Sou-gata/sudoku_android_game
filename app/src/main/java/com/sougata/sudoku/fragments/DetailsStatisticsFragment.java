@@ -54,7 +54,7 @@ public class DetailsStatisticsFragment extends Fragment {
 
             gameStarted.setText(String.valueOf(this.gameStarted));
             gameOwn.setText(String.valueOf(this.gameOwn));
-            winRate.setText(String.valueOf(this.winRate) + "%");
+            winRate.setText(this.winRate + "%");
             winWithMistake.setText(String.valueOf(this.winWithMistake));
             bestTime.setText(HelperFunctions.timerToString(this.shortestTime));
             averageTime.setText(HelperFunctions.timerToString(this.avgTime));

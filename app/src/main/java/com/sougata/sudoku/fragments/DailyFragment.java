@@ -10,6 +10,9 @@ import android.widget.TextView;
 
 import androidx.fragment.app.Fragment;
 
+import com.airbnb.lottie.LottieAnimationView;
+import com.airbnb.lottie.LottieCompositionFactory;
+import com.airbnb.lottie.LottieDrawable;
 import com.sougata.GlobalStore;
 import com.sougata.sudoku.R;
 import com.sougata.sudoku.adapters.CalendarDayAdapter;
@@ -20,13 +23,14 @@ import java.util.Calendar;
 import java.util.concurrent.atomic.AtomicInteger;
 
 public class DailyFragment extends Fragment {
-    String[] days = new String[]{"S", "M", "T", "W", "T", "F", "S"};
-    String[] months = new String[]{"JAN", "FEB", "MAR", "APR", "MAY", "JUN", "JUL", "AUG", "SEP", "OCT", "NOV", "DEC"};
+    private final String[] days = new String[]{"S", "M", "T", "W", "T", "F", "S"};
+    private final String[] months = new String[]{"JAN", "FEB", "MAR", "APR", "MAY", "JUN", "JUL", "AUG", "SEP", "OCT", "NOV", "DEC"};
     ArrayList<String> dayList = new ArrayList<>();
 
     ImageView previousMonth, nextMonth;
     TextView monthYear;
-    GlobalStore globalStore = GlobalStore.getInstance();
+    LottieAnimationView animationView;
+    private final GlobalStore globalStore = GlobalStore.getInstance();
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -40,6 +44,18 @@ public class DailyFragment extends Fragment {
         previousMonth = view.findViewById(R.id.iv_prev_month);
         nextMonth = view.findViewById(R.id.iv_next_month);
         monthYear = view.findViewById(R.id.tv_month_year);
+        animationView = view.findViewById(R.id.lv_challenge_anim);
+
+        LottieDrawable drawable = new LottieDrawable();
+        drawable.setImagesAssetsFolder("images/");
+
+        LottieCompositionFactory.fromAsset(requireContext(), "challenge.json")
+                .addListener(composition -> {
+                    drawable.setComposition(composition);
+                    animationView.setImageDrawable(drawable);
+                    drawable.setRepeatCount(LottieDrawable.INFINITE);
+                    drawable.playAnimation();
+                });
 
         Calendar c = Calendar.getInstance();
         AtomicInteger year = new AtomicInteger(c.get(Calendar.YEAR));
