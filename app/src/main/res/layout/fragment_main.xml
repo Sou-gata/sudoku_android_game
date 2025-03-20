@@ -10,6 +10,22 @@
     tools:context=".fragments.MainFragment">
 
     <LinearLayout
+        android:layout_marginTop="50dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingHorizontal="20dp"
+        android:orientation="horizontal">
+        <ImageView
+            android:id="@+id/iv_home_settings"
+            android:padding="5dp"
+            android:layout_width="35dp"
+            android:layout_height="35dp"
+            android:contentDescription="@string/settings"
+            android:src="@drawable/ic_settings"
+            app:tint="#444444" />
+    </LinearLayout>
+
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:gravity="center"

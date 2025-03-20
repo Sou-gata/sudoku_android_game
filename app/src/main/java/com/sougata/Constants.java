@@ -8,6 +8,8 @@ public class Constants {
     public static final String[] LEVEL_NAME = {"Easy", "Medium", "Hard", "Expert", "Nightmare"};
     public static final int[] LEVEL = {29, 38, 47, 56, 65};
     public static final String SAVE_LOCATION = "Pictures/sudoku";
-
     public static final String[] TYPES = {"match", "daily"};
+    public static final int SPLASH_DELAY = 2000;
+    public static final int ALLOWED_MISTAKES = 3;
+    public  static final String[] MONTHS = {"JAN", "FEB", "MAR", "APR", "MAY", "JUN", "JUL", "AUG", "SEP", "OCT", "NOV", "DEC"};
 }

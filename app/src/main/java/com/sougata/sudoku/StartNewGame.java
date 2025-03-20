@@ -96,7 +96,8 @@ public class StartNewGame {
         globalStore.setMistakes(0);
         globalStore.setCurrentBoardState(currentBoardState);
         globalStore.setTimer(0);
-        long id = db.addNewGame(String.valueOf(globalStore.getCurrentLevel()), globalStore.getDifficulty(), globalStore.getDifficultyName(), globalStore.getTimer(), HelperFunctions.twoDimArrayToString(globalStore.getCurrentBoardState()), HelperFunctions.twoDimArrayToString(globalStore.getBoard()), HelperFunctions.twoDimArrayToString(globalStore.getSolution()), "0", globalStore.getMistakes(), globalStore.getType(), globalStore.getType().equals(Constants.TYPES[0]) ? 0 : c.getTimeInMillis());
+        globalStore.setNotes(new int[Constants.GRID_SIZE][Constants.GRID_SIZE][Constants.GRID_SIZE]);
+        long id = db.addNewGame(String.valueOf(globalStore.getCurrentLevel()), globalStore.getDifficulty(), globalStore.getDifficultyName(), globalStore.getTimer(), HelperFunctions.twoDimArrayToString(globalStore.getCurrentBoardState()), HelperFunctions.twoDimArrayToString(globalStore.getBoard()), HelperFunctions.twoDimArrayToString(globalStore.getSolution()), "0", globalStore.getMistakes(), globalStore.getType(), globalStore.getType().equals(Constants.TYPES[0]) ? 0 : c.getTimeInMillis(), HelperFunctions.threeDimArrayToString(globalStore.getNotes()));
         globalStore.setId(id);
     }
 

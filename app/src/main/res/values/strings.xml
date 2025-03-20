@@ -61,4 +61,14 @@
     <string name="flags">flags</string>
     <string name="rays">rays</string>
     <string name="cancel">Cancel</string>
+    <string name="by">by</string>
+    <string name="app_author">Sougata Talukdar</string>
+    <string name="settings">Settings</string>
+    <string name="how_to_play">How to Play</string>
+    <string name="enter_into_the_option">Enter into the option</string>
+    <string name="guide">guide</string>
+    <string name="history">History</string>
+    <string name="off">Off</string>
+    <string name="on">On</string>
+    <string name="enable_edit">Enable edit</string>
 </resources>

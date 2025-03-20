@@ -9,15 +9,15 @@
 
     <ImageView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="-150dp"
+        android:layout_height="120dp"
+        android:layout_marginTop="-5dp"
         android:contentDescription="@string/flags"
         android:src="@drawable/celebrate_top_image" />
 
     <ImageView
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="-460dp"
+        android:layout_height="400dp"
+        android:layout_marginTop="-200dp"
         android:contentDescription="@string/rays"
         android:src="@drawable/celebrate_top_ray" />
 

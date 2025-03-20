@@ -2,10 +2,11 @@ package com.sougata;
 
 public class GlobalStore {
     private static final GlobalStore instance = new GlobalStore();
-    private int difficulty, mistakes, currentLevel, day, month, year;
+    private int difficulty, mistakes, currentLevel, day, month, year, hints;
     private long id;
     private String difficultyName, type;
     private int[][] board, solution, currentBoardState;
+    private int[][][] notes;
     private int timer;
     private boolean isPaused = false;
 
@@ -145,5 +146,21 @@ public class GlobalStore {
 
     public void setPaused(boolean paused) {
         isPaused = paused;
+    }
+
+    public int getHints() {
+        return hints;
+    }
+
+    public void setHints(int hints) {
+        this.hints = hints;
+    }
+
+    public int[][][] getNotes() {
+        return notes;
+    }
+
+    public void setNotes(int[][][] notes) {
+        this.notes = notes;
     }
 }

@@ -14,16 +14,22 @@
         android:layout_height="100dp"
         android:orientation="vertical" />
 
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:elevation="10dp"
+        app:elevation="10dp">
 
         <com.google.android.material.bottomnavigation.BottomNavigationView
             android:id="@+id/bottom_navigation_view"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="#FFFFFF"
-            android:elevation="10dp"
+            android:background="#00000000"
             app:itemActiveIndicatorStyle="@style/NoActiveIndicator"
             app:itemIconTint="@color/bottom_nav_colors"
             app:itemTextColor="@color/bottom_nav_colors"
             app:labelVisibilityMode="labeled"
             app:menu="@menu/bottom_tab_menu" />
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
 </LinearLayout>

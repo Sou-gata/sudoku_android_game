@@ -8,6 +8,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -20,14 +21,14 @@ import com.sougata.sudoku.Database;
 import com.sougata.sudoku.R;
 import com.sougata.sudoku.StartNewGame;
 import com.sougata.sudoku.activities.GameActivity;
-
-import java.util.Arrays;
+import com.sougata.sudoku.activities.SettingsActivity;
 
 public class MainFragment extends Fragment {
 
     Button newGame;
     LinearLayout resumeGame;
     TextView resumeStatus;
+    ImageView settings;
     GlobalStore globalStore;
     Database db;
     StartNewGame startNewGame;
@@ -63,7 +64,7 @@ public class MainFragment extends Fragment {
             globalStore.setSolution(HelperFunctions.parseTwoDimArray(c.getString(7)));
             globalStore.setMistakes(c.getInt(9));
             globalStore.setType(c.getString(10));
-
+            globalStore.setNotes(HelperFunctions.parseThreeDimArr(c.getString(14)));
             resumeGame.setVisibility(View.VISIBLE);
             String resumeStatusText = HelperFunctions.timerToString(globalStore.getTimer()) + " - " + globalStore.getDifficultyName();
             resumeStatus.setText(resumeStatusText);
@@ -83,6 +84,12 @@ public class MainFragment extends Fragment {
         newGame = view.findViewById(R.id.btn_home_new_game);
         resumeGame = view.findViewById(R.id.ll_home_resume_game);
         resumeStatus = view.findViewById(R.id.tv_main_resume_status);
+        settings = view.findViewById(R.id.iv_home_settings);
+
+        settings.setOnClickListener(view1 -> {
+            Intent intent = new Intent(context, SettingsActivity.class);
+            startActivity(intent);
+        });
 
         Intent intent = new Intent(context, GameActivity.class);
         loadOngoingDb();
@@ -125,7 +132,7 @@ public class MainFragment extends Fragment {
                 startActivity(intent);
                 bottomSheetDialog.cancel();
             });
-            bs_restart.setOnClickListener(view2 ->{
+            bs_restart.setOnClickListener(view2 -> {
                 startNewGame.restartGame();
                 startActivity(intent);
                 bottomSheetDialog.cancel();

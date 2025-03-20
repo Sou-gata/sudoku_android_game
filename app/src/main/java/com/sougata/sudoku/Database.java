@@ -32,11 +32,13 @@ public class Database extends SQLiteOpenHelper {
                 "current_board_state TEXT," + //5
                 "question TEXT," + //6
                 "answer TEXT," + //7
-                "hints TEXT DEFAULT '0', " + //8
+                "hints INTEGER DEFAULT 0, " + //8
                 "mistakes INTEGER, " + //9
                 "type TEXT DEFAULT " + Constants.TYPES[0] + "," + //10
                 "is_completed INTEGER DEFAULT 0," + //11
-                "date INTEGER" + //12
+                "date INTEGER," + //12
+                "created_at INTEGER," + // 13
+                "notes TEXT DEFAULT '0,0,0,0,0,0,0,0,0|0,0,0,0,0,0,0,0,0|0,0,0,0,0,0,0,0,0|0,0,0,0,0,0,0,0,0|0,0,0,0,0,0,0,0,0|0,0,0,0,0,0,0,0,0|0,0,0,0,0,0,0,0,0|0,0,0,0,0,0,0,0,0|0,0,0,0,0,0,0,0,0;0,0,0,0,0,0,0,0,0|0,0,0,0,0,0,0,0,0|0,0,0,0,0,0,0,0,0|0,0,0,0,0,0,0,0,0|0,0,0,0,0,0,0,0,0|0,0,0,0,0,0,0,0,0|0,0,0,0,0,0,0,0,0|0,0,0,0,0,0,0,0,0|0,0,0,0,0,0,0,0,0;0,0,0,0,0,0,0,0,0|0,0,0,0,0,0,0,0,0|0,0,0,0,0,0,0,0,0|0,0,0,0,0,0,0,0,0|0,0,0,0,0,0,0,0,0|0,0,0,0,0,0,0,0,0|0,0,0,0,0,0,0,0,0|0,0,0,0,0,0,0,0,0|0,0,0,0,0,0,0,0,0;0,0,0,0,0,0,0,0,0|0,0,0,0,0,0,0,0,0|0,0,0,0,0,0,0,0,0|0,0,0,0,0,0,0,0,0|0,0,0,0,0,0,0,0,0|0,0,0,0,0,0,0,0,0|0,0,0,0,0,0,0,0,0|0,0,0,0,0,0,0,0,0|0,0,0,0,0,0,0,0,0;0,0,0,0,0,0,0,0,0|0,0,0,0,0,0,0,0,0|0,0,0,0,0,0,0,0,0|0,0,0,0,0,0,0,0,0|0,0,0,0,0,0,0,0,0|0,0,0,0,0,0,0,0,0|0,0,0,0,0,0,0,0,0|0,0,0,0,0,0,0,0,0|0,0,0,0,0,0,0,0,0;0,0,0,0,0,0,0,0,0|0,0,0,0,0,0,0,0,0|0,0,0,0,0,0,0,0,0|0,0,0,0,0,0,0,0,0|0,0,0,0,0,0,0,0,0|0,0,0,0,0,0,0,0,0|0,0,0,0,0,0,0,0,0|0,0,0,0,0,0,0,0,0|0,0,0,0,0,0,0,0,0;0,0,0,0,0,0,0,0,0|0,0,0,0,0,0,0,0,0|0,0,0,0,0,0,0,0,0|0,0,0,0,0,0,0,0,0|0,0,0,0,0,0,0,0,0|0,0,0,0,0,0,0,0,0|0,0,0,0,0,0,0,0,0|0,0,0,0,0,0,0,0,0|0,0,0,0,0,0,0,0,0;0,0,0,0,0,0,0,0,0|0,0,0,0,0,0,0,0,0|0,0,0,0,0,0,0,0,0|0,0,0,0,0,0,0,0,0|0,0,0,0,0,0,0,0,0|0,0,0,0,0,0,0,0,0|0,0,0,0,0,0,0,0,0|0,0,0,0,0,0,0,0,0|0,0,0,0,0,0,0,0,0;0,0,0,0,0,0,0,0,0|0,0,0,0,0,0,0,0,0|0,0,0,0,0,0,0,0,0|0,0,0,0,0,0,0,0,0|0,0,0,0,0,0,0,0,0|0,0,0,0,0,0,0,0,0|0,0,0,0,0,0,0,0,0|0,0,0,0,0,0,0,0,0|0,0,0,0,0,0,0,0,0;'" + //14
                 ")");
         db.execSQL("CREATE TABLE failed(id INTEGER PRIMARY KEY AUTOINCREMENT, difficulty_name TEXT, level INTEGER, type TEXT DEFAULT 'match')");
     }
@@ -47,7 +49,7 @@ public class Database extends SQLiteOpenHelper {
         db.execSQL("DROP TABLE IF EXISTS failed");
     }
 
-    public long addNewGame(String level, int difficulty, String difficulty_name, int timer, String current_board_state, String question, String answer, String hints, int mistakes, String type, long date) {
+    public long addNewGame(String level, int difficulty, String difficulty_name, int timer, String current_board_state, String question, String answer, String hints, int mistakes, String type, long date, String notes) {
         Calendar c = Calendar.getInstance();
         c.set(Calendar.HOUR_OF_DAY, 0);
         c.set(Calendar.MINUTE, 0);
@@ -65,11 +67,13 @@ public class Database extends SQLiteOpenHelper {
         contentValues.put("question", question);
         contentValues.put("answer", answer);
         contentValues.put("is_completed", 0);
+        contentValues.put("notes", notes);
         if (date == 0) {
             contentValues.put("date", String.valueOf(c.getTimeInMillis()));
         } else {
             contentValues.put("date", String.valueOf(date));
         }
+        contentValues.put("created_at", String.valueOf(Calendar.getInstance().getTimeInMillis()));
 //        contentValues.put("hints", hints);
         return db.insert("games", null, contentValues);
     }
@@ -81,13 +85,14 @@ public class Database extends SQLiteOpenHelper {
         db.update("games", contentValues, "id=?", new String[]{String.valueOf(id)});
     }
 
-    public void updateOngoing(long id, int timer, String current_board_state, String hints, int mistakes) {
+    public void updateOngoing(long id, int timer, String current_board_state, int hints, int mistakes, String notes) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues contentValues = new ContentValues();
         contentValues.put("timer", timer);
         contentValues.put("current_board_state", current_board_state);
         contentValues.put("hints", hints);
         contentValues.put("mistakes", mistakes);
+        contentValues.put("notes", notes);
         db.update("games", contentValues, "id=?", new String[]{String.valueOf(id)});
     }
 
@@ -191,6 +196,16 @@ public class Database extends SQLiteOpenHelper {
         }
         cursor.close();
         return count;
+    }
+
+    public Cursor getAllGames() {
+        SQLiteDatabase db = this.getReadableDatabase();
+        return db.rawQuery("SELECT * FROM games ORDER BY id DESC", null);
+    }
+
+    public Cursor getGameById(long id) {
+        SQLiteDatabase db = this.getReadableDatabase();
+        return db.rawQuery("SELECT * FROM games WHERE id=?", new String[]{String.valueOf(id)});
     }
 
     public void printRows() {

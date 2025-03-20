@@ -1,4 +1,3 @@
-
 package com.sougata.sudoku.activities;
 
 import android.content.ContentResolver;
@@ -11,13 +10,13 @@ import android.os.Bundle;
 import android.provider.MediaStore;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
+import androidx.activity.OnBackPressedCallback;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.material.bottomsheet.BottomSheetDialog;
@@ -45,7 +44,10 @@ public class GameCompleteActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
-        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
+
+        View decorView = getWindow().getDecorView();
+        decorView.setSystemUiVisibility(View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY | View.SYSTEM_UI_FLAG_LAYOUT_STABLE | View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN | View.SYSTEM_UI_FLAG_HIDE_NAVIGATION | View.SYSTEM_UI_FLAG_FULLSCREEN);
+
         setContentView(R.layout.activity_game_complete);
 
         db = new Database(this);
@@ -102,24 +104,23 @@ public class GameCompleteActivity extends AppCompatActivity {
             bs_restart.setVisibility(View.GONE);
         });
 
+        getOnBackPressedDispatcher().addCallback(this, new OnBackPressedCallback(true) {
+            @Override
+            public void handleOnBackPressed() {
+            }
+        });
+
         goToHome.setOnClickListener(view -> {
             Intent intent = new Intent(GameCompleteActivity.this, HomeActivity.class);
             startActivity(intent);
+            finish();
             globalStore.emptyCurrentState();
         });
         saveToGallery = findViewById(R.id.ll_save);
         saveToGallery.setOnClickListener(view1 -> {
             View rootView = findViewById(R.id.fl_congratulation_screen);
             Calendar c = Calendar.getInstance();
-            String imageName = globalStore.getDifficultyName() + "_" +
-                    HelperFunctions.padString(globalStore.getCurrentLevel(), 4) + "_" +
-                    c.get(Calendar.YEAR) + "_" +
-                    HelperFunctions.padString(c.get(Calendar.MONTH), 2) + "_" +
-                    HelperFunctions.padString(c.get(Calendar.DAY_OF_MONTH), 2) + "_" +
-                    HelperFunctions.padString(c.get(Calendar.HOUR), 2) + "_" +
-                    HelperFunctions.padString(c.get(Calendar.MINUTE), 2) + "_" +
-                    HelperFunctions.padString(c.get(Calendar.SECOND), 2) + "_" +
-                    HelperFunctions.padString(c.get(Calendar.MILLISECOND), 3);
+            String imageName = globalStore.getDifficultyName() + "_" + HelperFunctions.padString(globalStore.getCurrentLevel(), 4) + "_" + c.get(Calendar.YEAR) + "_" + HelperFunctions.padString(c.get(Calendar.MONTH), 2) + "_" + HelperFunctions.padString(c.get(Calendar.DAY_OF_MONTH), 2) + "_" + HelperFunctions.padString(c.get(Calendar.HOUR), 2) + "_" + HelperFunctions.padString(c.get(Calendar.MINUTE), 2) + "_" + HelperFunctions.padString(c.get(Calendar.SECOND), 2) + "_" + HelperFunctions.padString(c.get(Calendar.MILLISECOND), 3);
             Bitmap image = getScreenShot(rootView);
             saveImageUsingMediaStore(image, imageName, getContentResolver());
         });

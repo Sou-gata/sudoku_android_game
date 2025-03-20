@@ -13,6 +13,7 @@ import androidx.fragment.app.Fragment;
 import com.airbnb.lottie.LottieAnimationView;
 import com.airbnb.lottie.LottieCompositionFactory;
 import com.airbnb.lottie.LottieDrawable;
+import com.sougata.Constants;
 import com.sougata.GlobalStore;
 import com.sougata.sudoku.R;
 import com.sougata.sudoku.adapters.CalendarDayAdapter;
@@ -24,7 +25,6 @@ import java.util.concurrent.atomic.AtomicInteger;
 
 public class DailyFragment extends Fragment {
     private final String[] days = new String[]{"S", "M", "T", "W", "T", "F", "S"};
-    private final String[] months = new String[]{"JAN", "FEB", "MAR", "APR", "MAY", "JUN", "JUL", "AUG", "SEP", "OCT", "NOV", "DEC"};
     ArrayList<String> dayList = new ArrayList<>();
 
     ImageView previousMonth, nextMonth;
@@ -77,6 +77,9 @@ public class DailyFragment extends Fragment {
             nextMonth.setVisibility(View.VISIBLE);
         }
 
+        String monthYearText2 = Constants.MONTHS[month.get()] + " " + year.get();
+        monthYear.setText(monthYearText2);
+
         previousMonth.setOnClickListener(view1 -> {
             c.add(Calendar.MONTH, -1);
             year.set(c.get(Calendar.YEAR));
@@ -94,7 +97,7 @@ public class DailyFragment extends Fragment {
 
             globalStore.setMonth(month.get());
             globalStore.setYear(year.get());
-            String monthYearText = months[month.get()] + " " + year.get();
+            String monthYearText = Constants.MONTHS[month.get()] + " " + year.get();
             monthYear.setText(monthYearText);
             if (calendar.get(Calendar.MONTH) == c.get(Calendar.MONTH) && calendar.get(Calendar.YEAR) == c.get(Calendar.YEAR)) {
                 nextMonth.setVisibility(View.GONE);
@@ -118,7 +121,7 @@ public class DailyFragment extends Fragment {
                     });
             globalStore.setMonth(month.get());
             globalStore.setYear(year.get());
-            String monthYearText = months[month.get()] + " " + year.get();
+            String monthYearText = Constants.MONTHS[month.get()] + " " + year.get();
             monthYear.setText(monthYearText);
             if (calendar.get(Calendar.MONTH) == c.get(Calendar.MONTH) && calendar.get(Calendar.YEAR) == c.get(Calendar.YEAR)) {
                 nextMonth.setVisibility(View.GONE);

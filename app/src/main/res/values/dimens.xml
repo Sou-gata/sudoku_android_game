@@ -2,5 +2,8 @@
 <resources>
     <dimen name="stat_title_text_size">18sp</dimen>
     <dimen name="stat_value_text_size">22sp</dimen>
-    <dimen name="calendar_day_text_size">20sp</dimen>
+    <dimen name="calendar_day_text_size">18sp</dimen>
+    <dimen name="settings_icon_size">30dp</dimen>
+    <dimen name="settings_text_size">18sp</dimen>
+    <dimen name="game_board_icon_size">25dp</dimen>
 </resources>

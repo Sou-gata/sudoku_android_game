@@ -4,6 +4,7 @@
     android:layout_height="wrap_content"
     android:orientation="vertical"
     android:paddingHorizontal="15dp"
+    android:background="@color/white"
     android:paddingVertical="20dp">
 
     <LinearLayout
@@ -128,15 +129,11 @@
         android:gravity="center_vertical"
         android:orientation="horizontal">
 
-        <TextView
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:background="@drawable/rounded_bg"
-            android:text="⟳"
-            android:textAlignment="center"
-            android:textColor="@color/white"
-            android:textSize="25sp"
-            android:textStyle="bold" />
+        <ImageView
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:contentDescription="@string/restart"
+            android:src="@drawable/ic_restart_bottom"/>
 
         <TextView
             android:layout_width="wrap_content"

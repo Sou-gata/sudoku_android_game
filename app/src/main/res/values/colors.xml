@@ -8,4 +8,7 @@
     <color name="danger">#DC3545</color>
     <color name="boardText">#555555</color>
     <color name="gray">#888888</color>
+    <color name="settings_text">#444444</color>
+    <color name="game_board_icon_tint">#A2A2A2</color>
+    <color name="game_number_row_text">#3F589B</color>
 </resources>

@@ -13,13 +13,14 @@ import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.WindowManager;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.PopupWindow;
 import android.widget.TextView;
 
 import androidx.activity.EdgeToEdge;
+import androidx.activity.OnBackPressedCallback;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
 
@@ -30,7 +31,7 @@ import com.sougata.sudoku.Database;
 import com.sougata.sudoku.Pos;
 import com.sougata.sudoku.R;
 import com.sougata.sudoku.StartNewGame;
-import com.sougata.sudoku.fragments.DailyFragment;
+import com.sougata.sudoku.Sudoku;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -42,9 +43,10 @@ public class GameActivity extends AppCompatActivity {
     int difficulty, mistakes, currentLevel;
     String difficultyName;
     int[][] answer, question, currentBoardState;
-    boolean isPopupOpened = false;
-    LinearLayout gameBoard, hintButton, pauseGame, numberRow;
-    TextView gameTimer, gameDifficulty, gameMistakes, currentLevelText;
+    int[][][] notes;
+    boolean isPopupOpened = false, isNotesEnabled = false;
+    LinearLayout gameBoard, hintButton, pauseGame, numberRow, noteButton, notesStatus;
+    TextView gameTimer, gameDifficulty, gameMistakes, currentLevelText, notesStatusText;
     ImageView backBtn, pauseResumeIcon;
     PopupWindow popupWindow;
 
@@ -63,8 +65,17 @@ public class GameActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
-        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
+
+        View decorView = getWindow().getDecorView();
+        decorView.setSystemUiVisibility(View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY | View.SYSTEM_UI_FLAG_LAYOUT_STABLE | View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN | View.SYSTEM_UI_FLAG_HIDE_NAVIGATION | View.SYSTEM_UI_FLAG_FULLSCREEN);
+
         setContentView(R.layout.activity_game);
+
+        getOnBackPressedDispatcher().addCallback(this, new OnBackPressedCallback(true) {
+            @Override
+            public void handleOnBackPressed() {
+            }
+        });
 
         db = new Database(this);
 
@@ -77,6 +88,7 @@ public class GameActivity extends AppCompatActivity {
         globalStore.setPaused(false);
         answer = globalStore.getSolution();
         question = globalStore.getBoard();
+        notes = globalStore.getNotes();
         difficulty = globalStore.getDifficulty();
         difficultyName = globalStore.getDifficultyName();
         mistakes = globalStore.getMistakes();
@@ -94,6 +106,9 @@ public class GameActivity extends AppCompatActivity {
         pauseGame = findViewById(R.id.ll_game_timer_pause);
         pauseResumeIcon = findViewById(R.id.iv_pause_resume_icon);
         numberRow = findViewById(R.id.ll_number_input);
+        noteButton = findViewById(R.id.ll_note);
+        notesStatus = findViewById(R.id.ll_notes_status);
+        notesStatusText = findViewById(R.id.tv_notes_status);
 
         countNumbers();
         generateGameBoard();
@@ -106,7 +121,7 @@ public class GameActivity extends AppCompatActivity {
         gameTimerObj = new Timer();
         gameTimerObj.schedule(task, 1000, 1000);
 
-        String mistakeString = "Mistake: " + mistakes + "/3";
+        String mistakeString = "Mistake: " + mistakes + "/" + Constants.ALLOWED_MISTAKES;
         gameMistakes.setText(mistakeString);
 
         if (!globalStore.getType().equals("daily")) {
@@ -120,7 +135,7 @@ public class GameActivity extends AppCompatActivity {
             currentLevelText.setText(getString(R.string.daily_challenge));
         }
 
-        hintButton.setOnClickListener(view -> hitCLicked());
+        hintButton.setOnClickListener(view -> hintCLicked());
         backBtn.setOnClickListener(view -> {
             globalStore.setPaused(true);
             if (popupWindow != null) {
@@ -131,6 +146,9 @@ public class GameActivity extends AppCompatActivity {
         pauseGame.setOnClickListener(view -> {
             showPausePopup(view);
             pauseGame();
+        });
+        noteButton.setOnClickListener(view -> {
+            notesClicked();
         });
     }
 
@@ -162,14 +180,16 @@ public class GameActivity extends AppCompatActivity {
             LinearLayout parentLayout = new LinearLayout(this);
             parentLayout.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT));
             parentLayout.setOrientation(LinearLayout.HORIZONTAL);
+            int screenWidth = getResources().getDisplayMetrics().widthPixels;
+            int childHeight = (screenWidth - HelperFunctions.dpToPx(30) - 12) / 9;
+            int childWidth = (screenWidth - HelperFunctions.dpToPx(30) - 12) / 9;
+            LinearLayout.LayoutParams childParams = new LinearLayout.LayoutParams(childWidth, childHeight);
             for (int j = 0; j < 9; j++) {
+                FrameLayout cellContainerLayout = new FrameLayout(this);
                 LinearLayout childLayout = new LinearLayout(this);
-                int screenWidth = getResources().getDisplayMetrics().widthPixels;
-                int childHeight = (screenWidth - HelperFunctions.dpToPx(30) - 12) / 9;
-                int childWidth = (screenWidth - HelperFunctions.dpToPx(30) - 12) / 9;
-                LinearLayout.LayoutParams childParams = new LinearLayout.LayoutParams(childWidth, childHeight);
+                cellContainerLayout.setLayoutParams(childParams);
                 childLayout.setLayoutParams(childParams);
-                childLayout.setBackground(createBorderDrawable("#FFFFFF"));
+                cellContainerLayout.setBackground(createBorderDrawable("#FFFFFF"));
                 int margin = 2;
                 if (i % 3 == 0 && j % 3 == 0) {
                     childParams.setMargins(margin, margin, 0, 0);
@@ -192,12 +212,36 @@ public class GameActivity extends AppCompatActivity {
 
                 int finalI = i;
                 int finalJ = j;
-                childLayout.setOnClickListener(view -> cellClicked(finalI, finalJ));
+                cellContainerLayout.setOnClickListener(view -> cellClicked(finalI, finalJ));
 
                 TextView textView = new TextView(this);
                 textView.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT));
+                LinearLayout parentHint = new LinearLayout(this);
+                parentHint.setLayoutParams(childParams);
+                parentHint.setOrientation(LinearLayout.VERTICAL);
                 if (currentBoardState[i][j] != 0) {
                     textView.setText(String.valueOf(currentBoardState[i][j]));
+                } else {
+                    for (int k = 0; k < Constants.BOX_SIZE; k++) {
+                        LinearLayout row = new LinearLayout(this);
+                        row.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, 0, 1));
+                        row.setOrientation(LinearLayout.HORIZONTAL);
+                        for (int l = 0; l < Constants.BOX_SIZE; l++) {
+                            int idx = k * Constants.BOX_SIZE + l;
+                            TextView num = new TextView(this);
+                            if (notes[i][j][idx] != 0) {
+                                num.setText(String.valueOf(idx + 1));
+                            } else {
+                                num.setText("");
+                            }
+                            num.setLayoutParams(new LinearLayout.LayoutParams(0, LinearLayout.LayoutParams.WRAP_CONTENT, 1));
+                            num.setTextAlignment(TextView.TEXT_ALIGNMENT_CENTER);
+                            num.setTextColor(ContextCompat.getColor(this, R.color.gray));
+                            num.setTextSize(10f);
+                            row.addView(num);
+                        }
+                        parentHint.addView(row);
+                    }
                 }
                 if (question[i][j] == 0) {
                     textView.setTextColor(ContextCompat.getColor(this, R.color.colorPrimary));
@@ -208,9 +252,11 @@ public class GameActivity extends AppCompatActivity {
                 textView.setGravity(Gravity.CENTER);
 
                 childLayout.addView(textView);
-                parentLayout.setBackgroundColor(Color.BLACK);
-                parentLayout.addView(childLayout);
+                cellContainerLayout.addView(childLayout);
+                cellContainerLayout.addView(parentHint);
+                parentLayout.addView(cellContainerLayout);
             }
+            parentLayout.setBackgroundColor(Color.BLACK);
             gameBoard.addView(parentLayout);
         }
     }
@@ -229,7 +275,8 @@ public class GameActivity extends AppCompatActivity {
         int childCount = gameBoard.getChildCount();
         LinearLayout rowLayout = (LinearLayout) gameBoard.getChildAt(row);
         int colCount = rowLayout.getChildCount();
-        LinearLayout cellLayout = (LinearLayout) rowLayout.getChildAt(col);
+        FrameLayout cellContainerLayout = (FrameLayout) rowLayout.getChildAt(col);
+        LinearLayout cellLayout = (LinearLayout) cellContainerLayout.getChildAt(0);
         TextView textView = (TextView) cellLayout.getChildAt(0);
         for (int i = 0; i < childCount; i++) {
             LinearLayout rowLayout1 = (LinearLayout) gameBoard.getChildAt(i);
@@ -237,7 +284,8 @@ public class GameActivity extends AppCompatActivity {
                 int currBoxRow = i / 3;
                 int currBoxCol = j / 3;
 
-                LinearLayout cellLayout1 = (LinearLayout) rowLayout1.getChildAt(j);
+                FrameLayout cellContainerLayout1 = (FrameLayout) rowLayout1.getChildAt(j);
+                LinearLayout cellLayout1 = (LinearLayout) cellContainerLayout1.getChildAt(0);
                 String txt = textView.getText().toString();
                 if (!txt.isEmpty() && currentBoardState[i][j] == Integer.parseInt(txt)) {
                     cellLayout1.setBackground(createBorderDrawable("#c6cbe1"));
@@ -253,6 +301,7 @@ public class GameActivity extends AppCompatActivity {
                 }
             }
         }
+        updateNumberRowUI();
         cellLayout.setBackground(createBorderDrawable("#c1d2fe"));
     }
 
@@ -260,10 +309,11 @@ public class GameActivity extends AppCompatActivity {
         for (int i = 1; i <= 9; i++) {
             TextView textView = new TextView(this);
             LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(0, LinearLayout.LayoutParams.WRAP_CONTENT, 1f);
+            layoutParams.setMargins(5, 0, 5, 0);
             textView.setLayoutParams(layoutParams);
             textView.setText(String.valueOf(i));
             textView.setTextAlignment(TextView.TEXT_ALIGNMENT_CENTER);
-            textView.setTextColor(Color.parseColor("#3f589b"));
+            textView.setTextColor(ContextCompat.getColor(this, R.color.game_number_row_text));
             textView.setTextSize(35);
             int fi = i;
             textView.setOnClickListener(view -> {
@@ -278,25 +328,55 @@ public class GameActivity extends AppCompatActivity {
     private void numberClicked(int num) {
         int row = currSelectedCell.row;
         int col = currSelectedCell.col;
+        if (isNotesEnabled && row != -1 && col != -1 && currentBoardState[row][col] == 0) {
+            LinearLayout selectedRow = (LinearLayout) gameBoard.getChildAt(row);
+            FrameLayout selectedCellContainer = (FrameLayout) selectedRow.getChildAt(col);
+            LinearLayout selectedCell = (LinearLayout) selectedCellContainer.getChildAt(1);
+            LinearLayout cellRow = (LinearLayout) selectedCell.getChildAt((num - 1) / 3);
+            TextView textView = (TextView) cellRow.getChildAt((num - 1) % 3);
+            if (textView.getText().toString().isEmpty() && Sudoku.isSafe(currentBoardState, row, col, num)) {
+                textView.setText(String.valueOf(num));
+                notes[row][col][num - 1] = 1;
+                updateOngoingDb();
+            } else {
+                notes[row][col][num - 1] = 0;
+                textView.setText("");
+            }
+            updateNumberRowUI();
+            return;
+        }
+        if (row == -1 || col == -1 || question[row][col] != 0) return;
         if (question[row][col] == 0) {
             currentBoardState[row][col] = num;
         }
         LinearLayout selectedRow = (LinearLayout) gameBoard.getChildAt(row);
-        LinearLayout selectedCell = (LinearLayout) selectedRow.getChildAt(col);
+        FrameLayout selectedCellContainer = (FrameLayout) selectedRow.getChildAt(col);
+        LinearLayout selectedCell = (LinearLayout) selectedCellContainer.getChildAt(0);
         TextView textView = (TextView) selectedCell.getChildAt(0);
         textView.setText(String.valueOf(num));
+
+        LinearLayout selectedNotesLayout = (LinearLayout) selectedCellContainer.getChildAt(1);
+        for (int i = 0; i < selectedNotesLayout.getChildCount(); i++) {
+            LinearLayout r = (LinearLayout) selectedNotesLayout.getChildAt(i);
+            for (int j = 0; j < r.getChildCount(); j++) {
+                TextView tv = (TextView) r.getChildAt(j);
+                tv.setText("");
+            }
+        }
 
         if (!HelperFunctions.isSafe(row, col, num)) {
             textView.setTextColor(ContextCompat.getColor(this, R.color.danger));
             mistakes++;
             GlobalStore.getInstance().setMistakes(mistakes);
-            String mistakeString = "Mistake: " + mistakes + "/3";
+            String mistakeString = "Mistake: " + mistakes + "/" + Constants.ALLOWED_MISTAKES;
             gameMistakes.setText(mistakeString);
-            if (mistakes == 3) {
+            if (mistakes == Constants.ALLOWED_MISTAKES) {
                 gameOver();
             }
         } else {
             updateOngoingDb();
+            removeNotes(num);
+            cellClicked(row, col);
             numberCounts.put(num, numberCounts.getOrDefault(num, 0) + 1);
             if (isGameCompleted()) {
                 onGameComplete();
@@ -332,13 +412,25 @@ public class GameActivity extends AppCompatActivity {
         }
         currentBoardState[row][col] = 0;
         LinearLayout selectedRow = (LinearLayout) gameBoard.getChildAt(row);
-        LinearLayout selectedCell = (LinearLayout) selectedRow.getChildAt(col);
+        FrameLayout selectedCellContainer = (FrameLayout) selectedRow.getChildAt(col);
+        LinearLayout selectedCell = (LinearLayout) selectedCellContainer.getChildAt(0);
         TextView textView = (TextView) selectedCell.getChildAt(0);
         textView.setText("");
+        LinearLayout selectedNotesLayout = (LinearLayout) selectedCellContainer.getChildAt(1);
+        for (int i = 0; i < selectedNotesLayout.getChildCount(); i++) {
+            LinearLayout r = (LinearLayout) selectedNotesLayout.getChildAt(i);
+            for (int j = 0; j < r.getChildCount(); j++) {
+                TextView tv = (TextView) r.getChildAt(j);
+                tv.setText("");
+                notes[row][col][i * Constants.BOX_SIZE + j] = 0;
+            }
+        }
+        updateNumberRowUI();
         updateOngoingDb();
     }
 
-    private void hitCLicked() {
+    private void hintCLicked() {
+        globalStore.setHints(globalStore.getHints() + 1);
         ArrayList<int[]> zeroList = HelperFunctions.getEmptyCells(currentBoardState);
         if (zeroList.isEmpty()) return;
         int idx = (int) (Math.floor(Math.random() * zeroList.size()));
@@ -347,23 +439,27 @@ public class GameActivity extends AppCompatActivity {
         currentBoardState[row][col] = answer[row][col];
         globalStore.setCurrentBoardState(currentBoardState);
         LinearLayout boardRow = (LinearLayout) gameBoard.getChildAt(row);
-        LinearLayout boardCell = (LinearLayout) boardRow.getChildAt(col);
+        FrameLayout boardCellContainer = (FrameLayout) boardRow.getChildAt(col);
+        LinearLayout boardCell = (LinearLayout) boardCellContainer.getChildAt(0);
         TextView textView = (TextView) boardCell.getChildAt(0);
         textView.setText(String.valueOf(answer[row][col]));
         updateOngoingDb();
         if (isGameCompleted()) {
             onGameComplete();
         }
-        numberCounts.put(currentBoardState[row][col], numberCounts.get(currentBoardState[row][col]) + 1);
-        if (numberCounts.get(currentBoardState[row][col]) == 9) {
-            TextView tv = (TextView) numberRow.getChildAt(currentBoardState[row][col] - 1);
-            tv.setClickable(false);
-            tv.setText("");
+        try {
+            numberCounts.put(currentBoardState[row][col], numberCounts.get(currentBoardState[row][col]) + 1);
+            if (numberCounts.get(currentBoardState[row][col]) == 9) {
+                TextView tv = (TextView) numberRow.getChildAt(currentBoardState[row][col] - 1);
+                tv.setClickable(false);
+                tv.setText("");
+            }
+        } catch (NullPointerException ignored) {
         }
     }
 
     private void updateOngoingDb() {
-        db.updateOngoing(globalStore.getId(), globalStore.getTimer(), HelperFunctions.twoDimArrayToString(globalStore.getCurrentBoardState()), "0", globalStore.getMistakes());
+        db.updateOngoing(globalStore.getId(), globalStore.getTimer(), HelperFunctions.twoDimArrayToString(globalStore.getCurrentBoardState()), globalStore.getHints(), globalStore.getMistakes(), HelperFunctions.threeDimArrayToString(notes));
     }
 
     private void onGameComplete() {
@@ -441,7 +537,8 @@ public class GameActivity extends AppCompatActivity {
             LinearLayout rowLayout = (LinearLayout) gameBoard.getChildAt(i);
             int colCount = rowLayout.getChildCount();
             for (int j = 0; j < colCount; j++) {
-                LinearLayout cellLayout = (LinearLayout) rowLayout.getChildAt(j);
+                FrameLayout containerLayout = (FrameLayout) rowLayout.getChildAt(j);
+                LinearLayout cellLayout = (LinearLayout) containerLayout.getChildAt(0);
                 TextView textView = (TextView) cellLayout.getChildAt(0);
                 textView.setVisibility(View.VISIBLE);
             }
@@ -454,7 +551,7 @@ public class GameActivity extends AppCompatActivity {
         currentBoardState = globalStore.getCurrentBoardState();
         mistakes = globalStore.getMistakes();
 
-        String mistakeString = "Mistake: " + mistakes + "/3";
+        String mistakeString = "Mistake: " + mistakes + "/" + Constants.ALLOWED_MISTAKES;
         gameMistakes.setText(mistakeString);
         gameTimer.setText(HelperFunctions.timerToString(timer));
         globalStore.setPaused(false);
@@ -501,7 +598,8 @@ public class GameActivity extends AppCompatActivity {
             LinearLayout rowLayout = (LinearLayout) gameBoard.getChildAt(i);
             int colCount = rowLayout.getChildCount();
             for (int j = 0; j < colCount; j++) {
-                LinearLayout cellLayout = (LinearLayout) rowLayout.getChildAt(j);
+                FrameLayout containerLayout = (FrameLayout) rowLayout.getChildAt(j);
+                LinearLayout cellLayout = (LinearLayout) containerLayout.getChildAt(0);
                 TextView textView = (TextView) cellLayout.getChildAt(0);
                 textView.setVisibility(View.GONE);
             }
@@ -521,5 +619,102 @@ public class GameActivity extends AppCompatActivity {
                 }
             }
         }
+    }
+
+    private void notesClicked() {
+        ImageView enableEditing = findViewById(R.id.iv_edit_enabled);
+        if (isNotesEnabled) {
+            notesStatus.setBackgroundResource(R.drawable.btn_bg_deactivate);
+            notesStatusText.setText(R.string.off);
+            for (int i = 0; i < numberRow.getChildCount(); i++) {
+                TextView tv = (TextView) numberRow.getChildAt(i);
+                tv.setTextColor(ContextCompat.getColor(this, R.color.game_number_row_text));
+                tv.setBackground(null);
+            }
+            enableEditing.setVisibility(View.GONE);
+        } else {
+            notesStatus.setBackgroundResource(R.drawable.btn_bg_solid);
+            notesStatusText.setText(R.string.on);
+            for (int i = 0; i < numberRow.getChildCount(); i++) {
+                TextView tv = (TextView) numberRow.getChildAt(i);
+                tv.setTextColor(ContextCompat.getColor(this, com.google.android.material.R.color.material_dynamic_neutral50));
+            }
+            enableEditing.setVisibility(View.VISIBLE);
+        }
+        isNotesEnabled = !isNotesEnabled;
+        updateNumberRowUI();
+    }
+
+    private void updateNumberRowUI() {
+        int r = currSelectedCell.row;
+        int c = currSelectedCell.col;
+        if (r == -1 || c == -1 || currentBoardState[r][c] != 0) return;
+
+        int[] numbs = notes[r][c];
+        for (int i = 0; i < numbs.length; i++) {
+            TextView t = (TextView) numberRow.getChildAt(i);
+            if (isNotesEnabled) {
+                if (numbs[i] == 1) {
+                    t.setBackgroundResource(R.drawable.number_row_btn_bg);
+                    t.setTextColor(ContextCompat.getColor(this, R.color.white));
+                } else {
+                    t.setBackground(null);
+                    t.setTextColor(ContextCompat.getColor(this, com.google.android.material.R.color.material_dynamic_neutral50));
+                }
+            } else {
+                t.setBackground(null);
+                t.setTextColor(ContextCompat.getColor(this, R.color.game_number_row_text));
+            }
+        }
+    }
+
+    private void removeNotes(int num) {
+        int r = currSelectedCell.row;
+        int c = currSelectedCell.col;
+        if (r == -1 || c == -1) return;
+        int boxRow = r / 3;
+        int boxCol = c / 3;
+        int numRow = (num - 1) / 3;
+        int numCol = (num - 1) % 3;
+
+
+        LinearLayout boardRow = (LinearLayout) gameBoard.getChildAt(r);
+        for (int i = 0; i < Constants.GRID_SIZE; i++) {
+            FrameLayout container = (FrameLayout) boardRow.getChildAt(i);
+            LinearLayout notesLayout = (LinearLayout) container.getChildAt(1);
+            if (notesLayout.getChildCount() > 0) {
+
+                LinearLayout notesRow = (LinearLayout) notesLayout.getChildAt(numRow);
+                TextView textView = (TextView) notesRow.getChildAt(numCol);
+                textView.setText("");
+                notes[r][i][num - 1] = 0;
+            }
+        }
+        for (int i = 0; i < Constants.GRID_SIZE; i++) {
+            LinearLayout bRow = (LinearLayout) gameBoard.getChildAt(i);
+            FrameLayout container = (FrameLayout) bRow.getChildAt(c);
+            LinearLayout notesLayout = (LinearLayout) container.getChildAt(1);
+            if (notesLayout.getChildCount() > 0) {
+
+                LinearLayout notesRow = (LinearLayout) notesLayout.getChildAt(numRow);
+                TextView textView = (TextView) notesRow.getChildAt(numCol);
+                textView.setText("");
+                notes[i][c][num - 1] = 0;
+            }
+        }
+        for (int i = boxRow * 3; i < boxRow * 3 + 3; i++) {
+            LinearLayout bRow = (LinearLayout) gameBoard.getChildAt(i);
+            for (int j = boxCol * 3; j < boxCol * 3 + 3; j++) {
+                FrameLayout container = (FrameLayout) bRow.getChildAt(j);
+                LinearLayout notesLayout = (LinearLayout) container.getChildAt(1);
+                if (notesLayout.getChildCount() > 0) {
+                    LinearLayout notesRow = (LinearLayout) notesLayout.getChildAt(numRow);
+                    TextView textView = (TextView) notesRow.getChildAt(numCol);
+                    textView.setText("");
+                    notes[i][j][num - 1] = 0;
+                }
+            }
+        }
+        updateOngoingDb();
     }
 }

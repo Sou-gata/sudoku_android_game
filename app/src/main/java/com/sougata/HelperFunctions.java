@@ -111,6 +111,25 @@ public class HelperFunctions {
         return arr;
     }
 
+    public static String threeDimArrayToString(int[][][] arr) {
+        StringBuilder sb = new StringBuilder();
+        for (int[][] row : arr) {
+            sb.append(twoDimArrayToString(row));
+            sb.append(";");
+        }
+        return sb.toString();
+    }
+
+    public static int[][][] parseThreeDimArr(String str) {
+        if (str == null || str.length()<100) return new int[9][9][9];
+        String[] rows = str.split(";");
+        int[][][] arr = new int[rows.length][][];
+        for (int i = 0; i < rows.length; i++) {
+            arr[i] = parseTwoDimArray(rows[i]);
+        }
+        return arr;
+    }
+
     public static String padString(int num, int length) {
         String str = String.valueOf(num);
         if (str.length() == length) return str;
@@ -121,7 +140,7 @@ public class HelperFunctions {
         return s.toString();
     }
 
-    public static Calendar getCalendar(){
+    public static Calendar getCalendar() {
         Calendar c = Calendar.getInstance();
         c.set(Calendar.HOUR_OF_DAY, 0);
         c.set(Calendar.MINUTE, 0);
@@ -129,4 +148,13 @@ public class HelperFunctions {
         c.set(Calendar.MILLISECOND, 0);
         return c;
     }
+
+    public static String get12hClock(int h, int m) {
+        String meridian = "AM";
+        if (h >= 12) meridian = "PM";
+        if (h > 12) h -= 12;
+        if (h == 0) h = 12;
+        return padString(h, 2) + ":" + padString(m, 2) + " " + meridian;
+    }
 }
+

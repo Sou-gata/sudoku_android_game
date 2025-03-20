@@ -1,6 +1,5 @@
 *.iml
 .gradle
-/local.properties
 /.idea/caches
 /.idea/libraries
 /.idea/modules.xml
@@ -13,4 +12,10 @@
 .externalNativeBuild
 .cxx
 /app/release
+/app/release/baselineProfiles
+/app/release/baselineProfiles/0/app-release.dm
+/app/release/baselineProfiles/1/app-release.dm
+/app/release/app-release.apk
+/app/release/output-metadata.json
+
 /app/build
