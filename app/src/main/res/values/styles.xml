@@ -19,4 +19,9 @@
         <item name="android:backgroundDimEnabled">false</item>
     </style>
 
+    <style name="MaterialSwitch" parent="Widget.Material3.CompoundButton.MaterialSwitch">
+        <item name="thumbTint">@color/switch_thumb_color</item>
+        <item name="trackTint">@color/switch_track_color</item>
+    </style>
+
 </resources>

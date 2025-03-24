@@ -175,6 +175,32 @@
 
                 </LinearLayout>
 
+                <LinearLayout
+                    android:id="@+id/ll_advanced_note"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:orientation="vertical"
+                    android:paddingVertical="5dp">
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="@dimen/game_board_icon_size"
+                        android:layout_marginBottom="7dp"
+                        android:contentDescription="@string/advance_note"
+                        android:src="@drawable/ic_advance_note"
+                        app:tint="@color/game_board_icon_tint" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/advance_note"
+                        android:textAlignment="center"
+                        android:textColor="@color/game_board_icon_tint"
+                        android:textSize="15sp" />
+
+                </LinearLayout>
+
                 <FrameLayout
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"

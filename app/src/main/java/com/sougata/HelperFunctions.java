@@ -121,7 +121,7 @@ public class HelperFunctions {
     }
 
     public static int[][][] parseThreeDimArr(String str) {
-        if (str == null || str.length()<100) return new int[9][9][9];
+        if (str == null || str.length() < 100) return new int[9][9][9];
         String[] rows = str.split(";");
         int[][][] arr = new int[rows.length][][];
         for (int i = 0; i < rows.length; i++) {
@@ -155,6 +155,22 @@ public class HelperFunctions {
         if (h > 12) h -= 12;
         if (h == 0) h = 12;
         return padString(h, 2) + ":" + padString(m, 2) + " " + meridian;
+    }
+
+    public static int[][][] generateAdvanceNote(int[][] board) {
+        int[][][] notes = new int[9][9][9];
+        for (int i = 0; i < board.length; i++) {
+            for (int j = 0; j < board[0].length; j++) {
+                if (board[i][j] == 0) {
+                    for (int k = 1; k <= 9; k++) {
+                        if (isSafe(board, i, j, k)) {
+                            notes[i][j][k - 1] = 1;
+                        }
+                    }
+                }
+            }
+        }
+        return notes;
     }
 }
 

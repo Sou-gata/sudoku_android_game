@@ -76,5 +76,6 @@ public class HistoryActivity extends AppCompatActivity implements ButtonClickLis
     @Override
     public void onItemButtonClick() {
         finish();
+        overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
     }
 }

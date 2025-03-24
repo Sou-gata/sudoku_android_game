@@ -3,5 +3,7 @@
     <style name="Base.Theme.Sudoku" parent="Theme.Material3.DayNight.NoActionBar">
         <item name="fontFamily">@font/barlow_font_family</item>
          <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="materialSwitchStyle">@style/MaterialSwitch</item>
+        <item name="android:soundEffectsEnabled">false</item>
     </style>
 </resources>

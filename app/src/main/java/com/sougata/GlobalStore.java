@@ -7,8 +7,8 @@ public class GlobalStore {
     private String difficultyName, type;
     private int[][] board, solution, currentBoardState;
     private int[][][] notes;
-    private int timer;
-    private boolean isPaused = false;
+    private int timer, mistakeLimit;
+    private boolean isPaused = false, sound, vibrate, autoRemoveNotes, numbersHighlight, regionHighlight, isAdvanceNoteEnable;
 
     private GlobalStore() {
     }
@@ -162,5 +162,61 @@ public class GlobalStore {
 
     public void setNotes(int[][][] notes) {
         this.notes = notes;
+    }
+
+    public int getMistakeLimit() {
+        return mistakeLimit;
+    }
+
+    public void setMistakeLimit(int mistakeLimit) {
+        this.mistakeLimit = mistakeLimit;
+    }
+
+    public boolean getSound() {
+        return sound;
+    }
+
+    public void setSound(boolean sound) {
+        this.sound = sound;
+    }
+
+    public boolean isVibrate() {
+        return vibrate;
+    }
+
+    public void setVibrate(boolean vibrate) {
+        this.vibrate = vibrate;
+    }
+
+    public boolean getAutoRemoveNotes() {
+        return autoRemoveNotes;
+    }
+
+    public void setAutoRemoveNotes(boolean autoRemoveNotes) {
+        this.autoRemoveNotes = autoRemoveNotes;
+    }
+
+    public boolean getNumbersHighlight() {
+        return numbersHighlight;
+    }
+
+    public void setNumbersHighlight(boolean numbersHighlight) {
+        this.numbersHighlight = numbersHighlight;
+    }
+
+    public boolean getRegionHighlight() {
+        return regionHighlight;
+    }
+
+    public void setRegionHighlight(boolean regionHighlight) {
+        this.regionHighlight = regionHighlight;
+    }
+
+    public boolean isAdvanceNoteEnable() {
+        return isAdvanceNoteEnable;
+    }
+
+    public void setAdvanceNoteEnable(boolean advanceNoteEnable) {
+        isAdvanceNoteEnable = advanceNoteEnable;
     }
 }

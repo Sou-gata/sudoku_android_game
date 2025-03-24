@@ -40,6 +40,7 @@ public class PlayGuideActivity extends AppCompatActivity {
 
         backButton.setOnClickListener(v -> {
             finish();
+            overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
         });
 
         viewPager.setAdapter(adapter);

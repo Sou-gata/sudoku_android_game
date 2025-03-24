@@ -89,6 +89,9 @@ public class MainFragment extends Fragment {
         settings.setOnClickListener(view1 -> {
             Intent intent = new Intent(context, SettingsActivity.class);
             startActivity(intent);
+            if (getActivity()!= null) {
+                getActivity().overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
+            }
         });
 
         Intent intent = new Intent(context, GameActivity.class);

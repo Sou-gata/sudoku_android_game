@@ -120,6 +120,7 @@ public class Database extends SQLiteOpenHelper {
         contentValues.put("timer", 0);
         contentValues.put("current_board_state", currentBoardState);
         contentValues.put("mistakes", 0);
+        contentValues.put("notes", HelperFunctions.threeDimArrayToString(new int[9][9][9]));
         db.update("games", contentValues, "id=?", new String[]{String.valueOf(id)});
     }
 

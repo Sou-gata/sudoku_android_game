@@ -12,4 +12,11 @@ public class Constants {
     public static final int SPLASH_DELAY = 2000;
     public static final int ALLOWED_MISTAKES = 3;
     public  static final String[] MONTHS = {"JAN", "FEB", "MAR", "APR", "MAY", "JUN", "JUL", "AUG", "SEP", "OCT", "NOV", "DEC"};
+    public static final String SHARED_PREF_NAME = "AppSettings";
+    public static final boolean SOUND = true;
+    public static final boolean VIBRATE = true;
+    public static final boolean REMOVE_NOTES = true;
+    public static final boolean HIGHLIGHT_NUMBERS = true;
+    public static final boolean HIGHLIGHT_REGION = true;
+
 }

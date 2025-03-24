@@ -30,6 +30,7 @@ import com.sougata.HelperFunctions;
 import com.sougata.sudoku.Database;
 import com.sougata.sudoku.Pos;
 import com.sougata.sudoku.R;
+import com.sougata.sudoku.SoundPlayer;
 import com.sougata.sudoku.StartNewGame;
 import com.sougata.sudoku.Sudoku;
 
@@ -44,8 +45,8 @@ public class GameActivity extends AppCompatActivity {
     String difficultyName;
     int[][] answer, question, currentBoardState;
     int[][][] notes;
-    boolean isPopupOpened = false, isNotesEnabled = false;
-    LinearLayout gameBoard, hintButton, pauseGame, numberRow, noteButton, notesStatus;
+    boolean isPopupOpened = false, isNotesEnabled = false, isAdvanceNoteEnabled = true;
+    LinearLayout gameBoard, hintButton, pauseGame, numberRow, noteButton, notesStatus, advanceNote;
     TextView gameTimer, gameDifficulty, gameMistakes, currentLevelText, notesStatusText;
     ImageView backBtn, pauseResumeIcon;
     PopupWindow popupWindow;
@@ -55,11 +56,10 @@ public class GameActivity extends AppCompatActivity {
     private final StartNewGame startNewGame = new StartNewGame(this);
 
     Pos currSelectedCell = new Pos(-1, -1);
-
+    SoundPlayer soundPlayer;
     int timer;
     Timer gameTimerObj;
     HashMap<Integer, Integer> numberCounts = new HashMap<>();
-    String[] months = {"Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"};
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -96,6 +96,8 @@ public class GameActivity extends AppCompatActivity {
         timer = globalStore.getTimer();
         currentLevel = globalStore.getCurrentLevel();
 
+        soundPlayer = SoundPlayer.getInstance();
+
         gameBoard = findViewById(R.id.ll_game_board);
         gameTimer = findViewById(R.id.tv_game_timer);
         gameDifficulty = findViewById(R.id.tv_game_difficulty);
@@ -109,6 +111,7 @@ public class GameActivity extends AppCompatActivity {
         noteButton = findViewById(R.id.ll_note);
         notesStatus = findViewById(R.id.ll_notes_status);
         notesStatusText = findViewById(R.id.tv_notes_status);
+        advanceNote = findViewById(R.id.ll_advanced_note);
 
         countNumbers();
         generateGameBoard();
@@ -121,7 +124,7 @@ public class GameActivity extends AppCompatActivity {
         gameTimerObj = new Timer();
         gameTimerObj.schedule(task, 1000, 1000);
 
-        String mistakeString = "Mistake: " + mistakes + "/" + Constants.ALLOWED_MISTAKES;
+        String mistakeString = "Mistake: " + mistakes + "/" + globalStore.getMistakeLimit();
         gameMistakes.setText(mistakeString);
 
         if (!globalStore.getType().equals("daily")) {
@@ -130,10 +133,12 @@ public class GameActivity extends AppCompatActivity {
             gameDifficulty.setText(difficultyName);
         } else {
             Intent intent = getIntent();
-            String date = HelperFunctions.padString(intent.getIntExtra("date", 0), 2) + " " + months[globalStore.getMonth()];
+            String date = HelperFunctions.padString(intent.getIntExtra("date", 0), 2) + " " + Constants.MONTHS[globalStore.getMonth()];
             gameDifficulty.setText(date);
             currentLevelText.setText(getString(R.string.daily_challenge));
         }
+
+        advanceNote.setVisibility(globalStore.isAdvanceNoteEnable() ? View.VISIBLE : View.GONE);
 
         hintButton.setOnClickListener(view -> hintCLicked());
         backBtn.setOnClickListener(view -> {
@@ -149,6 +154,9 @@ public class GameActivity extends AppCompatActivity {
         });
         noteButton.setOnClickListener(view -> {
             notesClicked();
+        });
+        advanceNote.setOnClickListener((v) -> {
+            advanceNoteClicked();
         });
     }
 
@@ -288,15 +296,23 @@ public class GameActivity extends AppCompatActivity {
                 LinearLayout cellLayout1 = (LinearLayout) cellContainerLayout1.getChildAt(0);
                 String txt = textView.getText().toString();
                 if (!txt.isEmpty() && currentBoardState[i][j] == Integer.parseInt(txt)) {
-                    cellLayout1.setBackground(createBorderDrawable("#c6cbe1"));
-                } else {
-                    if (selectedBoxRow == currBoxRow && selectedBoxCol == currBoxCol) {
-                        cellLayout1.setBackground(createBorderDrawable("#e7eaf3"));
+                    if (globalStore.getNumbersHighlight()) {
+                        cellLayout1.setBackground(createBorderDrawable("#c6cbe1"));
                     } else {
                         cellLayout1.setBackground(createBorderDrawable("#FFFFFF"));
                     }
-                    if (i == row || j == col) {
-                        cellLayout1.setBackground(createBorderDrawable("#e7eaf3"));
+                } else {
+                    if (globalStore.getRegionHighlight()) {
+                        if (selectedBoxRow == currBoxRow && selectedBoxCol == currBoxCol) {
+                            cellLayout1.setBackground(createBorderDrawable("#e7eaf3"));
+                        } else {
+                            cellLayout1.setBackground(createBorderDrawable("#FFFFFF"));
+                        }
+                        if (i == row || j == col) {
+                            cellLayout1.setBackground(createBorderDrawable("#e7eaf3"));
+                        }
+                    } else {
+                        cellLayout1.setBackground(createBorderDrawable("#FFFFFF"));
                     }
                 }
             }
@@ -321,6 +337,10 @@ public class GameActivity extends AppCompatActivity {
                     numberClicked(fi);
                 }
             });
+            if (numberCounts.containsKey(i) && numberCounts.get(i) == 9) {
+                textView.setText("");
+                textView.setClickable(false);
+            }
             numberRow.addView(textView);
         }
     }
@@ -337,15 +357,17 @@ public class GameActivity extends AppCompatActivity {
             if (textView.getText().toString().isEmpty() && Sudoku.isSafe(currentBoardState, row, col, num)) {
                 textView.setText(String.valueOf(num));
                 notes[row][col][num - 1] = 1;
-                updateOngoingDb();
+                soundPlayer.playNotePlaced(this);
             } else {
                 notes[row][col][num - 1] = 0;
                 textView.setText("");
             }
+            updateOngoingDb();
             updateNumberRowUI();
             return;
         }
-        if (row == -1 || col == -1 || question[row][col] != 0) return;
+        if (row == -1 || col == -1 || question[row][col] != 0 || currentBoardState[row][col] == num)
+            return;
         if (question[row][col] == 0) {
             currentBoardState[row][col] = num;
         }
@@ -367,15 +389,19 @@ public class GameActivity extends AppCompatActivity {
         if (!HelperFunctions.isSafe(row, col, num)) {
             textView.setTextColor(ContextCompat.getColor(this, R.color.danger));
             mistakes++;
+            soundPlayer.playInvalid(this);
             GlobalStore.getInstance().setMistakes(mistakes);
-            String mistakeString = "Mistake: " + mistakes + "/" + Constants.ALLOWED_MISTAKES;
+            String mistakeString = "Mistake: " + mistakes + "/" + globalStore.getMistakeLimit();
             gameMistakes.setText(mistakeString);
-            if (mistakes == Constants.ALLOWED_MISTAKES) {
+            if (mistakes == globalStore.getMistakes()) {
                 gameOver();
             }
         } else {
             updateOngoingDb();
-            removeNotes(num);
+            soundPlayer.playCorrect(this);
+            if (globalStore.getAutoRemoveNotes()) {
+                removeNotes(num);
+            }
             cellClicked(row, col);
             numberCounts.put(num, numberCounts.getOrDefault(num, 0) + 1);
             if (isGameCompleted()) {
@@ -410,6 +436,18 @@ public class GameActivity extends AppCompatActivity {
         if (question[row][col] != 0) {
             return;
         }
+        if (currentBoardState[row][col] == 0) {
+            return;
+        }
+
+        soundPlayer.playErase(this);
+
+        numberCounts.put(currentBoardState[row][col], numberCounts.get(currentBoardState[row][col]) - 1);
+        if (numberCounts.get(currentBoardState[row][col]) < 9) {
+            TextView tv = (TextView) numberRow.getChildAt(currentBoardState[row][col] - 1);
+            tv.setClickable(true);
+            tv.setText(String.valueOf(currentBoardState[row][col]));
+        }
         currentBoardState[row][col] = 0;
         LinearLayout selectedRow = (LinearLayout) gameBoard.getChildAt(row);
         FrameLayout selectedCellContainer = (FrameLayout) selectedRow.getChildAt(col);
@@ -443,6 +481,22 @@ public class GameActivity extends AppCompatActivity {
         LinearLayout boardCell = (LinearLayout) boardCellContainer.getChildAt(0);
         TextView textView = (TextView) boardCell.getChildAt(0);
         textView.setText(String.valueOf(answer[row][col]));
+        LinearLayout selectedNotesLayout = (LinearLayout) boardCellContainer.getChildAt(1);
+        for (int i = 0; i < selectedNotesLayout.getChildCount(); i++) {
+            LinearLayout r = (LinearLayout) selectedNotesLayout.getChildAt(i);
+            for (int j = 0; j < r.getChildCount(); j++) {
+                TextView tv = (TextView) r.getChildAt(j);
+                tv.setText("");
+                notes[row][col][i * Constants.BOX_SIZE + j] = 0;
+            }
+        }
+        int tempR = currSelectedCell.row;
+        int tempC = currSelectedCell.col;
+        currSelectedCell.setPos(row, col);
+        if (globalStore.getAutoRemoveNotes()) {
+            removeNotes(answer[row][col]);
+        }
+        currSelectedCell.setPos(tempR, tempC);
         updateOngoingDb();
         if (isGameCompleted()) {
             onGameComplete();
@@ -467,6 +521,7 @@ public class GameActivity extends AppCompatActivity {
         db.makeGameComplete(globalStore.getId());
         Intent intent = new Intent(this, GameCompleteActivity.class);
         startActivity(intent);
+        soundPlayer.playGameComplete(this);
         finish();
         overridePendingTransition(R.anim.slide_up, R.anim.slide_down);
     }
@@ -496,7 +551,8 @@ public class GameActivity extends AppCompatActivity {
         TextView timer = popupView.findViewById(R.id.tv_pause_popup_timer);
         timer.setText(HelperFunctions.timerToString(globalStore.getTimer()));
         TextView mistakes = popupView.findViewById(R.id.tv_pause_popup_mistakes);
-        mistakes.setText(globalStore.getMistakes() + "/3");
+        String mistakeLimit = globalStore.getMistakes() + "/" + globalStore.getMistakeLimit();
+        mistakes.setText(mistakeLimit);
         TextView difficulty = popupView.findViewById(R.id.tv_pause_popup_difficulty);
         difficulty.setText(globalStore.getDifficultyName());
 
@@ -539,8 +595,8 @@ public class GameActivity extends AppCompatActivity {
             for (int j = 0; j < colCount; j++) {
                 FrameLayout containerLayout = (FrameLayout) rowLayout.getChildAt(j);
                 LinearLayout cellLayout = (LinearLayout) containerLayout.getChildAt(0);
-                TextView textView = (TextView) cellLayout.getChildAt(0);
-                textView.setVisibility(View.VISIBLE);
+                cellLayout.getChildAt(0).setVisibility(View.VISIBLE);
+                containerLayout.getChildAt(1).setVisibility(View.VISIBLE);
             }
         }
     }
@@ -550,8 +606,9 @@ public class GameActivity extends AppCompatActivity {
         timer = globalStore.getTimer();
         currentBoardState = globalStore.getCurrentBoardState();
         mistakes = globalStore.getMistakes();
+        notes = globalStore.getNotes();
 
-        String mistakeString = "Mistake: " + mistakes + "/" + Constants.ALLOWED_MISTAKES;
+        String mistakeString = "Mistake: " + mistakes + "/" + globalStore.getMistakeLimit();
         gameMistakes.setText(mistakeString);
         gameTimer.setText(HelperFunctions.timerToString(timer));
         globalStore.setPaused(false);
@@ -600,8 +657,8 @@ public class GameActivity extends AppCompatActivity {
             for (int j = 0; j < colCount; j++) {
                 FrameLayout containerLayout = (FrameLayout) rowLayout.getChildAt(j);
                 LinearLayout cellLayout = (LinearLayout) containerLayout.getChildAt(0);
-                TextView textView = (TextView) cellLayout.getChildAt(0);
-                textView.setVisibility(View.GONE);
+                cellLayout.getChildAt(0).setVisibility(View.GONE);
+                containerLayout.getChildAt(1).setVisibility(View.GONE);
             }
         }
     }
@@ -622,6 +679,7 @@ public class GameActivity extends AppCompatActivity {
     }
 
     private void notesClicked() {
+        soundPlayer.playNoteSwitch(this);
         ImageView enableEditing = findViewById(R.id.iv_edit_enabled);
         if (isNotesEnabled) {
             notesStatus.setBackgroundResource(R.drawable.btn_bg_deactivate);
@@ -683,7 +741,6 @@ public class GameActivity extends AppCompatActivity {
             FrameLayout container = (FrameLayout) boardRow.getChildAt(i);
             LinearLayout notesLayout = (LinearLayout) container.getChildAt(1);
             if (notesLayout.getChildCount() > 0) {
-
                 LinearLayout notesRow = (LinearLayout) notesLayout.getChildAt(numRow);
                 TextView textView = (TextView) notesRow.getChildAt(numCol);
                 textView.setText("");
@@ -716,5 +773,29 @@ public class GameActivity extends AppCompatActivity {
             }
         }
         updateOngoingDb();
+    }
+
+    private void advanceNoteClicked() {
+        notes = HelperFunctions.generateAdvanceNote(currentBoardState);
+        globalStore.setNotes(notes);
+        for (int i = 0; i < currentBoardState.length; i++) {
+            LinearLayout rowLayout = (LinearLayout) gameBoard.getChildAt(i);
+            for (int j = 0; j < currentBoardState[0].length; j++) {
+                if (currentBoardState[i][j] != 0) continue;
+                FrameLayout containerLayout = (FrameLayout) rowLayout.getChildAt(j);
+                LinearLayout notesLayout = (LinearLayout) containerLayout.getChildAt(1);
+                for (int k = 0; k < 9; k++) {
+                    int nR = k / 3;
+                    int nC = k % 3;
+                    LinearLayout notesRow = (LinearLayout) notesLayout.getChildAt(nR);
+                    TextView textView = (TextView) notesRow.getChildAt(nC);
+                    if (notes[i][j][k] == 1) {
+                        textView.setText(String.valueOf(k + 1));
+                    } else {
+                        textView.setText("");
+                    }
+                }
+            }
+        }
     }
 }

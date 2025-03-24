@@ -71,4 +71,15 @@
     <string name="off">Off</string>
     <string name="on">On</string>
     <string name="enable_edit">Enable edit</string>
+    <string name="sound">Sound</string>
+    <string name="mistake_limit">Mistake Limit</string>
+    <string name="vibrate">Vibrate</string>
+    <string name="auto_remove_notes">Auto Remove Notes</string>
+    <string name="highlight_same_numbers">Highlight Same Numbers</string>
+    <string name="region_highlight">Region Highlight</string>
+    <string name="ok">OK</string>
+    <string name="mistakes_3">3 Mistakes</string>
+    <string name="mistakes_5">5 Mistakes</string>
+    <string name="mistakes_10">10 Mistakes</string>
+    <string name="advance_note">Advance Note</string>
 </resources>

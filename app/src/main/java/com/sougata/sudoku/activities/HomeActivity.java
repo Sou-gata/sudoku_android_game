@@ -1,5 +1,6 @@
 package com.sougata.sudoku.activities;
 
+import android.content.SharedPreferences;
 import android.graphics.Point;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
@@ -17,17 +18,17 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
-import com.sougata.HelperFunctions;
+import com.sougata.Constants;
+import com.sougata.GlobalStore;
 import com.sougata.sudoku.R;
 import com.sougata.sudoku.fragments.DailyFragment;
 import com.sougata.sudoku.fragments.MainFragment;
 import com.sougata.sudoku.fragments.StatisticsFragment;
 
-import java.util.Arrays;
-
 public class HomeActivity extends AppCompatActivity {
     LinearLayout tabContainer;
     int currentPosition = 0;
+    GlobalStore globalStore = GlobalStore.getInstance();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -68,6 +69,8 @@ public class HomeActivity extends AppCompatActivity {
             }
         });
 
+        loadSettings();
+
         replaceFragment(new MainFragment(), currentPosition);
         bottomNavigationView.setOnItemSelectedListener(item -> {
             int position = getMenuItemPosition(bottomNavigationView, item.getItemId());
@@ -107,5 +110,22 @@ public class HomeActivity extends AppCompatActivity {
             }
         }
         return -1;
+    }
+
+    @Override
+    public void onRestart() {
+        super.onRestart();
+        loadSettings();
+    }
+
+    private void loadSettings() {
+        SharedPreferences sharedPreferences = getSharedPreferences(Constants.SHARED_PREF_NAME, MODE_PRIVATE);
+        globalStore.setMistakeLimit(sharedPreferences.getInt("mistakeLimit", Constants.ALLOWED_MISTAKES));
+        globalStore.setSound(sharedPreferences.getBoolean("sound", Constants.SOUND));
+        globalStore.setVibrate(sharedPreferences.getBoolean("vibrate", Constants.VIBRATE));
+        globalStore.setAutoRemoveNotes(sharedPreferences.getBoolean("removeNotes", Constants.REMOVE_NOTES));
+        globalStore.setNumbersHighlight(sharedPreferences.getBoolean("numbersHighlight", Constants.HIGHLIGHT_NUMBERS));
+        globalStore.setRegionHighlight(sharedPreferences.getBoolean("regionHighlight", Constants.HIGHLIGHT_REGION));
+        globalStore.setAdvanceNoteEnable(sharedPreferences.getBoolean("advanceNote", true));
     }
 }

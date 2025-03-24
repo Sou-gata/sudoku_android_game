@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:gravity="center"
+    android:orientation="vertical"
+    android:paddingHorizontal="50dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/popup_window_bg"
+        android:orientation="vertical"
+        android:padding="20dp">
+
+        <RadioGroup
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <RadioButton
+                android:id="@+id/rb_mistake_3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:checked="true"
+                android:gravity="center_vertical"
+                android:text="@string/mistakes_3"
+                android:textColor="@color/black"
+                android:textSize="18sp" />
+
+            <RadioButton
+                android:id="@+id/rb_mistake_5"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:text="@string/mistakes_5"
+                android:textColor="@color/black"
+                android:textSize="18sp" />
+
+            <RadioButton
+                android:id="@+id/rb_mistake_10"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:text="@string/mistakes_10"
+                android:textColor="@color/black"
+                android:textSize="18sp" />
+        </RadioGroup>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:orientation="horizontal">
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="2" />
+
+            <TextView
+                android:id="@+id/tv_mistake_limit_popup_ok"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingHorizontal="10dp"
+                android:paddingVertical="5dp"
+                android:text="@string/ok"
+                android:textColor="@color/colorPrimary"
+                android:textSize="18sp" />
+
+            <TextView
+                android:id="@+id/tv_mistake_limit_popup_cancel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:paddingHorizontal="10dp"
+                android:paddingVertical="5dp"
+                android:text="@string/cancel"
+                android:textColor="@color/gray"
+                android:textSize="18sp" />
+        </LinearLayout>
+    </LinearLayout>
+</LinearLayout>

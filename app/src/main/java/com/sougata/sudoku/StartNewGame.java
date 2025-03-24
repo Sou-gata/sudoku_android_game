@@ -111,6 +111,7 @@ public class StartNewGame {
         globalStore.setTimer(0);
         globalStore.setMistakes(0);
         globalStore.setCurrentBoardState(currentBoardState);
+        globalStore.setNotes(new int[9][9][9]);
         db.restartGame(globalStore.getId(), HelperFunctions.twoDimArrayToString(currentBoardState));
     }
 }

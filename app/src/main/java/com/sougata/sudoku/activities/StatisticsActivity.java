@@ -32,6 +32,7 @@ public class StatisticsActivity extends AppCompatActivity {
         ImageView backButton = findViewById(R.id.iv_statistic_back_button);
         backButton.setOnClickListener(v -> {
             finish();
+            overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
         });
     }
 }
