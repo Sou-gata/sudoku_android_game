@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/cv_history_item"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginBottom="5dp"
-    android:id="@+id/cv_history_item"
-    app:cardElevation="5dp"
+    android:layout_marginBottom="7dp"
+    android:backgroundTint="@color/white"
     app:cardCornerRadius="10dp">
 
     <LinearLayout

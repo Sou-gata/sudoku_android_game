@@ -9,7 +9,7 @@
     <string name="medium">Medium</string>
     <string name="level_placeholder">Level 123</string>
     <string name="daily">Daily</string>
-    <string name="statistic">Statistic</string>
+    <string name="statistic">Statistics</string>
     <string name="sudoku">SUDOKU</string>
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="new_game">New Game</string>
@@ -55,7 +55,6 @@
     <string name="pause">Pause</string>
     <string name="pause_mistake_placeholder">0/3</string>
     <string name="undo">Undo</string>
-    <string name="go_back_and_make_changes">Go back and make changes</string>
     <string name="resume_game">Resume game</string>
     <string name="pause_restart">RESTART</string>
     <string name="flags">flags</string>
@@ -82,4 +81,19 @@
     <string name="mistakes_5">5 Mistakes</string>
     <string name="mistakes_10">10 Mistakes</string>
     <string name="advance_note">Advance Note</string>
+    <string name="use_hints_when_you_get_stuck">Use hints when you get stuck</string>
+    <string-array name="pause_popup_titles">
+        <item>@string/hint</item>
+        <item>@string/erase</item>
+        <item>@string/note</item>
+        <item>@string/advance_note</item>
+        <item>@string/statistic</item>
+    </string-array>
+    <string-array name="pause_popup_description">
+        <item>@string/use_hints_when_you_get_stuck</item>
+        <item>Made a mistake? Erase it!</item>
+        <item>Want to add a note? Turn it on!</item>
+        <item>Add notes automatically.</item>
+        <item>Track your progress</item>
+    </string-array>
 </resources>

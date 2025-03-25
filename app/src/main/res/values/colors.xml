@@ -11,4 +11,5 @@
     <color name="settings_text">#444444</color>
     <color name="game_board_icon_tint">#A2A2A2</color>
     <color name="game_number_row_text">#3F589B</color>
+    <color name="box_border_color">@color/gray</color>
 </resources>

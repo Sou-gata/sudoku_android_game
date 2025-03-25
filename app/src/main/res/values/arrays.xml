@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <array name="pause_popup_icon">
+        <item>@drawable/ic_bulb</item>
+        <item>@drawable/eraser</item>
+        <item>@drawable/ic_note</item>
+        <item>@drawable/ic_advance_note</item>
+        <item>@drawable/ic_statistics</item>
+    </array>
+</resources>

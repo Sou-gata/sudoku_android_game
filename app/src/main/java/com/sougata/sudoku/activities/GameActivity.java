@@ -4,6 +4,7 @@ import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.content.res.TypedArray;
 import android.database.Cursor;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
@@ -45,7 +46,7 @@ public class GameActivity extends AppCompatActivity {
     String difficultyName;
     int[][] answer, question, currentBoardState;
     int[][][] notes;
-    boolean isPopupOpened = false, isNotesEnabled = false, isAdvanceNoteEnabled = true;
+    boolean isPopupOpened = false, isNotesEnabled = false, isGameOver = false;
     LinearLayout gameBoard, hintButton, pauseGame, numberRow, noteButton, notesStatus, advanceNote;
     TextView gameTimer, gameDifficulty, gameMistakes, currentLevelText, notesStatusText;
     ImageView backBtn, pauseResumeIcon;
@@ -172,7 +173,7 @@ public class GameActivity extends AppCompatActivity {
     @Override
     public void onWindowFocusChanged(boolean hasFocus) {
         super.onWindowFocusChanged(hasFocus);
-        if (!hasFocus && !isPopupOpened) {
+        if (!hasFocus && !isPopupOpened && !isGameOver) {
             globalStore.setPaused(true);
             showPausePopup(new View(this));
             pauseGame();
@@ -191,12 +192,11 @@ public class GameActivity extends AppCompatActivity {
             int screenWidth = getResources().getDisplayMetrics().widthPixels;
             int childHeight = (screenWidth - HelperFunctions.dpToPx(30) - 12) / 9;
             int childWidth = (screenWidth - HelperFunctions.dpToPx(30) - 12) / 9;
-            LinearLayout.LayoutParams childParams = new LinearLayout.LayoutParams(childWidth, childHeight);
             for (int j = 0; j < 9; j++) {
+                LinearLayout.LayoutParams childParams = new LinearLayout.LayoutParams(childWidth, childHeight);
                 FrameLayout cellContainerLayout = new FrameLayout(this);
                 LinearLayout childLayout = new LinearLayout(this);
                 cellContainerLayout.setLayoutParams(childParams);
-                childLayout.setLayoutParams(childParams);
                 cellContainerLayout.setBackground(createBorderDrawable("#FFFFFF"));
                 int margin = 2;
                 if (i % 3 == 0 && j % 3 == 0) {
@@ -216,6 +216,7 @@ public class GameActivity extends AppCompatActivity {
                 } else if (i % 3 == 1 && j % 3 == 2) {
                     childParams.setMargins(0, 0, margin, 0);
                 }
+                childLayout.setLayoutParams(childParams);
                 childLayout.setGravity(Gravity.CENTER);
 
                 int finalI = i;
@@ -271,7 +272,7 @@ public class GameActivity extends AppCompatActivity {
 
     private GradientDrawable createBorderDrawable(String background) {
         GradientDrawable border2 = new GradientDrawable();
-        border2.setStroke(1, Color.parseColor("#888888"));
+        border2.setStroke(1, ContextCompat.getColor(this, R.color.box_border_color));
         border2.setColor(Color.parseColor(background));
         return border2;
     }
@@ -390,10 +391,11 @@ public class GameActivity extends AppCompatActivity {
             textView.setTextColor(ContextCompat.getColor(this, R.color.danger));
             mistakes++;
             soundPlayer.playInvalid(this);
-            GlobalStore.getInstance().setMistakes(mistakes);
+            globalStore.setMistakes(mistakes);
             String mistakeString = "Mistake: " + mistakes + "/" + globalStore.getMistakeLimit();
             gameMistakes.setText(mistakeString);
-            if (mistakes == globalStore.getMistakes()) {
+            if (mistakes == globalStore.getMistakeLimit()) {
+                isGameOver = true;
                 gameOver();
             }
         } else {
@@ -403,6 +405,7 @@ public class GameActivity extends AppCompatActivity {
                 removeNotes(num);
             }
             cellClicked(row, col);
+            textView.setTextColor(ContextCompat.getColor(this, R.color.colorPrimary));
             numberCounts.put(num, numberCounts.getOrDefault(num, 0) + 1);
             if (isGameCompleted()) {
                 onGameComplete();
@@ -555,6 +558,22 @@ public class GameActivity extends AppCompatActivity {
         mistakes.setText(mistakeLimit);
         TextView difficulty = popupView.findViewById(R.id.tv_pause_popup_difficulty);
         difficulty.setText(globalStore.getDifficultyName());
+        ImageView tipsIcon = popupView.findViewById(R.id.iv_pause_popup_icon);
+        TextView tipsTitle = popupView.findViewById(R.id.tv_pause_popup_title);
+        TextView tipsDescription = popupView.findViewById(R.id.tv_pause_popup_description);
+        String[] title = getResources().getStringArray(R.array.pause_popup_titles);
+        String[] description = getResources().getStringArray(R.array.pause_popup_description);
+        TypedArray icons = getResources().obtainTypedArray(R.array.pause_popup_icon);
+        int[] iconIds = new int[icons.length()];
+        for (int i = 0; i < icons.length(); i++) {
+            iconIds[i] = icons.getResourceId(i, -1);
+        }
+        icons.recycle();
+
+        int random = (int) (Math.floor(Math.random() * iconIds.length));
+        tipsIcon.setImageResource(iconIds[random]);
+        tipsTitle.setText(title[random]);
+        tipsDescription.setText(description[random]);
 
         popupWindow.setOnDismissListener(() -> {
             popupBg.setVisibility(View.GONE);
@@ -634,6 +653,9 @@ public class GameActivity extends AppCompatActivity {
         popupWindow.setOutsideTouchable(false);
         popupWindow.showAtLocation(gameBoard, Gravity.CENTER, 0, 0);
 
+        TextView gameOverMessage = popupView.findViewById(R.id.tv_game_over_message);
+        String msg = "You lost the game because you made" + globalStore.getMistakeLimit() + "mistakes";
+        gameOverMessage.setText(msg);
         LinearLayout restartGame = popupView.findViewById(R.id.ll_game_over_restart);
         restartGame.setOnClickListener(v -> {
             popupWindow.dismiss();
@@ -797,5 +819,6 @@ public class GameActivity extends AppCompatActivity {
                 }
             }
         }
+        updateOngoingDb();
     }
 }
