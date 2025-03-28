@@ -26,7 +26,7 @@ import com.sougata.sudoku.R;
 
 public class SettingsActivity extends AppCompatActivity {
 
-    LinearLayout playGuide, statistic, history, llSound, llVibrate, llRemoveNotes, llHighlightNumbers, llHighlightRegion, llMistakeLimit, llAdvanceNote;
+    LinearLayout playGuide, statistic, history, llSound, llVibrate, llRemoveNotes, llHighlightNumbers, llHighlightRegion, llMistakeLimit, llAdvanceNote, llStrategies;
     ImageView backButton;
     MaterialSwitch msSound, msVibrate, msRemoveNotes, msHighlightNumbers, msHighlightRegion, msAdvanceNote;
     GlobalStore globalStore = GlobalStore.getInstance();
@@ -61,6 +61,7 @@ public class SettingsActivity extends AppCompatActivity {
         llMistakeLimit = findViewById(R.id.ll_settings_mistake_limit);
         llAdvanceNote = findViewById(R.id.ll_settings_advance_note);
         msAdvanceNote = findViewById(R.id.ms_settings_advance_note);
+        llStrategies = findViewById(R.id.ll_settings_strategies);
 
         msSound.setClickable(false);
         msVibrate.setClickable(false);
@@ -135,6 +136,10 @@ public class SettingsActivity extends AppCompatActivity {
             globalStore.setAdvanceNoteEnable(isAdvanceNoteChecked);
         });
         llMistakeLimit.setOnClickListener(this::openPopup);
+        llStrategies.setOnClickListener(v -> {
+            startActivity(new Intent(this, StrategiesActivity.class));
+            overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
+        });
     }
 
     private void openPopup(View view) {
