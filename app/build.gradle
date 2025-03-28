@@ -38,4 +38,5 @@ dependencies {
     androidTestImplementation libs.ext.junit
     androidTestImplementation libs.espresso.core
     implementation 'com.airbnb.android:lottie:3.4.2'
+    implementation 'com.android.volley:volley:1.2.1'
 }

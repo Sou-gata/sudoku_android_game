@@ -126,6 +126,8 @@ public class HomeActivity extends AppCompatActivity {
         globalStore.setAutoRemoveNotes(sharedPreferences.getBoolean("removeNotes", Constants.REMOVE_NOTES));
         globalStore.setNumbersHighlight(sharedPreferences.getBoolean("numbersHighlight", Constants.HIGHLIGHT_NUMBERS));
         globalStore.setRegionHighlight(sharedPreferences.getBoolean("regionHighlight", Constants.HIGHLIGHT_REGION));
-        globalStore.setAdvanceNoteEnable(sharedPreferences.getBoolean("advanceNote", true));
+        globalStore.setAdvanceNoteEnable(sharedPreferences.getBoolean("advanceNote", Constants.ADVANCE_NOTE));
+        globalStore.setHintsCount(sharedPreferences.getInt("hintsCount", 2));
+        globalStore.setAdvanceNoteCount(sharedPreferences.getFloat("advanceNoteCount", 1));
     }
 }

@@ -2,7 +2,8 @@ package com.sougata;
 
 public class GlobalStore {
     private static final GlobalStore instance = new GlobalStore();
-    private int difficulty, mistakes, currentLevel, day, month, year, hints;
+    private int difficulty, mistakes, currentLevel, day, month, year, hints, hintsCount;
+    private float advanceNoteCount;
     private long id;
     private String difficultyName, type;
     private int[][] board, solution, currentBoardState;
@@ -218,5 +219,21 @@ public class GlobalStore {
 
     public void setAdvanceNoteEnable(boolean advanceNoteEnable) {
         isAdvanceNoteEnable = advanceNoteEnable;
+    }
+
+    public int getHintsCount() {
+        return hintsCount;
+    }
+
+    public void setHintsCount(int hintsCount) {
+        this.hintsCount = hintsCount;
+    }
+
+    public float getAdvanceNoteCount() {
+        return advanceNoteCount;
+    }
+
+    public void setAdvanceNoteCount(float advanceNoteCount) {
+        this.advanceNoteCount = advanceNoteCount;
     }
 }

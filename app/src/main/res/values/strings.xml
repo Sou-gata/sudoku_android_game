@@ -82,6 +82,8 @@
     <string name="mistakes_10">10 Mistakes</string>
     <string name="advance_note">Advance Note</string>
     <string name="use_hints_when_you_get_stuck">Use hints when you get stuck</string>
+    <string name="no_hint_toast_message"></string>
+    <string name="no_advance_note_toast_message">Complete more levels to get more advance notes</string>
     <string-array name="pause_popup_titles">
         <item>@string/hint</item>
         <item>@string/erase</item>

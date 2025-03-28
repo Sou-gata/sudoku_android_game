@@ -18,5 +18,7 @@ public class Constants {
     public static final boolean REMOVE_NOTES = true;
     public static final boolean HIGHLIGHT_NUMBERS = true;
     public static final boolean HIGHLIGHT_REGION = true;
-
+    public static final boolean ADVANCE_NOTE = true;
+    public static final int HINTS_PER_LEVEL = 2;
+    public static final float ADVANCE_NOTE_PER_LEVEL = 0.5f;
 }

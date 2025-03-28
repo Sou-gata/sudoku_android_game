@@ -63,8 +63,8 @@
                 <LinearLayout
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:gravity="center_vertical"
-                    android:layout_weight="1">
+                    android:layout_weight="1"
+                    android:gravity="center_vertical">
 
                     <TextView
                         android:id="@+id/tv_game_difficulty"
@@ -73,17 +73,18 @@
                         android:text="@string/medium"
                         android:textColor="#A2A2A2"
                         android:textSize="15sp" />
+
                     <ImageView
                         android:id="@+id/iv_edit_enabled"
-                        android:visibility="gone"
-                        android:background="@drawable/btn_bg_solid"
                         android:layout_width="17dp"
                         android:layout_height="17dp"
                         android:layout_marginStart="5dp"
+                        android:background="@drawable/btn_bg_solid"
                         android:contentDescription="@string/enable_edit"
+                        android:padding="5dp"
                         android:src="@drawable/ic_note"
-                        app:tint="@color/white"
-                        android:padding="5dp"/>
+                        android:visibility="gone"
+                        app:tint="@color/white" />
                 </LinearLayout>
 
                 <TextView
@@ -175,31 +176,56 @@
 
                 </LinearLayout>
 
-                <LinearLayout
-                    android:id="@+id/ll_advanced_note"
+                <FrameLayout
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:orientation="vertical"
-                    android:paddingVertical="5dp">
+                    android:layout_weight="1">
 
-                    <ImageView
-                        android:layout_width="wrap_content"
-                        android:layout_height="@dimen/game_board_icon_size"
-                        android:layout_marginBottom="7dp"
-                        android:contentDescription="@string/advance_note"
-                        android:src="@drawable/ic_advance_note"
-                        app:tint="@color/game_board_icon_tint" />
 
-                    <TextView
+                    <LinearLayout
+                        android:id="@+id/ll_advanced_note"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="@string/advance_note"
-                        android:textAlignment="center"
-                        android:textColor="@color/game_board_icon_tint"
-                        android:textSize="15sp" />
+                        android:layout_height="match_parent"
+                        android:orientation="vertical"
+                        android:paddingVertical="5dp">
 
-                </LinearLayout>
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="@dimen/game_board_icon_size"
+                            android:layout_marginBottom="7dp"
+                            android:contentDescription="@string/advance_note"
+                            android:src="@drawable/ic_advance_note"
+                            app:tint="@color/game_board_icon_tint" />
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="@string/advance_note"
+                            android:textAlignment="center"
+                            android:textColor="@color/game_board_icon_tint"
+                            android:textSize="15sp" />
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_horizontal"
+                        android:layout_marginStart="20dp"
+                        android:background="@drawable/btn_bg_solid">
+
+                        <TextView
+                            android:id="@+id/tv_advance_note_count"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:paddingHorizontal="7dp"
+                            android:paddingVertical="2.5dp"
+                            android:text="@string/day_placeholder"
+                            android:textColor="@color/white"
+                            android:textSize="11sp" />
+                    </LinearLayout>
+
+                </FrameLayout>
 
                 <FrameLayout
                     android:layout_width="0dp"
@@ -251,31 +277,53 @@
                     </LinearLayout>
                 </FrameLayout>
 
-                <LinearLayout
-                    android:id="@+id/ll_hint"
+                <FrameLayout
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:orientation="vertical"
-                    android:paddingVertical="5dp">
+                    android:layout_weight="1">
 
-                    <ImageView
-                        android:layout_width="wrap_content"
-                        android:layout_height="@dimen/game_board_icon_size"
-                        android:layout_marginBottom="7dp"
-                        android:contentDescription="@string/hint"
-                        android:src="@drawable/lightbulb"
-                        app:tint="@color/game_board_icon_tint" />
-
-                    <TextView
+                    <LinearLayout
+                        android:id="@+id/ll_hint"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="@string/hint"
-                        android:textAlignment="center"
-                        android:textColor="@color/game_board_icon_tint"
-                        android:textSize="15sp" />
+                        android:orientation="vertical"
+                        android:paddingVertical="5dp">
 
-                </LinearLayout>
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="@dimen/game_board_icon_size"
+                            android:layout_marginBottom="7dp"
+                            android:contentDescription="@string/hint"
+                            android:src="@drawable/lightbulb"
+                            app:tint="@color/game_board_icon_tint" />
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="@string/hint"
+                            android:textAlignment="center"
+                            android:textColor="@color/game_board_icon_tint"
+                            android:textSize="15sp" />
+
+                    </LinearLayout>
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_horizontal"
+                        android:layout_marginStart="12dp"
+                        android:background="@drawable/btn_bg_solid">
+
+                        <TextView
+                            android:id="@+id/tv_hints_count"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:paddingHorizontal="7dp"
+                            android:paddingVertical="2.5dp"
+                            android:text="@string/day_placeholder"
+                            android:textColor="@color/white"
+                            android:textSize="11sp" />
+                    </LinearLayout>
+                </FrameLayout>
             </LinearLayout>
 
             <LinearLayout

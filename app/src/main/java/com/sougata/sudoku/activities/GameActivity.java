@@ -4,6 +4,7 @@ import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.res.TypedArray;
 import android.database.Cursor;
 import android.graphics.Color;
@@ -19,6 +20,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.PopupWindow;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
 import androidx.activity.OnBackPressedCallback;
@@ -42,13 +44,14 @@ import java.util.TimerTask;
 
 public class GameActivity extends AppCompatActivity {
 
-    int difficulty, mistakes, currentLevel;
+    int difficulty, mistakes, currentLevel, timer, hintCount;
+    float advanceNoteCount;
     String difficultyName;
     int[][] answer, question, currentBoardState;
     int[][][] notes;
     boolean isPopupOpened = false, isNotesEnabled = false, isGameOver = false;
     LinearLayout gameBoard, hintButton, pauseGame, numberRow, noteButton, notesStatus, advanceNote;
-    TextView gameTimer, gameDifficulty, gameMistakes, currentLevelText, notesStatusText;
+    TextView gameTimer, gameDifficulty, gameMistakes, currentLevelText, notesStatusText, hintsCountText, advanceNoteCountText;
     ImageView backBtn, pauseResumeIcon;
     PopupWindow popupWindow;
 
@@ -58,9 +61,9 @@ public class GameActivity extends AppCompatActivity {
 
     Pos currSelectedCell = new Pos(-1, -1);
     SoundPlayer soundPlayer;
-    int timer;
     Timer gameTimerObj;
     HashMap<Integer, Integer> numberCounts = new HashMap<>();
+    SharedPreferences.Editor editor;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -96,6 +99,8 @@ public class GameActivity extends AppCompatActivity {
         currentBoardState = globalStore.getCurrentBoardState();
         timer = globalStore.getTimer();
         currentLevel = globalStore.getCurrentLevel();
+        hintCount = globalStore.getHintsCount();
+        advanceNoteCount = globalStore.getAdvanceNoteCount();
 
         soundPlayer = SoundPlayer.getInstance();
 
@@ -113,6 +118,10 @@ public class GameActivity extends AppCompatActivity {
         notesStatus = findViewById(R.id.ll_notes_status);
         notesStatusText = findViewById(R.id.tv_notes_status);
         advanceNote = findViewById(R.id.ll_advanced_note);
+        hintsCountText = findViewById(R.id.tv_hints_count);
+        advanceNoteCountText = findViewById(R.id.tv_advance_note_count);
+
+        editor = getSharedPreferences(Constants.SHARED_PREF_NAME, MODE_PRIVATE).edit();
 
         countNumbers();
         generateGameBoard();
@@ -140,6 +149,9 @@ public class GameActivity extends AppCompatActivity {
         }
 
         advanceNote.setVisibility(globalStore.isAdvanceNoteEnable() ? View.VISIBLE : View.GONE);
+
+        hintsCountText.setText(String.valueOf(hintCount));
+        advanceNoteCountText.setText(String.valueOf((int) advanceNoteCount));
 
         hintButton.setOnClickListener(view -> hintCLicked());
         backBtn.setOnClickListener(view -> {
@@ -471,6 +483,16 @@ public class GameActivity extends AppCompatActivity {
     }
 
     private void hintCLicked() {
+        if (hintCount <= 0) {
+            Toast.makeText(this, ContextCompat.getString(this, R.string.no_hint_toast_message), Toast.LENGTH_SHORT).show();
+            return;
+        }
+        hintCount--;
+        globalStore.setHintsCount(hintCount);
+        editor.putInt("hintsCount", hintCount);
+        editor.apply();
+        hintsCountText.setText(String.valueOf(hintCount));
+
         globalStore.setHints(globalStore.getHints() + 1);
         ArrayList<int[]> zeroList = HelperFunctions.getEmptyCells(currentBoardState);
         if (zeroList.isEmpty()) return;
@@ -525,6 +547,9 @@ public class GameActivity extends AppCompatActivity {
         Intent intent = new Intent(this, GameCompleteActivity.class);
         startActivity(intent);
         soundPlayer.playGameComplete(this);
+        editor.putInt("hintsCount", hintCount + Constants.HINTS_PER_LEVEL);
+        editor.putFloat("advanceNoteCount", advanceNoteCount + Constants.ADVANCE_NOTE_PER_LEVEL);
+        editor.apply();
         finish();
         overridePendingTransition(R.anim.slide_up, R.anim.slide_down);
     }
@@ -798,6 +823,16 @@ public class GameActivity extends AppCompatActivity {
     }
 
     private void advanceNoteClicked() {
+        if (advanceNoteCount < 1) {
+            Toast.makeText(this, ContextCompat.getString(this, R.string.no_advance_note_toast_message), Toast.LENGTH_SHORT).show();
+            return;
+        }
+        advanceNoteCount -= 1;
+        globalStore.setAdvanceNoteCount(advanceNoteCount);
+        editor.putFloat("advanceNoteCount", advanceNoteCount);
+        editor.apply();
+        advanceNoteCountText.setText(String.valueOf((int) advanceNoteCount));
+
         notes = HelperFunctions.generateAdvanceNote(currentBoardState);
         globalStore.setNotes(notes);
         for (int i = 0; i < currentBoardState.length; i++) {
