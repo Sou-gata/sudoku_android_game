@@ -10,50 +10,92 @@
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="275dp"
-        android:background="@color/colorPrimary">
-
-        <com.airbnb.lottie.LottieAnimationView
-            android:id="@+id/lv_challenge_anim"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:alpha="0.5"
-            app:lottie_autoPlay="true"
-            app:lottie_cacheComposition="true"
-            app:lottie_speed="0.75" />
+        android:background="@drawable/daily_banner_bg">
 
         <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="175dp"
-            android:layout_marginTop="50dp"
+            android:id="@+id/iv_banner_bottom_border"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom"
+            android:layout_marginBottom="-1dp"
+            android:src="@drawable/daily_banner_bottom_border" />
+
+        <ImageView
+            android:layout_width="250dp"
+            android:layout_height="200dp"
+            android:layout_gravity="bottom|end"
+            android:layout_marginBottom="15dp"
             android:contentDescription="@string/cup"
             android:src="@drawable/cup" />
 
-        <TextView
-            android:id="@+id/tv_month_year"
-            android:layout_width="match_parent"
+        <LinearLayout
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="225dp"
-            android:text="@string/month_year_placeholder"
-            android:textAlignment="center"
-            android:textColor="@color/white"
-            android:textSize="20sp"
-            android:textStyle="bold" />
+            android:layout_gravity="center_vertical"
+            android:layout_marginStart="60dp"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/tv_year"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/year_placeholder"
+                android:textColor="@color/white"
+                android:textSize="16sp" />
+
+            <TextView
+                android:id="@+id/tv_month"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="-2dp"
+                android:text="@string/month_placeholder"
+                android:textAlignment="center"
+                android:textColor="@color/white"
+                android:textSize="25sp"
+                android:textStyle="bold" />
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:background="@drawable/daily_complete_bg"
+                android:gravity="center"
+                android:orientation="horizontal"
+                android:paddingHorizontal="15dp"
+                android:paddingVertical="7dp">
+
+
+                <ImageView
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:src="@drawable/ic_medal" />
+
+                <TextView
+                    android:id="@+id/tv_complete_count"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginTop="-2dp"
+                    android:text="00 / 28"
+                    android:textColor="@color/white"
+                    android:textSize="16sp" />
+            </LinearLayout>
+        </LinearLayout>
 
         <ImageView
             android:id="@+id/iv_prev_month"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="143dp"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_gravity="center_vertical"
             android:contentDescription="@string/previous_month"
             android:src="@drawable/ic_left_arrow"
             app:tint="#90ffffff" />
 
         <ImageView
             android:id="@+id/iv_next_month"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="end"
-            android:layout_marginTop="143dp"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_gravity="end|center_vertical"
             android:contentDescription="@string/previous_month"
             android:scaleX="-1"
             android:src="@drawable/ic_left_arrow"
@@ -74,23 +116,23 @@
             android:orientation="vertical">
 
             <GridView
-                android:layout_marginTop="10dp"
                 android:id="@+id/calendar_grid"
                 android:layout_width="match_parent"
                 android:layout_height="300dp"
                 android:layout_marginStart="8dp"
+                android:layout_marginTop="10dp"
                 android:numColumns="7"
                 android:paddingHorizontal="10dp" />
 
             <Button
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/play"
+                android:layout_marginTop="15dp"
                 android:paddingHorizontal="100dp"
                 android:paddingVertical="15dp"
-                android:layout_marginTop="15dp"
+                android:text="@string/play"
                 android:textColor="@color/white"
-                android:textSize="18sp"/>
+                android:textSize="18sp" />
 
         </LinearLayout>
     </ScrollView>

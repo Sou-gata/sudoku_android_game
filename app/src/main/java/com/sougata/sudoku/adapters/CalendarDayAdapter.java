@@ -3,8 +3,6 @@ package com.sougata.sudoku.adapters;
 import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
-import android.graphics.Typeface;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -33,6 +31,7 @@ public class CalendarDayAdapter extends BaseAdapter {
     private final ArrayList<String> days;
     GlobalStore globalStore = GlobalStore.getInstance();
     Database db;
+
 
     ArrayList<String> completedDays = new ArrayList<>();
 
@@ -76,6 +75,7 @@ public class CalendarDayAdapter extends BaseAdapter {
         Calendar c = Calendar.getInstance();
         c.set(c.get(Calendar.YEAR), c.get(Calendar.MONTH), c.get(Calendar.DATE), 0, 0, 0);
         c.set(Calendar.MILLISECOND, 0);
+        int today = 0;
         if (!d.contains(day) && !day.isEmpty()) {
             Calendar c2 = Calendar.getInstance();
             c2.set(globalStore.getYear(), globalStore.getMonth(), Integer.parseInt(day), 0, 0, 0);
@@ -126,13 +126,16 @@ public class CalendarDayAdapter extends BaseAdapter {
                         });
                     } else {
                         new StartNewGame(context).createDailyGame(Integer.parseInt(day));
+                        intent.putExtra("date", Integer.parseInt(day));
                         context.startActivity(intent);
                     }
                 });
 
                 dayText.setClickable(true);
                 if (c2.equals(c)) {
-                    dayText.setTextColor(ContextCompat.getColor(context, R.color.colorPrimary));
+                    today = 1;
+                    dayText.setTextColor(ContextCompat.getColor(context, R.color.white));
+                    dayLayout.setBackgroundResource(R.drawable.btn_bg_solid);
                 } else {
                     dayText.setTextColor(ContextCompat.getColor(context, R.color.black));
                 }
@@ -142,15 +145,16 @@ public class CalendarDayAdapter extends BaseAdapter {
                 dayText.setTextColor(ContextCompat.getColor(context, R.color.gray));
             }
         } else if (d.contains(day)) {
-            dayText.setTextColor(ContextCompat.getColor(context, R.color.colorPrimary));
-            dayText.setTypeface(Typeface.DEFAULT_BOLD);
+            dayText.setTextColor(ContextCompat.getColor(context, R.color.gray));
         }
 
         if (completedDays.contains(day)) {
             dayLayout.setBackgroundResource(R.drawable.cups_daily);
             dayText.setText("");
-        } else {
+        } else if (today != 1) {
             dayLayout.setBackgroundColor(ContextCompat.getColor(context, R.color.white));
+            dayText.setText(day);
+        } else {
             dayText.setText(day);
         }
         return convertView;
@@ -169,7 +173,7 @@ public class CalendarDayAdapter extends BaseAdapter {
                 dateList.add(String.valueOf(c.get(Calendar.DATE)));
             } while (cursor.moveToNext());
         }
-        Log.d("getView", cursor.getCount() + "");
+        globalStore.setDailyCompleted(dateList.size());
         return dateList;
     }
 }

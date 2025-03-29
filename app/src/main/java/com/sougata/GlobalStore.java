@@ -2,7 +2,7 @@ package com.sougata;
 
 public class GlobalStore {
     private static final GlobalStore instance = new GlobalStore();
-    private int difficulty, mistakes, currentLevel, day, month, year, hints, hintsCount;
+    private int difficulty, mistakes, currentLevel, day, month, year, hints, hintsCount, dailyCompleted;
     private float advanceNoteCount;
     private long id;
     private String difficultyName, type;
@@ -235,5 +235,13 @@ public class GlobalStore {
 
     public void setAdvanceNoteCount(float advanceNoteCount) {
         this.advanceNoteCount = advanceNoteCount;
+    }
+
+    public int getDailyCompleted() {
+        return dailyCompleted;
+    }
+
+    public void setDailyCompleted(int dailyCompleted) {
+        this.dailyCompleted = dailyCompleted;
     }
 }

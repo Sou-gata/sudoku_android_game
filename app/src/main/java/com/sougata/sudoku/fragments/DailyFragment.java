@@ -1,18 +1,21 @@
 package com.sougata.sudoku.fragments;
 
+import android.annotation.SuppressLint;
+import android.content.res.Resources;
 import android.os.Bundle;
+import android.util.DisplayMetrics;
+import android.view.GestureDetector;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.FrameLayout;
 import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.fragment.app.Fragment;
 
-import com.airbnb.lottie.LottieAnimationView;
-import com.airbnb.lottie.LottieCompositionFactory;
-import com.airbnb.lottie.LottieDrawable;
 import com.sougata.Constants;
 import com.sougata.GlobalStore;
 import com.sougata.sudoku.R;
@@ -27,9 +30,11 @@ public class DailyFragment extends Fragment {
     private final String[] days = new String[]{"S", "M", "T", "W", "T", "F", "S"};
     ArrayList<String> dayList = new ArrayList<>();
 
-    ImageView previousMonth, nextMonth;
-    TextView monthYear;
-    LottieAnimationView animationView;
+    ImageView previousMonth, nextMonth, bottomBorder;
+    TextView tvMonth, tvYear, completeCount;
+    int currentMonthDaysCount;
+    private GestureDetector gestureDetector;
+    boolean isNextMontDisabled = true;
     private final GlobalStore globalStore = GlobalStore.getInstance();
 
     @Override
@@ -37,25 +42,35 @@ public class DailyFragment extends Fragment {
         super.onCreate(savedInstanceState);
     }
 
+    @SuppressLint("ClickableViewAccessibility")
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_daily, container, false);
 
+        GridView gridView = view.findViewById(R.id.calendar_grid);
         previousMonth = view.findViewById(R.id.iv_prev_month);
         nextMonth = view.findViewById(R.id.iv_next_month);
-        monthYear = view.findViewById(R.id.tv_month_year);
-        animationView = view.findViewById(R.id.lv_challenge_anim);
+        tvMonth = view.findViewById(R.id.tv_month);
+        tvYear = view.findViewById(R.id.tv_year);
+        completeCount = view.findViewById(R.id.tv_complete_count);
+        bottomBorder = view.findViewById(R.id.iv_banner_bottom_border);
+        DisplayMetrics displayMetrics = Resources.getSystem().getDisplayMetrics();
+        FrameLayout.LayoutParams params = (FrameLayout.LayoutParams)bottomBorder.getLayoutParams();
+        params.height = (int) (displayMetrics.widthPixels * 0.064f);
+        bottomBorder.setLayoutParams(params);
 
-        LottieDrawable drawable = new LottieDrawable();
-        drawable.setImagesAssetsFolder("images/");
+        gestureDetector = new GestureDetector(requireContext(), new GestureListener());
+        gridView.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View view, MotionEvent event) {
+                gestureDetector.onTouchEvent(event);
+                if (event.getAction() == MotionEvent.ACTION_UP && !gestureDetector.onTouchEvent(event)) {
+                    view.performClick();
+                }
+                return true;
+            }
+        });
 
-        LottieCompositionFactory.fromAsset(requireContext(), "challenge.json")
-                .addListener(composition -> {
-                    drawable.setComposition(composition);
-                    animationView.setImageDrawable(drawable);
-                    drawable.setRepeatCount(LottieDrawable.INFINITE);
-                    drawable.playAnimation();
-                });
 
         Calendar c = Calendar.getInstance();
         AtomicInteger year = new AtomicInteger(c.get(Calendar.YEAR));
@@ -66,7 +81,6 @@ public class DailyFragment extends Fragment {
 
         generateCalender(month.get(), year.get());
         CalendarDayAdapter adapter = new CalendarDayAdapter(requireContext(), dayList);
-        GridView gridView = view.findViewById(R.id.calendar_grid);
         gridView.setAdapter(adapter);
 
         Calendar calendar = Calendar.getInstance();
@@ -77,8 +91,10 @@ public class DailyFragment extends Fragment {
             nextMonth.setVisibility(View.VISIBLE);
         }
 
-        String monthYearText2 = Constants.MONTHS[month.get()] + " " + year.get();
-        monthYear.setText(monthYearText2);
+        tvYear.setText(String.valueOf(year.get()));
+        tvMonth.setText(Constants.FULL_MONTHS[month.get()]);
+        String complete = globalStore.getDailyCompleted() + "/" + currentMonthDaysCount;
+        completeCount.setText(complete);
 
         previousMonth.setOnClickListener(view1 -> {
             c.add(Calendar.MONTH, -1);
@@ -97,16 +113,21 @@ public class DailyFragment extends Fragment {
 
             globalStore.setMonth(month.get());
             globalStore.setYear(year.get());
-            String monthYearText = Constants.MONTHS[month.get()] + " " + year.get();
-            monthYear.setText(monthYearText);
+            tvYear.setText(String.valueOf(year.get()));
+            tvMonth.setText(Constants.FULL_MONTHS[month.get()]);
+            String completeTxt = globalStore.getDailyCompleted() + "/" + currentMonthDaysCount;
+            completeCount.setText(completeTxt);
             if (calendar.get(Calendar.MONTH) == c.get(Calendar.MONTH) && calendar.get(Calendar.YEAR) == c.get(Calendar.YEAR)) {
                 nextMonth.setVisibility(View.GONE);
+                isNextMontDisabled = true;
             } else {
                 nextMonth.setVisibility(View.VISIBLE);
+                isNextMontDisabled = false;
             }
         });
 
         nextMonth.setOnClickListener(view1 -> {
+            if (isNextMontDisabled) return;
             c.add(Calendar.MONTH, 1);
             year.set(c.get(Calendar.YEAR));
             month.set(c.get(Calendar.MONTH));
@@ -121,12 +142,16 @@ public class DailyFragment extends Fragment {
                     });
             globalStore.setMonth(month.get());
             globalStore.setYear(year.get());
-            String monthYearText = Constants.MONTHS[month.get()] + " " + year.get();
-            monthYear.setText(monthYearText);
+            tvYear.setText(String.valueOf(year.get()));
+            tvMonth.setText(Constants.FULL_MONTHS[month.get()]);
+            String completeTxt = globalStore.getDailyCompleted() + "/" + currentMonthDaysCount;
+            completeCount.setText(completeTxt);
             if (calendar.get(Calendar.MONTH) == c.get(Calendar.MONTH) && calendar.get(Calendar.YEAR) == c.get(Calendar.YEAR)) {
                 nextMonth.setVisibility(View.GONE);
+                isNextMontDisabled = true;
             } else {
                 nextMonth.setVisibility(View.VISIBLE);
+                isNextMontDisabled = false;
             }
         });
 
@@ -151,5 +176,47 @@ public class DailyFragment extends Fragment {
         for (int i = 1; i <= lastDate; i++) {
             dayList.add(String.valueOf(i));
         }
+        currentMonthDaysCount = lastDate;
+    }
+
+    private class GestureListener extends GestureDetector.SimpleOnGestureListener {
+
+        private static final int SWIPE_THRESHOLD = 100;
+        private static final int SWIPE_VELOCITY_THRESHOLD = 100;
+
+        @Override
+        public boolean onDown(MotionEvent e) {
+            return true;
+        }
+
+        @Override
+        public boolean onFling(MotionEvent e1, MotionEvent e2, float velocityX, float velocityY) {
+            boolean result = false;
+            try {
+                float diffY = e2.getY() - e1.getY();
+                float diffX = e2.getX() - e1.getX();
+                if (Math.abs(diffX) > Math.abs(diffY)) {
+                    if (Math.abs(diffX) > SWIPE_THRESHOLD && Math.abs(velocityX) > SWIPE_VELOCITY_THRESHOLD) {
+                        if (diffX > 0) {
+                            onSwipeRight();
+                        } else {
+                            onSwipeLeft();
+                        }
+                        result = true;
+                    }
+                }
+            } catch (Exception exception) {
+                exception.printStackTrace();
+            }
+            return result;
+        }
+    }
+
+    private void onSwipeLeft() {
+        nextMonth.performClick();
+    }
+
+    private void onSwipeRight() {
+        previousMonth.performClick();
     }
 }

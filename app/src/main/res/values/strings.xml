@@ -16,7 +16,7 @@
     <string name="continue_game">Continue</string>
     <string name="continue_placeholder">00:01 - Very Heard</string>
     <string name="previous_month">Previous month</string>
-    <string name="month_year_placeholder">Mar 2025</string>
+    <string name="month_placeholder">March</string>
     <string name="daily_challenge">Daily challenge</string>
     <string name="back">Back</string>
     <string name="crown">Crown</string>
@@ -86,6 +86,7 @@
     <string name="no_advance_note_toast_message">Complete more levels to get more advance notes</string>
     <string name="strategies">Strategies</string>
     <string name="learn">Learn</string>
+    <string name="year_placeholder">2025</string>
     <string-array name="pause_popup_titles">
         <item>@string/hint</item>
         <item>@string/erase</item>
