@@ -5,12 +5,22 @@ import android.content.ContentValues;
 import android.content.Intent;
 import android.database.Cursor;
 import android.graphics.Bitmap;
+import android.graphics.Canvas;
+import android.graphics.Color;
+import android.graphics.Typeface;
+import android.graphics.drawable.GradientDrawable;
+import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.provider.MediaStore;
+import android.util.TypedValue;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.FrameLayout;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -18,6 +28,8 @@ import android.widget.Toast;
 import androidx.activity.EdgeToEdge;
 import androidx.activity.OnBackPressedCallback;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.ContextCompat;
+import androidx.core.content.FileProvider;
 
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.sougata.Constants;
@@ -27,6 +39,8 @@ import com.sougata.sudoku.Database;
 import com.sougata.sudoku.R;
 import com.sougata.sudoku.StartNewGame;
 
+import java.io.File;
+import java.io.FileOutputStream;
 import java.io.OutputStream;
 import java.util.Calendar;
 
@@ -35,7 +49,8 @@ public class GameCompleteActivity extends AppCompatActivity {
 
     StartNewGame startNewGame = new StartNewGame(this);
     Button newGame;
-    LinearLayout goToHome, saveToGallery;
+    LinearLayout goToHome, saveToGallery, shareBtn;
+    FrameLayout screenContainer;
     TextView gameDifficulty, gameTime, gameBestTime, gameLevel, gameMistake;
     Database db;
     GlobalStore globalStore;
@@ -60,6 +75,8 @@ public class GameCompleteActivity extends AppCompatActivity {
         gameBestTime = findViewById(R.id.tv_game_best_time);
         gameLevel = findViewById(R.id.tv_game_level);
         gameMistake = findViewById(R.id.tv_game_mistake);
+        screenContainer = findViewById(R.id.fl_congratulation_screen);
+        shareBtn = findViewById(R.id.ll_share);
 
         loadData();
 
@@ -118,12 +135,17 @@ public class GameCompleteActivity extends AppCompatActivity {
         });
         saveToGallery = findViewById(R.id.ll_save);
         saveToGallery.setOnClickListener(view1 -> {
-            View rootView = findViewById(R.id.fl_congratulation_screen);
-            Calendar c = Calendar.getInstance();
-            String imageName = globalStore.getDifficultyName() + "_" + HelperFunctions.padString(globalStore.getCurrentLevel(), 4) + "_" + c.get(Calendar.YEAR) + "_" + HelperFunctions.padString(c.get(Calendar.MONTH), 2) + "_" + HelperFunctions.padString(c.get(Calendar.DAY_OF_MONTH), 2) + "_" + HelperFunctions.padString(c.get(Calendar.HOUR), 2) + "_" + HelperFunctions.padString(c.get(Calendar.MINUTE), 2) + "_" + HelperFunctions.padString(c.get(Calendar.SECOND), 2) + "_" + HelperFunctions.padString(c.get(Calendar.MILLISECOND), 3);
-            Bitmap image = getScreenShot(rootView);
-            saveImageUsingMediaStore(image, imageName, getContentResolver());
+            LinearLayout board = generateBoard();
+            screenContainer.addView(board, 0);
+            board.post(() -> {
+                Bitmap img = getBitmapFromView(board, board.getWidth(), board.getHeight());
+                screenContainer.removeViewAt(0);
+                Calendar c = Calendar.getInstance();
+                String imageName = globalStore.getDifficultyName() + "_" + HelperFunctions.padString(globalStore.getCurrentLevel(), 4) + "_" + c.get(Calendar.YEAR) + "_" + HelperFunctions.padString(c.get(Calendar.MONTH), 2) + "_" + HelperFunctions.padString(c.get(Calendar.DAY_OF_MONTH), 2) + "_" + HelperFunctions.padString(c.get(Calendar.HOUR), 2) + "_" + HelperFunctions.padString(c.get(Calendar.MINUTE), 2) + "_" + HelperFunctions.padString(c.get(Calendar.SECOND), 2) + "_" + HelperFunctions.padString(c.get(Calendar.MILLISECOND), 3);
+                saveImageUsingMediaStore(img, imageName, this.getContentResolver());
+            });
         });
+        shareBtn.setOnClickListener(v -> shareImage());
     }
 
     public void loadData() {
@@ -151,12 +173,31 @@ public class GameCompleteActivity extends AppCompatActivity {
         gameMistake.setText(String.valueOf(globalStore.getMistakes()));
     }
 
-    public static Bitmap getScreenShot(View view) {
-        View screenView = view.getRootView();
-        screenView.setDrawingCacheEnabled(true);
-        Bitmap bitmap = Bitmap.createBitmap(screenView.getDrawingCache());
-        screenView.setDrawingCacheEnabled(false);
-        return bitmap;
+    private void shareImage() {
+        LinearLayout board = generateBoard();
+        screenContainer.addView(board, 0);
+        board.post(() -> {
+            Bitmap img = getBitmapFromView(board, board.getWidth(), board.getHeight());
+            screenContainer.removeViewAt(0);
+            try {
+                File cachePath = new File(getCacheDir(), "images");
+                cachePath.mkdirs();
+                Calendar c = Calendar.getInstance();
+                String imageName = globalStore.getDifficultyName() + "_" + HelperFunctions.padString(globalStore.getCurrentLevel(), 4) + "_" + c.get(Calendar.YEAR) + "_" + HelperFunctions.padString(c.get(Calendar.MONTH), 2) + "_" + HelperFunctions.padString(c.get(Calendar.DAY_OF_MONTH), 2) + "_" + HelperFunctions.padString(c.get(Calendar.HOUR), 2) + "_" + HelperFunctions.padString(c.get(Calendar.MINUTE), 2) + "_" + HelperFunctions.padString(c.get(Calendar.SECOND), 2) + "_" + HelperFunctions.padString(c.get(Calendar.MILLISECOND), 3);
+                File file = new File(cachePath, imageName + ".png");
+                FileOutputStream stream = new FileOutputStream(file);
+                img.compress(Bitmap.CompressFormat.PNG, 100, stream);
+                stream.close();
+                Uri uri = FileProvider.getUriForFile(this, getPackageName() + ".fileProvider", file);
+                Intent shareIntent = new Intent(Intent.ACTION_SEND);
+                shareIntent.setType("image/png");
+                shareIntent.putExtra(Intent.EXTRA_STREAM, uri);
+                shareIntent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+                startActivity(Intent.createChooser(shareIntent, "Share Image"));
+            } catch (Exception ignored) {
+
+            }
+        });
     }
 
     public void saveImageUsingMediaStore(Bitmap bitmap, String fileName, ContentResolver resolver) {
@@ -189,4 +230,126 @@ public class GameCompleteActivity extends AppCompatActivity {
             Toast.makeText(this, "Field to save image", Toast.LENGTH_SHORT).show();
         }
     }
+
+    private LinearLayout generateBoard() {
+        int screenWidth = getResources().getDisplayMetrics().widthPixels;
+        int childHeight = (screenWidth - HelperFunctions.dpToPx(30) - 28) / 9;
+        int childWidth = (screenWidth - HelperFunctions.dpToPx(30) - 28) / 9;
+
+        LinearLayout root = new LinearLayout(this);
+        root.setOrientation(LinearLayout.VERTICAL);
+        root.setLayoutParams(new LinearLayout.LayoutParams(screenWidth, ViewGroup.LayoutParams.WRAP_CONTENT));
+
+        LinearLayout topContainer = new LinearLayout(this);
+        topContainer.setLayoutParams(new LinearLayout.LayoutParams(screenWidth, LinearLayout.LayoutParams.WRAP_CONTENT));
+        topContainer.setBackgroundResource(R.drawable.share_board_bg);
+        topContainer.setGravity(Gravity.CENTER_HORIZONTAL);
+        topContainer.setOrientation(LinearLayout.VERTICAL);
+        topContainer.setPadding(15, HelperFunctions.dpToPx(15), 15, 15);
+
+        LinearLayout boardContainer = new LinearLayout(this);
+        int boardWidth = screenWidth - HelperFunctions.dpToPx(30);
+        boardContainer.setLayoutParams(new LinearLayout.LayoutParams(boardWidth, boardWidth));
+        boardContainer.setOrientation(LinearLayout.VERTICAL);
+        int[][] board = globalStore.getBoard();
+
+        for (int i = 0; i < 9; i++) {
+            LinearLayout row = new LinearLayout(this);
+            row.setOrientation(LinearLayout.HORIZONTAL);
+            row.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
+            for (int j = 0; j < 9; j++) {
+                LinearLayout child = new LinearLayout(this);
+                LinearLayout.LayoutParams childParams = new LinearLayout.LayoutParams(childWidth, childHeight);
+                child.setGravity(Gravity.CENTER);
+                child.setBackground(createBorderDrawable());
+                TextView textView = new TextView(this);
+                textView.setTextAlignment(TextView.TEXT_ALIGNMENT_CENTER);
+                if (board[i][j] != 0) {
+                    textView.setText(String.valueOf(board[i][j]));
+                }
+                textView.setTextColor(Color.BLACK);
+                int margin = 2;
+                if (i % 3 == 0 && j % 3 == 0) {
+                    childParams.setMargins(margin, margin, 0, 0);
+                } else if (i % 3 == 2 && j % 3 == 2) {
+                    childParams.setMargins(0, 0, margin, margin);
+                } else if (i % 3 == 0 && j % 3 == 2) {
+                    childParams.setMargins(0, margin, margin, 0);
+                } else if (i % 3 == 2 && j % 3 == 0) {
+                    childParams.setMargins(margin, 0, 0, margin);
+                } else if (i % 3 == 1 && j % 3 == 0) {
+                    childParams.setMargins(margin, 0, 0, 0);
+                } else if (i % 3 == 0 && j % 3 == 1) {
+                    childParams.setMargins(0, margin, 0, 0);
+                } else if (i % 3 == 2 && j % 3 == 1) {
+                    childParams.setMargins(0, 0, 0, margin);
+                } else if (i % 3 == 1 && j % 3 == 2) {
+                    childParams.setMargins(0, 0, margin, 0);
+                }
+                child.setLayoutParams(childParams);
+                child.addView(textView);
+                row.addView(child);
+            }
+            boardContainer.addView(row);
+        }
+        topContainer.addView(boardContainer);
+
+        TextView shareNote = new TextView(this);
+        LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+        params.setMargins(0, 10, 0, 0);
+        shareNote.setLayoutParams(params);
+        shareNote.setText(R.string.share_note);
+        shareNote.setTextAlignment(View.TEXT_ALIGNMENT_CENTER);
+        shareNote.setTextColor(ContextCompat.getColor(this, R.color.white));
+        shareNote.setTextSize(TypedValue.COMPLEX_UNIT_SP, 16);
+
+        topContainer.addView(shareNote);
+        root.addView(topContainer);
+
+        LinearLayout bottomContainer = new LinearLayout(this);
+        params = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+        bottomContainer.setLayoutParams(params);
+        bottomContainer.setBackgroundResource(R.drawable.share_board_bg_bottom);
+        bottomContainer.setGravity(Gravity.CENTER_VERTICAL);
+        bottomContainer.setOrientation(LinearLayout.HORIZONTAL);
+        int paddingHorizontal = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 20, getResources().getDisplayMetrics());
+        int paddingVertical = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 10, getResources().getDisplayMetrics());
+        bottomContainer.setPadding(paddingHorizontal, paddingVertical, paddingHorizontal, paddingVertical);
+
+        TextView bottomText = new TextView(this);
+        params = new LinearLayout.LayoutParams(0, LinearLayout.LayoutParams.WRAP_CONTENT, 1.0f);
+        bottomText.setLayoutParams(params);
+        bottomText.setText(R.string.keep_your_mind_sharp);
+        bottomText.setTextColor(ContextCompat.getColor(this, R.color.white));
+        bottomText.setTextSize(TypedValue.COMPLEX_UNIT_SP, 20);
+        bottomText.setTypeface(bottomText.getTypeface(), Typeface.BOLD);
+
+        bottomContainer.addView(bottomText);
+
+        ImageView logo = new ImageView(this);
+        int dim = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 50, getResources().getDisplayMetrics());
+        params = new LinearLayout.LayoutParams(dim, dim);
+        logo.setLayoutParams(params);
+        logo.setContentDescription(getString(R.string.app_name));
+        logo.setImageResource(R.drawable.app_icon);
+        bottomContainer.addView(logo);
+        root.addView(bottomContainer);
+
+        return root;
+    }
+
+    private GradientDrawable createBorderDrawable() {
+        GradientDrawable border2 = new GradientDrawable();
+        border2.setStroke(1, ContextCompat.getColor(this, R.color.box_border_color));
+        border2.setColor(Color.WHITE);
+        return border2;
+    }
+
+    private Bitmap getBitmapFromView(View view, int width, int height) {
+        Bitmap bitmap = Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_8888);
+        Canvas canvas = new Canvas(bitmap);
+        view.draw(canvas);
+        return bitmap;
+    }
+
 }

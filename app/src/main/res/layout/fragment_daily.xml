@@ -76,7 +76,6 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="10dp"
                     android:layout_marginTop="-2dp"
-                    android:text="00 / 28"
                     android:textColor="@color/white"
                     android:textSize="16sp" />
             </LinearLayout>
@@ -136,5 +135,4 @@
 
         </LinearLayout>
     </ScrollView>
-
 </LinearLayout>

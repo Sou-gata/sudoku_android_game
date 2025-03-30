@@ -695,7 +695,7 @@ public class GameActivity extends AppCompatActivity {
                 TextView tv1 = (TextView) ll.getChildAt(1);
                 tv.setText(String.valueOf(i + 1));
                 tv.setClickable(true);
-                tv1.setText(numberCounts.get(i + 1) + "");
+                tv1.setText((9 - numberCounts.get(i + 1)) + "");
                 ll.setBackgroundResource(R.drawable.number_bg);
             }
         }
@@ -802,9 +802,6 @@ public class GameActivity extends AppCompatActivity {
         int r = currSelectedCell.row;
         int c = currSelectedCell.col;
         if (r == -1 || c == -1) return;
-//        if (currentBoardState[r][c] != 0){
-//
-//        }
 
         int[] numbs = notes[r][c];
         for (int i = 0; i < numbs.length; i++) {

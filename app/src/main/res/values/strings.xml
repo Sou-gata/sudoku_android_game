@@ -87,6 +87,9 @@
     <string name="strategies">Strategies</string>
     <string name="learn">Learn</string>
     <string name="year_placeholder">2025</string>
+    <string name="share_note">Play with Friends\nSolve the same Sudoku puzzle together</string>
+    <string name="keep_your_mind_sharp">Keep Your Mind Sharp</string>
+    <string name="share">Share</string>
     <string-array name="pause_popup_titles">
         <item>@string/hint</item>
         <item>@string/erase</item>

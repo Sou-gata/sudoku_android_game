@@ -55,7 +55,7 @@ public class DailyFragment extends Fragment {
         completeCount = view.findViewById(R.id.tv_complete_count);
         bottomBorder = view.findViewById(R.id.iv_banner_bottom_border);
         DisplayMetrics displayMetrics = Resources.getSystem().getDisplayMetrics();
-        FrameLayout.LayoutParams params = (FrameLayout.LayoutParams)bottomBorder.getLayoutParams();
+        FrameLayout.LayoutParams params = (FrameLayout.LayoutParams) bottomBorder.getLayoutParams();
         params.height = (int) (displayMetrics.widthPixels * 0.064f);
         bottomBorder.setLayoutParams(params);
 

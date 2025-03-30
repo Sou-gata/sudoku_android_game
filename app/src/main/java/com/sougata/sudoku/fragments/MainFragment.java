@@ -32,6 +32,7 @@ public class MainFragment extends Fragment {
     GlobalStore globalStore;
     Database db;
     StartNewGame startNewGame;
+    Context context;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -77,10 +78,10 @@ public class MainFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_main, container, false);
 
+        context = view.getContext();
         globalStore = GlobalStore.getInstance();
-        db = new Database(getContext());
-        startNewGame = new StartNewGame(getContext());
-        Context context = getContext();
+        db = new Database(context);
+        startNewGame = new StartNewGame(context);
         newGame = view.findViewById(R.id.btn_home_new_game);
         resumeGame = view.findViewById(R.id.ll_home_resume_game);
         resumeStatus = view.findViewById(R.id.tv_main_resume_status);
@@ -89,7 +90,7 @@ public class MainFragment extends Fragment {
         settings.setOnClickListener(view1 -> {
             Intent intent = new Intent(context, SettingsActivity.class);
             startActivity(intent);
-            if (getActivity()!= null) {
+            if (getActivity() != null) {
                 getActivity().overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
             }
         });

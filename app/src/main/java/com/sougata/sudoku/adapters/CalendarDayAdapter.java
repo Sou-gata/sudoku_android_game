@@ -163,7 +163,6 @@ public class CalendarDayAdapter extends BaseAdapter {
     private ArrayList<String> getDateList() {
         ArrayList<String> dateList = new ArrayList<>();
         Cursor cursor = db.getDailyMatch(globalStore.getMonth(), globalStore.getYear());
-        dateList.clear();
         if (cursor.getCount() != 0) {
             cursor.moveToFirst();
             do {
