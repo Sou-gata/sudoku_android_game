@@ -21,12 +21,12 @@
             android:src="@drawable/daily_banner_bottom_border" />
 
         <ImageView
+            android:id="@+id/iv_daily_cup"
             android:layout_width="250dp"
-            android:layout_height="200dp"
+            android:layout_height="175dp"
             android:layout_gravity="bottom|end"
-            android:layout_marginBottom="15dp"
             android:contentDescription="@string/cup"
-            android:src="@drawable/cup" />
+            android:src="@drawable/cup_04" />
 
         <LinearLayout
             android:layout_width="wrap_content"

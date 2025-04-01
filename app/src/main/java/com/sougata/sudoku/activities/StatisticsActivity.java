@@ -5,6 +5,7 @@ import android.view.View;
 import android.widget.ImageView;
 
 import androidx.activity.EdgeToEdge;
+import androidx.activity.OnBackPressedCallback;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.sougata.sudoku.R;
@@ -33,6 +34,14 @@ public class StatisticsActivity extends AppCompatActivity {
         backButton.setOnClickListener(v -> {
             finish();
             overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
+        });
+
+        getOnBackPressedDispatcher().addCallback(this, new OnBackPressedCallback(true) {
+            @Override
+            public void handleOnBackPressed() {
+                finish();
+                overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
+            }
         });
     }
 }

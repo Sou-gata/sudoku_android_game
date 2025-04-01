@@ -192,6 +192,7 @@ public class GameCompleteActivity extends AppCompatActivity {
                 Intent shareIntent = new Intent(Intent.ACTION_SEND);
                 shareIntent.setType("image/png");
                 shareIntent.putExtra(Intent.EXTRA_STREAM, uri);
+                shareIntent.putExtra(Intent.EXTRA_TEXT, ContextCompat.getString(this, R.string.share_message));
                 shareIntent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
                 startActivity(Intent.createChooser(shareIntent, "Share Image"));
             } catch (Exception ignored) {
@@ -243,13 +244,16 @@ public class GameCompleteActivity extends AppCompatActivity {
         LinearLayout topContainer = new LinearLayout(this);
         topContainer.setLayoutParams(new LinearLayout.LayoutParams(screenWidth, LinearLayout.LayoutParams.WRAP_CONTENT));
         topContainer.setBackgroundResource(R.drawable.share_board_bg);
-        topContainer.setGravity(Gravity.CENTER_HORIZONTAL);
+        topContainer.setGravity(Gravity.CENTER);
         topContainer.setOrientation(LinearLayout.VERTICAL);
-        topContainer.setPadding(15, HelperFunctions.dpToPx(15), 15, 15);
+        int padding = HelperFunctions.dpToPx(15);
+        topContainer.setPadding(0, padding, 0, padding);
 
         LinearLayout boardContainer = new LinearLayout(this);
         int boardWidth = screenWidth - HelperFunctions.dpToPx(30);
-        boardContainer.setLayoutParams(new LinearLayout.LayoutParams(boardWidth, boardWidth));
+        LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(boardWidth, boardWidth);
+        params.setMargins(6, 0, 0, 0);
+        boardContainer.setLayoutParams(params);
         boardContainer.setOrientation(LinearLayout.VERTICAL);
         int[][] board = globalStore.getBoard();
 
@@ -295,7 +299,7 @@ public class GameCompleteActivity extends AppCompatActivity {
         topContainer.addView(boardContainer);
 
         TextView shareNote = new TextView(this);
-        LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+        params = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
         params.setMargins(0, 10, 0, 0);
         shareNote.setLayoutParams(params);
         shareNote.setText(R.string.share_note);

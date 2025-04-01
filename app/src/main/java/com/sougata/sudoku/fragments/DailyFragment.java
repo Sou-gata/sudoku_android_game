@@ -30,11 +30,12 @@ public class DailyFragment extends Fragment {
     private final String[] days = new String[]{"S", "M", "T", "W", "T", "F", "S"};
     ArrayList<String> dayList = new ArrayList<>();
 
-    ImageView previousMonth, nextMonth, bottomBorder;
+    ImageView previousMonth, nextMonth, bottomBorder, dailyCup;
     TextView tvMonth, tvYear, completeCount;
     int currentMonthDaysCount;
     private GestureDetector gestureDetector;
     boolean isNextMontDisabled = true;
+    int[] cups = {R.drawable.cup_01, R.drawable.cup_02, R.drawable.cup_03, R.drawable.cup_04, R.drawable.cup_05, R.drawable.cup_06, R.drawable.cup_07, R.drawable.cup_08, R.drawable.cup_09, R.drawable.cup_10, R.drawable.cup_11, R.drawable.cup_12};
     private final GlobalStore globalStore = GlobalStore.getInstance();
 
     @Override
@@ -54,10 +55,14 @@ public class DailyFragment extends Fragment {
         tvYear = view.findViewById(R.id.tv_year);
         completeCount = view.findViewById(R.id.tv_complete_count);
         bottomBorder = view.findViewById(R.id.iv_banner_bottom_border);
+        dailyCup = view.findViewById(R.id.iv_daily_cup);
+
         DisplayMetrics displayMetrics = Resources.getSystem().getDisplayMetrics();
         FrameLayout.LayoutParams params = (FrameLayout.LayoutParams) bottomBorder.getLayoutParams();
         params.height = (int) (displayMetrics.widthPixels * 0.064f);
         bottomBorder.setLayoutParams(params);
+        params = (FrameLayout.LayoutParams) dailyCup.getLayoutParams();
+        params.bottomMargin = (int) (displayMetrics.widthPixels * 0.063f);
 
         gestureDetector = new GestureDetector(requireContext(), new GestureListener());
         gridView.setOnTouchListener(new View.OnTouchListener() {
@@ -78,6 +83,8 @@ public class DailyFragment extends Fragment {
 
         globalStore.setMonth(month.get());
         globalStore.setYear(year.get());
+
+        dailyCup.setImageResource(cups[month.get()]);
 
         generateCalender(month.get(), year.get());
         CalendarDayAdapter adapter = new CalendarDayAdapter(requireContext(), dayList);
@@ -109,7 +116,14 @@ public class DailyFragment extends Fragment {
                         gridView.setTranslationX(-gridView.getWidth());
                         gridView.animate().translationX(0).setDuration(150);
                     });
-
+            dailyCup.animate()
+                    .translationX(gridView.getWidth())
+                    .setDuration(150)
+                    .withEndAction(() -> {
+                        dailyCup.setTranslationX(-gridView.getWidth());
+                        dailyCup.setImageResource(cups[month.get()]);
+                        dailyCup.animate().translationX(0).setDuration(150);
+                    });
 
             globalStore.setMonth(month.get());
             globalStore.setYear(year.get());
@@ -139,6 +153,14 @@ public class DailyFragment extends Fragment {
                         adapter.notifyDataSetChanged();
                         gridView.setTranslationX(gridView.getWidth());
                         gridView.animate().translationX(0).setDuration(150);
+                    });
+            dailyCup.animate()
+                    .translationX(-gridView.getWidth())
+                    .setDuration(150)
+                    .withEndAction(() -> {
+                        dailyCup.setTranslationX(gridView.getWidth());
+                        dailyCup.setImageResource(cups[month.get()]);
+                        dailyCup.animate().translationX(0).setDuration(150);
                     });
             globalStore.setMonth(month.get());
             globalStore.setYear(year.get());

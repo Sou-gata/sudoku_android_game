@@ -12,6 +12,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.activity.EdgeToEdge;
+import androidx.activity.OnBackPressedCallback;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
 
@@ -48,6 +49,15 @@ public class StrategyActivity extends AppCompatActivity {
             finish();
             overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
         });
+
+        getOnBackPressedDispatcher().addCallback(this, new OnBackPressedCallback(true) {
+            @Override
+            public void handleOnBackPressed() {
+                finish();
+                overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
+            }
+        });
+
         WindowManager windowManager = getWindowManager();
         Display display = windowManager.getDefaultDisplay();
         Point size = new Point();

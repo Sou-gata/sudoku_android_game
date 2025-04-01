@@ -2,12 +2,13 @@ package com.sougata.sudoku.activities;
 
 import android.os.Bundle;
 import android.view.View;
-import android.view.ViewTreeObserver;
+import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.activity.EdgeToEdge;
+import androidx.activity.OnBackPressedCallback;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.text.HtmlCompat;
 import androidx.viewpager2.widget.ViewPager2;
@@ -43,22 +44,22 @@ public class PlayGuideActivity extends AppCompatActivity {
             overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
         });
 
+        getOnBackPressedDispatcher().addCallback(this, new OnBackPressedCallback(true) {
+            @Override
+            public void handleOnBackPressed() {
+                finish();
+                overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
+            }
+        });
+
         viewPager.setAdapter(adapter);
         viewPager.setOrientation(ViewPager2.ORIENTATION_HORIZONTAL);
 
-        ViewTreeObserver viewTreeObserver = viewPager.getViewTreeObserver();
-        if (viewTreeObserver.isAlive()) {
-            viewTreeObserver.addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
-                @Override
-                public void onGlobalLayout() {
-                    viewPager.getViewTreeObserver().removeOnGlobalLayoutListener(this);
-                    int width = viewPager.getWidth();
-                    int height = (int) (width * 1.7);
-                    LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, height);
-                    viewPager.setLayoutParams(params);
-                }
-            });
-        }
+        viewPager.post(() -> {
+            int height = (int) (viewPager.getWidth() * 1.7);
+            LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, height);
+            viewPager.setLayoutParams(params);
+        });
 
         viewPager.registerOnPageChangeCallback(new ViewPager2.OnPageChangeCallback() {
             @Override

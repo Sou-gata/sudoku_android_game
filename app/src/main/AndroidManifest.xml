@@ -17,6 +17,9 @@
         android:theme="@style/Theme.Sudoku"
         tools:targetApi="31">
         <activity
+            android:name=".activities.AwardsActivity"
+            android:exported="false" />
+        <activity
             android:name=".activities.StrategyActivity"
             android:exported="false" />
         <activity
@@ -62,7 +65,6 @@
                 android:name="android.support.FILE_PROVIDER_PATHS"
                 android:resource="@xml/file_paths" />
         </provider>
-
     </application>
 
 </manifest>

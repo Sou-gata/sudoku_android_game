@@ -6,6 +6,7 @@ import android.view.View;
 import android.widget.ImageView;
 
 import androidx.activity.EdgeToEdge;
+import androidx.activity.OnBackPressedCallback;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -49,7 +50,18 @@ public class HistoryActivity extends AppCompatActivity implements ButtonClickLis
         HistoryRecyclerViewAdapter adapter = new HistoryRecyclerViewAdapter(items, this, this);
         historyRecyclerView.setAdapter(adapter);
 
-        backBtn.setOnClickListener(v -> finish());
+        backBtn.setOnClickListener(v -> {
+            finish();
+            overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
+        });
+
+        getOnBackPressedDispatcher().addCallback(this, new OnBackPressedCallback(true) {
+            @Override
+            public void handleOnBackPressed() {
+                finish();
+                overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
+            }
+        });
     }
 
     private void loadHistory() {

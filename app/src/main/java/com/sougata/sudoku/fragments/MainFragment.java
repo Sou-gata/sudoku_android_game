@@ -20,6 +20,7 @@ import com.sougata.HelperFunctions;
 import com.sougata.sudoku.Database;
 import com.sougata.sudoku.R;
 import com.sougata.sudoku.StartNewGame;
+import com.sougata.sudoku.activities.AwardsActivity;
 import com.sougata.sudoku.activities.GameActivity;
 import com.sougata.sudoku.activities.SettingsActivity;
 
@@ -28,7 +29,7 @@ public class MainFragment extends Fragment {
     Button newGame;
     LinearLayout resumeGame;
     TextView resumeStatus;
-    ImageView settings;
+    ImageView settings, awards;
     GlobalStore globalStore;
     Database db;
     StartNewGame startNewGame;
@@ -86,9 +87,18 @@ public class MainFragment extends Fragment {
         resumeGame = view.findViewById(R.id.ll_home_resume_game);
         resumeStatus = view.findViewById(R.id.tv_main_resume_status);
         settings = view.findViewById(R.id.iv_home_settings);
+        awards = view.findViewById(R.id.iv_home_cup);
 
         settings.setOnClickListener(view1 -> {
             Intent intent = new Intent(context, SettingsActivity.class);
+            startActivity(intent);
+            if (getActivity() != null) {
+                getActivity().overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
+            }
+        });
+
+        awards.setOnClickListener(view1 -> {
+            Intent intent = new Intent(context, AwardsActivity.class);
             startActivity(intent);
             if (getActivity() != null) {
                 getActivity().overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);

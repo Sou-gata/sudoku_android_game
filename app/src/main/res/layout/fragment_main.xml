@@ -9,22 +9,37 @@
     android:orientation="vertical"
     tools:context=".fragments.MainFragment">
 
-    <LinearLayout
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="50dp"
         android:orientation="horizontal"
         android:paddingHorizontal="20dp">
-
         <ImageView
             android:id="@+id/iv_home_settings"
             android:layout_width="35dp"
             android:layout_height="35dp"
             android:contentDescription="@string/settings"
             android:padding="5dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
             android:src="@drawable/ic_settings"
             app:tint="#444444" />
-    </LinearLayout>
+
+        <ImageView
+            android:id="@+id/iv_home_cup"
+            android:layout_width="35dp"
+            android:layout_height="35dp"
+            android:contentDescription="@string/cup"
+            android:padding="5dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:src="@drawable/ic_cup_month"
+            app:tint="#444444" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
     <LinearLayout
         android:layout_width="match_parent"

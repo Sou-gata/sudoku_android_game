@@ -553,14 +553,16 @@ public class GameActivity extends AppCompatActivity {
         }
         try {
             numberCounts.put(currentBoardState[row][col], numberCounts.get(currentBoardState[row][col]) + 1);
-            if (numberCounts.get(currentBoardState[row][col]) == 9) {
                 LinearLayout ll = (LinearLayout) numberRow.getChildAt(currentBoardState[row][col] - 1);
-                TextView tv = (TextView) numberRow.getChildAt(0);
                 TextView tv1 = (TextView) ll.getChildAt(1);
+            if (numberCounts.get(currentBoardState[row][col]) == 9) {
+                TextView tv = (TextView) ll.getChildAt(0);
                 tv.setClickable(false);
                 tv.setText("");
                 tv1.setText("");
                 ll.setBackground(null);
+            } else {
+                tv1.setText(String.valueOf(9 - numberCounts.get(currentBoardState[row][col])));
             }
         } catch (NullPointerException ignored) {
         }

@@ -13,6 +13,7 @@ import android.widget.LinearLayout.LayoutParams;
 import android.widget.TextView;
 
 import androidx.activity.EdgeToEdge;
+import androidx.activity.OnBackPressedCallback;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
 import androidx.core.content.ContextCompat;
@@ -55,6 +56,14 @@ public class StrategiesActivity extends AppCompatActivity {
         for (int i = 0; i < strategies.size(); i++) {
             llStrategiesContainer.addView(generateCardView(strategies.get(i)));
         }
+
+        getOnBackPressedDispatcher().addCallback(this, new OnBackPressedCallback(true) {
+            @Override
+            public void handleOnBackPressed() {
+                finish();
+                overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
+            }
+        });
     }
 
     private void loadJsonFromAssets() {
