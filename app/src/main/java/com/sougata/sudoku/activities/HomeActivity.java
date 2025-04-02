@@ -1,5 +1,6 @@
 package com.sougata.sudoku.activities;
 
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Point;
 import android.os.Bundle;
@@ -71,7 +72,14 @@ public class HomeActivity extends AppCompatActivity {
 
         loadSettings();
 
-        replaceFragment(new MainFragment(), currentPosition);
+        Intent intent = getIntent();
+        if (intent.getBooleanExtra("fromAwards", false)){
+            int month = intent.getIntExtra("month", -1);
+            int year = intent.getIntExtra("year", -1);
+            replaceFragment(new DailyFragment(month, year), currentPosition);
+        } else {
+            replaceFragment(new MainFragment(), currentPosition);
+        }
         bottomNavigationView.setOnItemSelectedListener(item -> {
             int position = getMenuItemPosition(bottomNavigationView, item.getItemId());
             if (item.getItemId() == R.id.bm_main) {

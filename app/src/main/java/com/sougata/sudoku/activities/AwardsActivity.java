@@ -2,7 +2,9 @@ package com.sougata.sudoku.activities;
 
 import static com.sougata.HelperFunctions.dpToPx;
 
+import android.content.Intent;
 import android.database.Cursor;
+import android.graphics.Color;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.util.TypedValue;
@@ -21,6 +23,7 @@ import androidx.cardview.widget.CardView;
 import androidx.core.content.ContextCompat;
 
 import com.sougata.Constants;
+import com.sougata.HelperFunctions;
 import com.sougata.sudoku.Database;
 import com.sougata.sudoku.R;
 
@@ -142,23 +145,24 @@ public class AwardsActivity extends AppCompatActivity {
         int completedDays = getCompleteCount(month, year);
         LinearLayout cell = new LinearLayout(this);
         cell.setOrientation(LinearLayout.VERTICAL);
-        cell.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT));
+        int cellWidth = HelperFunctions.getScreenWidth(this) / 3;
+        cell.setLayoutParams(new LinearLayout.LayoutParams(cellWidth, LinearLayout.LayoutParams.WRAP_CONTENT));
         FrameLayout trophyContainer = new FrameLayout(this);
         trophyContainer.setLayoutParams(new FrameLayout.LayoutParams(FrameLayout.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT));
         ImageView trophy = new ImageView(this);
         int dim = dpToPx(125);
-        trophy.setLayoutParams(new FrameLayout.LayoutParams(dim, dim));
+        trophy.setLayoutParams(new FrameLayout.LayoutParams(cellWidth, cellWidth));
         trophy.setImageResource(trophyImages[month + (completedDays == totalDays ? 12 : 0)]);
         trophyContainer.addView(trophy);
 
         TextView wins = new TextView(this);
-        FrameLayout.LayoutParams p = new FrameLayout.LayoutParams(FrameLayout.LayoutParams.WRAP_CONTENT, FrameLayout.LayoutParams.WRAP_CONTENT);
+        FrameLayout.LayoutParams p = new FrameLayout.LayoutParams(cellWidth, FrameLayout.LayoutParams.WRAP_CONTENT);
         p.setMargins(0, 0, 0, (int) (dim * 0.085));
-        p.gravity = Gravity.CENTER_HORIZONTAL | Gravity.BOTTOM;
+        p.gravity = Gravity.BOTTOM;
         wins.setLayoutParams(p);
         String text = completedDays + "/" + totalDays;
         wins.setText(text);
-        wins.setTextAlignment(View.TEXT_ALIGNMENT_CENTER);
+        wins.setTextAlignment(TextView.TEXT_ALIGNMENT_CENTER);
         wins.setTextColor(ContextCompat.getColor(this, R.color.black));
         wins.setTextSize(TypedValue.COMPLEX_UNIT_SP, 12);
         trophyContainer.addView(wins);
@@ -171,6 +175,17 @@ public class AwardsActivity extends AppCompatActivity {
         monthName.setTextColor(ContextCompat.getColor(this, R.color.black));
         monthName.setTextAlignment(View.TEXT_ALIGNMENT_CENTER);
         cell.addView(monthName);
+
+        cell.setOnClickListener(v->{
+            Intent intent = new Intent(this, HomeActivity.class);
+            intent.putExtra("fromAwards", true);
+            intent.putExtra("month", month);
+            intent.putExtra("year", year);
+            startActivity(intent);
+            overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
+            finish();
+        });
+
         return cell;
     }
 

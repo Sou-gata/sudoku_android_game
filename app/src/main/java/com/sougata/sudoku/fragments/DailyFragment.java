@@ -35,7 +35,20 @@ public class DailyFragment extends Fragment {
     int currentMonthDaysCount;
     private GestureDetector gestureDetector;
     boolean isNextMontDisabled = true;
-    int[] cups = {R.drawable.cup_01, R.drawable.cup_02, R.drawable.cup_03, R.drawable.cup_04, R.drawable.cup_05, R.drawable.cup_06, R.drawable.cup_07, R.drawable.cup_08, R.drawable.cup_09, R.drawable.cup_10, R.drawable.cup_11, R.drawable.cup_12};
+    int m=-1, y=-1;
+
+    public DailyFragment() {
+    }
+
+    public DailyFragment(int month, int year) {
+        this.m = month;
+        this.y = year;
+    }
+
+    int[] cups = {
+            R.drawable.cup_01, R.drawable.cup_02, R.drawable.cup_03, R.drawable.cup_04, R.drawable.cup_05, R.drawable.cup_06, R.drawable.cup_07, R.drawable.cup_08, R.drawable.cup_09, R.drawable.cup_10, R.drawable.cup_11, R.drawable.cup_12,
+            R.drawable.cup_13, R.drawable.cup_14, R.drawable.cup_15, R.drawable.cup_16, R.drawable.cup_17, R.drawable.cup_18, R.drawable.cup_19, R.drawable.cup_20, R.drawable.cup_21, R.drawable.cup_22, R.drawable.cup_23, R.drawable.cup_24
+    };
     private final GlobalStore globalStore = GlobalStore.getInstance();
 
     @Override
@@ -81,10 +94,13 @@ public class DailyFragment extends Fragment {
         AtomicInteger year = new AtomicInteger(c.get(Calendar.YEAR));
         AtomicInteger month = new AtomicInteger(c.get(Calendar.MONTH));
 
+        if (m != -1) {
+            month.set(m);
+            year.set(y);
+        }
+
         globalStore.setMonth(month.get());
         globalStore.setYear(year.get());
-
-        dailyCup.setImageResource(cups[month.get()]);
 
         generateCalender(month.get(), year.get());
         CalendarDayAdapter adapter = new CalendarDayAdapter(requireContext(), dayList);
@@ -102,6 +118,8 @@ public class DailyFragment extends Fragment {
         tvMonth.setText(Constants.FULL_MONTHS[month.get()]);
         String complete = globalStore.getDailyCompleted() + "/" + currentMonthDaysCount;
         completeCount.setText(complete);
+
+        dailyCup.setImageResource(cups[month.get() + (globalStore.getDailyCompleted() == currentMonthDaysCount ? 12 : 0)]);
 
         previousMonth.setOnClickListener(view1 -> {
             c.add(Calendar.MONTH, -1);
@@ -121,7 +139,7 @@ public class DailyFragment extends Fragment {
                     .setDuration(150)
                     .withEndAction(() -> {
                         dailyCup.setTranslationX(-gridView.getWidth());
-                        dailyCup.setImageResource(cups[month.get()]);
+                        dailyCup.setImageResource(cups[month.get() + (globalStore.getDailyCompleted() == currentMonthDaysCount ? 12 : 0)]);
                         dailyCup.animate().translationX(0).setDuration(150);
                     });
 
@@ -159,7 +177,7 @@ public class DailyFragment extends Fragment {
                     .setDuration(150)
                     .withEndAction(() -> {
                         dailyCup.setTranslationX(gridView.getWidth());
-                        dailyCup.setImageResource(cups[month.get()]);
+                        dailyCup.setImageResource(cups[month.get() + (globalStore.getDailyCompleted() == currentMonthDaysCount ? 12 : 0)]);
                         dailyCup.animate().translationX(0).setDuration(150);
                     });
             globalStore.setMonth(month.get());
