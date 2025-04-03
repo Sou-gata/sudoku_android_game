@@ -69,3 +69,5 @@ width="200" hspace="10" vspace="10">
 width="200" hspace="10" vspace="10">
 <img src="https://raw.githubusercontent.com/Sou-gata/sudoku_android_game/refs/heads/main/screenshots/5.jpg" align="left"
 width="200" hspace="10" vspace="10">
+<img src="https://raw.githubusercontent.com/Sou-gata/sudoku_android_game/refs/heads/main/screenshots/6.jpg" align="left"
+width="200" hspace="10" vspace="10">

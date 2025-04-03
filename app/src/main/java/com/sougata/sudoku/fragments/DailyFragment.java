@@ -12,12 +12,14 @@ import android.view.ViewGroup;
 import android.widget.FrameLayout;
 import android.widget.GridView;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.fragment.app.Fragment;
 
 import com.sougata.Constants;
 import com.sougata.GlobalStore;
+import com.sougata.HelperFunctions;
 import com.sougata.sudoku.R;
 import com.sougata.sudoku.adapters.CalendarDayAdapter;
 
@@ -31,11 +33,12 @@ public class DailyFragment extends Fragment {
     ArrayList<String> dayList = new ArrayList<>();
 
     ImageView previousMonth, nextMonth, bottomBorder, dailyCup;
-    TextView tvMonth, tvYear, completeCount;
+    TextView tvMonth, tvYear, completeCount, playBtnDate;
+    LinearLayout playButton;
     int currentMonthDaysCount;
     private GestureDetector gestureDetector;
     boolean isNextMontDisabled = true;
-    int m=-1, y=-1;
+    int m = -1, y = -1;
 
     public DailyFragment() {
     }
@@ -69,6 +72,8 @@ public class DailyFragment extends Fragment {
         completeCount = view.findViewById(R.id.tv_complete_count);
         bottomBorder = view.findViewById(R.id.iv_banner_bottom_border);
         dailyCup = view.findViewById(R.id.iv_daily_cup);
+        playButton = view.findViewById(R.id.ll_daily_play);
+        playBtnDate = view.findViewById(R.id.tv_daily_play_date);
 
         DisplayMetrics displayMetrics = Resources.getSystem().getDisplayMetrics();
         FrameLayout.LayoutParams params = (FrameLayout.LayoutParams) bottomBorder.getLayoutParams();
@@ -107,6 +112,8 @@ public class DailyFragment extends Fragment {
         gridView.setAdapter(adapter);
 
         Calendar calendar = Calendar.getInstance();
+        String date = HelperFunctions.padString(calendar.get(Calendar.DATE),2)+" "+Constants.FULL_MONTHS[calendar.get(Calendar.MONTH)]+", "+calendar.get(Calendar.YEAR);
+        playBtnDate.setText(date);
 
         if (calendar.get(Calendar.MONTH) == c.get(Calendar.MONTH) && calendar.get(Calendar.YEAR) == c.get(Calendar.YEAR)) {
             nextMonth.setVisibility(View.GONE);
@@ -194,6 +201,10 @@ public class DailyFragment extends Fragment {
                 isNextMontDisabled = false;
             }
         });
+        playButton.setOnClickListener(v -> {
+            Calendar c2 = Calendar.getInstance();
+            CalendarDayAdapter.dayOnClick(c2.get(Calendar.DATE), c2.get(Calendar.MONTH), c2.get(Calendar.YEAR), requireContext());
+        });
 
         return view;
     }
@@ -245,8 +256,7 @@ public class DailyFragment extends Fragment {
                         result = true;
                     }
                 }
-            } catch (Exception exception) {
-                exception.printStackTrace();
+            } catch (Exception ignored) {
             }
             return result;
         }

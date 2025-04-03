@@ -123,15 +123,32 @@
                 android:numColumns="7"
                 android:paddingHorizontal="10dp" />
 
-            <Button
+            <LinearLayout
+                android:id="@+id/ll_daily_play"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="15dp"
-                android:paddingHorizontal="100dp"
-                android:paddingVertical="15dp"
-                android:text="@string/play"
-                android:textColor="@color/white"
-                android:textSize="18sp" />
+                android:background="@drawable/btn_bg_solid"
+                android:gravity="center"
+                android:orientation="vertical"
+                android:paddingHorizontal="70dp"
+                android:paddingVertical="7dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/play"
+                    android:textColor="@color/white"
+                    android:textSize="18sp" />
+
+                <TextView
+                    android:id="@+id/tv_daily_play_date"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="12 December, 2025"
+                    android:textColor="#BFFFFFFF"
+                    android:textSize="12sp" />
+            </LinearLayout>
 
         </LinearLayout>
     </ScrollView>

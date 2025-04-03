@@ -81,6 +81,7 @@ public class StartNewGame {
                 globalStore.setBoard(HelperFunctions.parseTwoDimArray(cursor.getString(6)));
                 globalStore.setSolution(HelperFunctions.parseTwoDimArray(cursor.getString(7)));
                 globalStore.setMistakes(cursor.getInt(9));
+                globalStore.setNotes(HelperFunctions.parseThreeDimArr(cursor.getString(14)));
                 return;
             }
         }

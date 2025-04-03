@@ -478,8 +478,9 @@ public class GameActivity extends AppCompatActivity {
         }
 
         soundPlayer.playErase(this);
-
-        numberCounts.put(currentBoardState[row][col], numberCounts.get(currentBoardState[row][col]) - 1);
+        if (currentBoardState[row][col] == answer[row][col]) {
+            numberCounts.put(currentBoardState[row][col], numberCounts.get(currentBoardState[row][col]) - 1);
+        }
         if (numberCounts.get(currentBoardState[row][col]) < 9) {
             LinearLayout ll = (LinearLayout) numberRow.getChildAt(currentBoardState[row][col] - 1);
             TextView tv = (TextView) ll.getChildAt(0);
@@ -553,8 +554,8 @@ public class GameActivity extends AppCompatActivity {
         }
         try {
             numberCounts.put(currentBoardState[row][col], numberCounts.get(currentBoardState[row][col]) + 1);
-                LinearLayout ll = (LinearLayout) numberRow.getChildAt(currentBoardState[row][col] - 1);
-                TextView tv1 = (TextView) ll.getChildAt(1);
+            LinearLayout ll = (LinearLayout) numberRow.getChildAt(currentBoardState[row][col] - 1);
+            TextView tv1 = (TextView) ll.getChildAt(1);
             if (numberCounts.get(currentBoardState[row][col]) == 9) {
                 TextView tv = (TextView) ll.getChildAt(0);
                 tv.setClickable(false);

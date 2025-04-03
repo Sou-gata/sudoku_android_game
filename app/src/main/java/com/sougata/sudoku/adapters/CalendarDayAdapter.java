@@ -82,54 +82,7 @@ public class CalendarDayAdapter extends BaseAdapter {
             c2.set(Calendar.MILLISECOND, 0);
             globalStore.setDay(Integer.parseInt(day));
             if (c2.before(c) || c2.equals(c)) {
-                dayText.setOnClickListener(view1 -> {
-                    Calendar calendar = HelperFunctions.getCalendar();
-                    calendar.set(Calendar.YEAR, globalStore.getYear());
-                    calendar.set(Calendar.MONTH, globalStore.getMonth());
-                    calendar.set(Calendar.DATE, Integer.parseInt(day));
-                    Intent intent = new Intent(context, GameActivity.class);
-                    Cursor cursor = db.getDailyMatch(calendar.getTimeInMillis());
-                    if (cursor.getCount() > 0) {
-                        cursor.moveToFirst();
-                        globalStore.setId(cursor.getLong(0));
-                        globalStore.setCurrentBoardState(HelperFunctions.parseTwoDimArray(cursor.getString(6)));
-
-                        intent.putExtra("date", calendar.get(Calendar.DATE));
-
-                        BottomSheetDialog bottomSheetDialog = new BottomSheetDialog(context);
-                        View v = LayoutInflater.from(context).inflate(R.layout.bottom_sheet_daily, null);
-                        bottomSheetDialog.setContentView(v);
-                        bottomSheetDialog.show();
-                        TextView cancel = v.findViewById(R.id.tv_bs_cancel);
-                        TextView continueTxt = v.findViewById(R.id.tv_bs_continue);
-                        TextView restart = v.findViewById(R.id.tv_bs_restart);
-
-                        restart.setOnClickListener(view2 -> {
-                            db.restartGame(globalStore.getId(), cursor.getString(6));
-                            globalStore.setTimer(0);
-                            globalStore.setMistakes(0);
-                            globalStore.setBoard(HelperFunctions.parseTwoDimArray(cursor.getString(6)));
-                            globalStore.setSolution(HelperFunctions.parseTwoDimArray(cursor.getString(7)));
-                            globalStore.setDifficultyName(cursor.getString(3));
-                            globalStore.setDifficulty(cursor.getInt(2));
-                            globalStore.setCurrentLevel(cursor.getInt(1));
-                            globalStore.setType(Constants.TYPES[1]);
-                            globalStore.setDay(Integer.parseInt(day));
-                        });
-                        continueTxt.setOnClickListener(view2 -> {
-                            new StartNewGame(context).createDailyGame(Integer.parseInt(day));
-                            bottomSheetDialog.cancel();
-                            context.startActivity(intent);
-                        });
-                        cancel.setOnClickListener(view2 -> {
-                            bottomSheetDialog.cancel();
-                        });
-                    } else {
-                        new StartNewGame(context).createDailyGame(Integer.parseInt(day));
-                        intent.putExtra("date", Integer.parseInt(day));
-                        context.startActivity(intent);
-                    }
-                });
+                dayText.setOnClickListener(view1 -> dayOnClick(Integer.parseInt(day), globalStore.getMonth(), globalStore.getYear(), context));
 
                 dayText.setClickable(true);
                 if (c2.equals(c)) {
@@ -174,5 +127,65 @@ public class CalendarDayAdapter extends BaseAdapter {
         }
         globalStore.setDailyCompleted(dateList.size());
         return dateList;
+    }
+
+    public static void dayOnClick(int day, int month, int year, Context context) {
+        Database db = new Database(context);
+        GlobalStore globalStore = GlobalStore.getInstance();
+        Calendar calendar = HelperFunctions.getCalendar();
+        calendar.set(Calendar.YEAR, year);
+        calendar.set(Calendar.MONTH, month);
+        calendar.set(Calendar.DATE, day);
+        Intent intent = new Intent(context, GameActivity.class);
+        Cursor cursor = db.getDailyMatch(calendar.getTimeInMillis());
+        if (cursor.getCount() > 0) {
+            cursor.moveToFirst();
+            int isCompleted = cursor.getInt(11);
+            globalStore.setId(cursor.getLong(0));
+            globalStore.setCurrentBoardState(HelperFunctions.parseTwoDimArray(cursor.getString(6)));
+
+            intent.putExtra("date", calendar.get(Calendar.DATE));
+
+            BottomSheetDialog bottomSheetDialog = new BottomSheetDialog(context);
+            View v = LayoutInflater.from(context).inflate(R.layout.bottom_sheet_daily, null);
+            bottomSheetDialog.setContentView(v);
+            bottomSheetDialog.show();
+            TextView cancel = v.findViewById(R.id.tv_bs_cancel);
+            TextView continueTxt = v.findViewById(R.id.tv_bs_continue);
+            TextView restart = v.findViewById(R.id.tv_bs_restart);
+
+            restart.setOnClickListener(view2 -> {
+                db.restartGame(globalStore.getId(), cursor.getString(6));
+                globalStore.setTimer(0);
+                globalStore.setMistakes(0);
+                globalStore.setBoard(HelperFunctions.parseTwoDimArray(cursor.getString(6)));
+                globalStore.setSolution(HelperFunctions.parseTwoDimArray(cursor.getString(7)));
+                globalStore.setDifficultyName(cursor.getString(3));
+                globalStore.setDifficulty(cursor.getInt(2));
+                globalStore.setCurrentLevel(cursor.getInt(1));
+                globalStore.setType(Constants.TYPES[1]);
+                globalStore.setDay(day);
+                globalStore.setNotes(new int[9][9][9]);
+                bottomSheetDialog.cancel();
+                context.startActivity(intent);
+            });
+            if (isCompleted == 0) {
+                continueTxt.setVisibility(View.VISIBLE);
+                continueTxt.setOnClickListener(view2 -> {
+                    new StartNewGame(context).createDailyGame(day);
+                    bottomSheetDialog.cancel();
+                    context.startActivity(intent);
+                });
+            } else {
+                continueTxt.setVisibility(View.GONE);
+            }
+            cancel.setOnClickListener(view2 -> {
+                bottomSheetDialog.cancel();
+            });
+        } else {
+            new StartNewGame(context).createDailyGame(day);
+            intent.putExtra("date", day);
+            context.startActivity(intent);
+        }
     }
 }
