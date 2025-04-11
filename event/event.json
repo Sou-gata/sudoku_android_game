@@ -2,11 +2,11 @@
     "id": "8e04f7a8-4f57-4c1f-8bd3-8148789d918c",
     "name": "Happy Easter",
     "assets": {
-        "large_icon": "https://github.com/Sou-gata/sudoku_android_game/blob/main/event/images/banner_icon.png",
-        "activity_background": "https://github.com/Sou-gata/sudoku_android_game/blob/event/images/bg_checkpoint.jpg",
-        "bronze_madel": "https://github.com/Sou-gata/sudoku_android_game/blob/event/images/icon_bronze_001.png",
-        "silver_madel": "https://github.com/Sou-gata/sudoku_android_game/blob/event/images/icon_silver_001.png",
-        "gold_madel": "https://github.com/Sou-gata/sudoku_android_game/blob/event/images/icon_gold_001.png"
+        "large_icon": "https://raw.githubusercontent.com/Sou-gata/sudoku_android_game/refs/heads/main/event/images/banner_icon.png",
+        "activity_background": "https://raw.githubusercontent.com/Sou-gata/sudoku_android_game/refs/heads/main/event/images/bg_checkpoint.jpg",
+        "bronze_madel": "https://raw.githubusercontent.com/Sou-gata/sudoku_android_game/refs/heads/main/event/images/icon_bronze_001.png",
+        "silver_madel": "https://raw.githubusercontent.com/Sou-gata/sudoku_android_game/refs/heads/main/event/images/icon_silver_001.png",
+        "gold_madel": "https://raw.githubusercontent.com/Sou-gata/sudoku_android_game/refs/heads/main/event/images/icon_gold_001.png"
     },
     "start_date": 1742754600000,
     "end_date": 1744569000000,
