@@ -165,10 +165,13 @@ public class GameCompleteActivity extends AppCompatActivity {
         gameDifficulty.setText(globalStore.getDifficultyName());
         gameTime.setText(HelperFunctions.timerToString(globalStore.getTimer()));
         gameBestTime.setText(HelperFunctions.timerToString(minTimer));
-        if (globalStore.getType().equals(Constants.TYPES[0])) {
+        if (!globalStore.getType().equals(Constants.TYPES[1])) {
             gameLevel.setText(String.valueOf(globalStore.getCurrentLevel()));
         } else {
             gameLevel.setText(getString(R.string.daily_challenge));
+        }
+        if (globalStore.getType().equals(Constants.TYPES[2])){
+            findViewById(R.id.ll_best_time).setVisibility(View.GONE);
         }
         gameMistake.setText(String.valueOf(globalStore.getMistakes()));
     }

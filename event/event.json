@@ -4,12 +4,14 @@
     "assets": {
         "large_icon": "https://raw.githubusercontent.com/Sou-gata/sudoku_android_game/refs/heads/main/event/images/banner_icon.png",
         "activity_background": "https://raw.githubusercontent.com/Sou-gata/sudoku_android_game/refs/heads/main/event/images/bg_checkpoint.jpg",
-        "bronze_madel": "https://raw.githubusercontent.com/Sou-gata/sudoku_android_game/refs/heads/main/event/images/icon_bronze_001.png",
-        "silver_madel": "https://raw.githubusercontent.com/Sou-gata/sudoku_android_game/refs/heads/main/event/images/icon_silver_001.png",
-        "gold_madel": "https://raw.githubusercontent.com/Sou-gata/sudoku_android_game/refs/heads/main/event/images/icon_gold_001.png"
+        "bronze_medal": "https://raw.githubusercontent.com/Sou-gata/sudoku_android_game/refs/heads/main/event/images/icon_bronze_001.png",
+        "silver_medal": "https://raw.githubusercontent.com/Sou-gata/sudoku_android_game/refs/heads/main/event/images/icon_silver_001.png",
+        "gold_medal": "https://raw.githubusercontent.com/Sou-gata/sudoku_android_game/refs/heads/main/event/images/icon_gold_001.png"
     },
+    "medal_levels": [10, 20, 30],
+    "medal_names": ["bronze_medal", "silver_medal", "gold_medal"],
     "start_date": 1742754600000,
-    "end_date": 1744569000000,
+    "end_date": 1748759400000,
     "bg_width": 1125,
     "bg_height": 9036,
     "colors": {

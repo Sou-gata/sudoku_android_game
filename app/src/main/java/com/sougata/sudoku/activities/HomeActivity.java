@@ -73,7 +73,7 @@ public class HomeActivity extends AppCompatActivity {
         loadSettings();
 
         Intent intent = getIntent();
-        if (intent.getBooleanExtra("fromAwards", false)){
+        if (intent.getBooleanExtra("fromAwards", false)) {
             int month = intent.getIntExtra("month", -1);
             int year = intent.getIntExtra("year", -1);
             replaceFragment(new DailyFragment(month, year), currentPosition);

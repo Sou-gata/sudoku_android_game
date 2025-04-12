@@ -93,9 +93,7 @@ public class PlayGuideActivity extends AppCompatActivity {
             dots[i].setTextColor(getResources().getColor(R.color.gray, getApplicationContext().getTheme()));
             indicatorLayout.addView(dots[i]);
         }
-
         dots[position].setTextColor(getResources().getColor(R.color.colorPrimary, getApplicationContext().getTheme()));
-
     }
 
 

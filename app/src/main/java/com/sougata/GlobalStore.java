@@ -1,5 +1,7 @@
 package com.sougata;
 
+import org.json.JSONObject;
+
 public class GlobalStore {
     private static final GlobalStore instance = new GlobalStore();
     private int difficulty, mistakes, currentLevel, day, month, year, hints, hintsCount, dailyCompleted;
@@ -10,6 +12,7 @@ public class GlobalStore {
     private int[][][] notes;
     private int timer, mistakeLimit;
     private boolean isPaused = false, sound, vibrate, autoRemoveNotes, numbersHighlight, regionHighlight, isAdvanceNoteEnable;
+    private JSONObject eventDetails;
 
     private GlobalStore() {
     }
@@ -243,5 +246,13 @@ public class GlobalStore {
 
     public void setDailyCompleted(int dailyCompleted) {
         this.dailyCompleted = dailyCompleted;
+    }
+
+    public JSONObject getEventDetails() {
+        return eventDetails;
+    }
+
+    public void setEventDetails(JSONObject eventDetails) {
+        this.eventDetails = eventDetails;
     }
 }

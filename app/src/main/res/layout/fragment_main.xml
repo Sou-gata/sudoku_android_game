@@ -15,16 +15,17 @@
         android:layout_marginTop="50dp"
         android:orientation="horizontal"
         android:paddingHorizontal="20dp">
+
         <ImageView
             android:id="@+id/iv_home_settings"
             android:layout_width="35dp"
             android:layout_height="35dp"
             android:contentDescription="@string/settings"
             android:padding="5dp"
+            android:src="@drawable/ic_settings"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent"
-            android:src="@drawable/ic_settings"
             app:tint="#444444" />
 
         <ImageView
@@ -33,10 +34,10 @@
             android:layout_height="35dp"
             android:contentDescription="@string/cup"
             android:padding="5dp"
+            android:src="@drawable/ic_cup_month"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent"
-            android:src="@drawable/ic_cup_month"
             app:tint="#444444" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
@@ -58,6 +59,60 @@
             android:textColor="#aaaaaa"
             android:textSize="40sp"
             android:textStyle="bold" />
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/btn_event"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:backgroundTint="@color/white"
+            android:visibility="gone"
+            app:cardCornerRadius="10dp"
+            app:cardElevation="5dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:orientation="vertical"
+                android:paddingHorizontal="15dp"
+                android:paddingVertical="10dp">
+
+                <ImageView
+                    android:id="@+id/iv_home_event_icon"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp" />
+
+                <TextView
+                    android:id="@+id/tv_event_title"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:textAlignment="center"
+                    android:textColor="@color/black"
+                    android:textSize="12sp" />
+
+                <TextView
+                    android:id="@+id/tv_event_timer"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:textAlignment="center"
+                    android:textColor="@color/gray"
+                    android:textSize="12sp" />
+
+                <TextView
+                    android:id="@+id/tv_home_event_play"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="7dp"
+                    android:background="@drawable/home_event_btn_bg"
+                    android:text="@string/play"
+                    android:textAlignment="center"
+                    android:textColor="#FFCE6161"
+                    android:textSize="12sp" />
+
+            </LinearLayout>
+        </androidx.cardview.widget.CardView>
 
         <Button
             android:id="@+id/btn_home_new_game"

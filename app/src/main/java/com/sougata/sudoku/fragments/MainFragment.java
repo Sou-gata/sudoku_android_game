@@ -3,6 +3,8 @@ package com.sougata.sudoku.fragments;
 import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
+import android.graphics.Color;
+import android.graphics.drawable.GradientDrawable;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,8 +14,11 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import androidx.cardview.widget.CardView;
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 
+import com.bumptech.glide.Glide;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.sougata.GlobalStore;
 import com.sougata.HelperFunctions;
@@ -21,19 +26,33 @@ import com.sougata.sudoku.Database;
 import com.sougata.sudoku.R;
 import com.sougata.sudoku.StartNewGame;
 import com.sougata.sudoku.activities.AwardsActivity;
+import com.sougata.sudoku.activities.EventActivity;
 import com.sougata.sudoku.activities.GameActivity;
 import com.sougata.sudoku.activities.SettingsActivity;
+
+import org.json.JSONObject;
+
+import java.io.BufferedReader;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.net.URL;
+import java.net.URLConnection;
+import java.util.Calendar;
+import java.util.Timer;
+import java.util.TimerTask;
 
 public class MainFragment extends Fragment {
 
     Button newGame;
     LinearLayout resumeGame;
-    TextView resumeStatus;
-    ImageView settings, awards;
-    GlobalStore globalStore;
+    TextView resumeStatus, eventTitle, eventTimer, eventPlay;
+    ImageView settings, awards, eventIcon;
+    CardView event;
+    GlobalStore globalStore = GlobalStore.getInstance();
     Database db;
     StartNewGame startNewGame;
     Context context;
+    Timer eventTimerObj;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -44,13 +63,33 @@ public class MainFragment extends Fragment {
     public void onResume() {
         super.onResume();
         loadOngoingDb();
+//        loadEventData();
+        startTimer();
     }
 
     @Override
     public void onStart() {
         super.onStart();
         loadOngoingDb();
+        loadEventData();
     }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        stopTimer();
+    }
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        stopTimer();
+    }
+    @Override
+    public void onPause() {
+        super.onPause();
+        stopTimer();
+    }
+
 
     private void loadOngoingDb() {
         Cursor c = db.getOngoingMatch();
@@ -80,7 +119,6 @@ public class MainFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_main, container, false);
 
         context = view.getContext();
-        globalStore = GlobalStore.getInstance();
         db = new Database(context);
         startNewGame = new StartNewGame(context);
         newGame = view.findViewById(R.id.btn_home_new_game);
@@ -88,6 +126,23 @@ public class MainFragment extends Fragment {
         resumeStatus = view.findViewById(R.id.tv_main_resume_status);
         settings = view.findViewById(R.id.iv_home_settings);
         awards = view.findViewById(R.id.iv_home_cup);
+        event = view.findViewById(R.id.btn_event);
+        eventIcon = view.findViewById(R.id.iv_home_event_icon);
+        eventTitle = view.findViewById(R.id.tv_event_title);
+        eventTimer = view.findViewById(R.id.tv_event_timer);
+        eventPlay = view.findViewById(R.id.tv_home_event_play);
+
+        event.setOnClickListener(v -> {
+            Intent intent = new Intent(context, EventActivity.class);
+            startActivity(intent);
+            if (getActivity() != null) {
+                getActivity().overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
+            }
+        });
+        int screenWidth = HelperFunctions.getScreenWidth(context) - HelperFunctions.dpToPx(50);
+        LinearLayout.LayoutParams params = (LinearLayout.LayoutParams) event.getLayoutParams();
+        params.width = screenWidth / 3;
+        event.setLayoutParams(params);
 
         settings.setOnClickListener(view1 -> {
             Intent intent = new Intent(context, SettingsActivity.class);
@@ -153,10 +208,113 @@ public class MainFragment extends Fragment {
             });
         });
 
-        resumeGame.setOnClickListener(view2 ->
-                startActivity(intent)
-        );
+        resumeGame.setOnClickListener(view2 -> startActivity(intent));
 
         return view;
+    }
+
+    private void loadEventData() {
+        Thread thread = new Thread(() -> {
+            try {
+                URL url = new URL(ContextCompat.getString(context, R.string.event_url));
+                URLConnection conn = url.openConnection();
+                InputStream is = conn.getInputStream();
+                BufferedReader reader = new BufferedReader(new InputStreamReader(is));
+                StringBuilder jsonString = new StringBuilder();
+                String line;
+                while ((line = reader.readLine()) != null) {
+                    jsonString.append(line);
+                }
+                reader.close();
+                JSONObject json = new JSONObject(jsonString.toString());
+                String id = json.getString("id").replace("-", "");
+                json.put("id", id);
+                globalStore.setEventDetails(json);
+                String title = json.getString("name");
+                JSONObject colors = json.getJSONObject("colors");
+                String bgColor = colors.getString("banner_bg_color");
+                String textColor = colors.getString("banner_text_color");
+                String iconUrl = json.getJSONObject("assets").getString("large_icon");
+                requireActivity().runOnUiThread(() -> {
+                    eventTitle.setText(title);
+                    Glide.with(context).load(iconUrl).into(eventIcon);
+                    GradientDrawable drawable = (GradientDrawable) eventPlay.getBackground();
+                    drawable.setColor(Color.parseColor(bgColor));
+                    eventPlay.setTextColor(Color.parseColor(textColor));
+                    event.setVisibility(View.VISIBLE);
+                    calculateTime(json);
+                    startTimer();
+                });
+            } catch (Exception e) {
+                requireActivity().runOnUiThread(() -> {
+                    event.setVisibility(View.GONE);
+                });
+                globalStore.setEventDetails(null);
+            }
+        });
+        thread.start();
+    }
+
+    private class Task extends TimerTask {
+        JSONObject json;
+        Task(JSONObject json){
+            this.json = json;
+        }
+        @Override
+        public void run() {
+            calculateTime(json);
+        }
+    }
+    
+
+    private void calculateTime(JSONObject json) {
+        try {
+            Calendar start = Calendar.getInstance();
+            start.setTimeInMillis(json.getLong("start_date"));
+            Calendar end = Calendar.getInstance();
+            end.setTimeInMillis(json.getLong("end_date"));
+            Calendar today = Calendar.getInstance();
+
+            long diffMillis;
+            if (today.before(start)) {
+                diffMillis = start.getTimeInMillis() - today.getTimeInMillis();
+                eventPlay.setText("Coming");
+            } else if (today.after(start) && today.before(end)) {
+                diffMillis = end.getTimeInMillis() - today.getTimeInMillis();
+                eventPlay.setText("Play");
+            } else {
+                diffMillis = -1;
+            }
+            String time;
+            if (diffMillis != -1) {
+                long diffSeconds = diffMillis / 1000;
+                long diffMinutes = diffSeconds / 60;
+                long diffHours = diffMinutes / 60;
+
+                long diffDays = diffHours / 24;
+
+                long remainingHours = diffHours % 24;
+                long remainingMinutes = diffMinutes % 60;
+
+                time = (diffDays + "d " + remainingHours + "h " + remainingMinutes + "m");
+                eventTimer.setText(time);
+            } else {
+                event.setVisibility(View.GONE);
+            }
+        } catch (Exception ignored) {
+        }
+    }
+
+    private void startTimer(){
+        Task task = new Task(globalStore.getEventDetails());
+        eventTimerObj = new Timer();
+        eventTimerObj.schedule(task, 1000, 1000);
+    }
+
+    private void stopTimer(){
+        if (eventTimerObj != null){
+            eventTimerObj.cancel();
+            eventTimerObj = null;
+        }
     }
 }

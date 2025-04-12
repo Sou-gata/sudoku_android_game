@@ -82,7 +82,7 @@
     <string name="mistakes_10">10 Mistakes</string>
     <string name="advance_note">Advance Note</string>
     <string name="use_hints_when_you_get_stuck">Use hints when you get stuck</string>
-    <string name="no_hint_toast_message"></string>
+    <string name="no_hint_toast_message">No hints left</string>
     <string name="no_advance_note_toast_message">Complete more levels to get more advance notes</string>
     <string name="strategies">Strategies</string>
     <string name="learn">Learn</string>
@@ -90,8 +90,12 @@
     <string name="share_note">Play with Friends\nSolve the same Sudoku puzzle together</string>
     <string name="keep_your_mind_sharp">Keep Your Mind Sharp</string>
     <string name="share">Share</string>
-    <string name="share_message">Can you solve this? Check out your skill here\nhttps://github.com/Sou-gata/sudoku_android_game/releases/download/V_1.0.7/Sudoku_V_1.0.7.apk\nChallenge your brain now</string>
+    <string name="share_message">Can you solve this? Check out your skill here\nhttps://github.com/Sou-gata/sudoku_android_game/releases/download/V_1.1.0/Sudoku_V_1.1.0.apk\nChallenge your brain now</string>
+    <string name="event_url">https://raw.githubusercontent.com/Sou-gata/sudoku_android_game/refs/heads/main/event/event.json</string>
+    <string name="coming_soon">Coming soon</string>
     <string name="awards">Awards</string>
+    <string name="event">Event</string>
+    <string name="event_timer_placeholder">11 d 10 h 30 m</string>
     <string-array name="pause_popup_titles">
         <item>@string/hint</item>
         <item>@string/erase</item>

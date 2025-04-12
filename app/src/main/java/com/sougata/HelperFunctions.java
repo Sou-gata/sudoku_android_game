@@ -2,13 +2,19 @@ package com.sougata;
 
 import android.content.Context;
 import android.content.res.Resources;
+import android.util.Base64;
 import android.util.DisplayMetrics;
 import android.view.WindowManager;
 import android.view.WindowMetrics;
 
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Locale;
+
+import javax.crypto.Cipher;
+import javax.crypto.spec.IvParameterSpec;
+import javax.crypto.spec.SecretKeySpec;
 
 public class HelperFunctions {
     public static int dpToPx(int dp) {
@@ -187,6 +193,65 @@ public class HelperFunctions {
             windowManager.getDefaultDisplay().getMetrics(displayMetrics);
             return displayMetrics.widthPixels;
         }
+    }
+
+    public static int getScreenHeight(Context context) {
+        WindowManager windowManager = context.getSystemService(WindowManager.class);
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.R) {
+            WindowMetrics metrics = windowManager.getCurrentWindowMetrics();
+            return metrics.getBounds().width();
+        } else {
+            DisplayMetrics displayMetrics = new DisplayMetrics();
+            windowManager.getDefaultDisplay().getMetrics(displayMetrics);
+            return displayMetrics.heightPixels;
+        }
+    }
+
+    public static String encrypt(String text, String key) {
+        try {
+            String KEY = key.substring(0, 16);
+            String IV = key.substring(16, 32);
+            SecretKeySpec keySpec = new SecretKeySpec(KEY.getBytes(StandardCharsets.UTF_8), "AES");
+            IvParameterSpec ivSpec = new IvParameterSpec(IV.getBytes(StandardCharsets.UTF_8));
+            Cipher cipher = Cipher.getInstance("AES/CBC/PKCS5Padding");
+            cipher.init(Cipher.ENCRYPT_MODE, keySpec, ivSpec);
+            byte[] encrypted = cipher.doFinal(text.getBytes(StandardCharsets.UTF_8));
+            return Base64.encodeToString(encrypted, Base64.DEFAULT);
+        } catch (Exception ignored) {
+            return "";
+        }
+    }
+
+    public static String decrypt(String text, String key) {
+        try {
+            String KEY = key.substring(0, 16);
+            String IV = key.substring(16, 32);
+            SecretKeySpec keySpec = new SecretKeySpec(KEY.getBytes(StandardCharsets.UTF_8), "AES");
+            IvParameterSpec ivSpec = new IvParameterSpec(IV.getBytes(StandardCharsets.UTF_8));
+            Cipher cipher = Cipher.getInstance("AES/CBC/PKCS5Padding");
+            cipher.init(Cipher.DECRYPT_MODE, keySpec, ivSpec);
+            text = text.replace("\\n", "").replace("\n", "").replace("\r", "").trim();
+            byte[] decoded = Base64.decode(text, Base64.DEFAULT);
+            byte[] decrypted = cipher.doFinal(decoded);
+            return new String(decrypted, StandardCharsets.UTF_8);
+        } catch (Exception ignore) {
+            return "";
+        }
+    }
+
+    public static String getMadelName(String name) {
+        String[] arr = name.split("_");
+        StringBuilder sb = new StringBuilder();
+        for (String s : arr) {
+            sb.append(s.substring(0, 1).toUpperCase()).append(s.substring(1)).append(" ");
+        }
+        return sb.toString().trim();
+    }
+
+    public static String millisToDate(long millis) {
+        Calendar c = Calendar.getInstance();
+        c.setTimeInMillis(millis);
+        return HelperFunctions.padString(c.get(Calendar.DATE), 2) + "-" + HelperFunctions.padString(c.get(Calendar.MONTH) + 1, 2) + "-" + c.get(Calendar.YEAR);
     }
 }
 

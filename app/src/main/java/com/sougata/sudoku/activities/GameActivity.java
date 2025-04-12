@@ -11,6 +11,7 @@ import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.GradientDrawable;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -36,6 +37,9 @@ import com.sougata.sudoku.R;
 import com.sougata.sudoku.SoundPlayer;
 import com.sougata.sudoku.StartNewGame;
 import com.sougata.sudoku.Sudoku;
+
+import org.json.JSONArray;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -83,11 +87,13 @@ public class GameActivity extends AppCompatActivity {
 
         db = new Database(this);
 
-        Cursor c = db.getCompleted(globalStore.getDifficultyName(), globalStore.getType());
-        if (c.getCount() == 0) {
-            globalStore.setCurrentLevel(1);
-        } else {
-            globalStore.setCurrentLevel(c.getCount() + 1);
+        if (!globalStore.getType().equals(Constants.TYPES[2])) {
+            Cursor c = db.getCompleted(globalStore.getDifficultyName(), globalStore.getType());
+            if (c.getCount() == 0) {
+                globalStore.setCurrentLevel(1);
+            } else {
+                globalStore.setCurrentLevel(c.getCount() + 1);
+            }
         }
         globalStore.setPaused(false);
         answer = globalStore.getSolution();
@@ -137,7 +143,7 @@ public class GameActivity extends AppCompatActivity {
         String mistakeString = "Mistake: " + mistakes + "/" + globalStore.getMistakeLimit();
         gameMistakes.setText(mistakeString);
 
-        if (!globalStore.getType().equals("daily")) {
+        if (!globalStore.getType().equals(Constants.TYPES[1])) {
             String curLevelStr = "Level " + (currentLevel == 0 ? "1" : currentLevel);
             currentLevelText.setText(curLevelStr);
             gameDifficulty.setText(difficultyName);
@@ -155,10 +161,10 @@ public class GameActivity extends AppCompatActivity {
 
         hintButton.setOnClickListener(view -> hintClicked());
         backBtn.setOnClickListener(view -> {
-            globalStore.setPaused(true);
             if (popupWindow != null) {
                 popupWindow.dismiss();
             }
+            globalStore.setPaused(true);
             finish();
         });
         pauseGame.setOnClickListener(view -> {
@@ -574,16 +580,47 @@ public class GameActivity extends AppCompatActivity {
     }
 
     private void onGameComplete() {
-        gameTimerObj.cancel();
-        db.makeGameComplete(globalStore.getId());
-        Intent intent = new Intent(this, GameCompleteActivity.class);
-        startActivity(intent);
-        soundPlayer.playGameComplete(this);
-        editor.putInt("hintsCount", hintCount + Constants.HINTS_PER_LEVEL);
-        editor.putFloat("advanceNoteCount", advanceNoteCount + Constants.ADVANCE_NOTE_PER_LEVEL);
-        editor.apply();
-        finish();
-        overridePendingTransition(R.anim.slide_up, R.anim.slide_down);
+        try {
+            gameTimerObj.cancel();
+            db.makeGameComplete(globalStore.getId());
+
+            if (globalStore.getType().equals(Constants.TYPES[2])) {
+                JSONObject json = globalStore.getEventDetails();
+                String id = json.getString("id");
+                String eventName = json.getString("name");
+                JSONArray lvl = json.getJSONArray("medal_levels");
+                JSONArray mdl = json.getJSONArray("medal_names");
+                int[] levels = new int[lvl.length()];
+                String[] medals = new String[mdl.length()];
+                for (int i = 0; i < levels.length; i++) {
+                    levels[i] = lvl.getInt(i);
+                    medals[i] = mdl.getString(i);
+                }
+                int pos = isContain(globalStore.getCurrentLevel(), levels);
+                if (pos != -1) {
+                    Cursor c = db.getEventMedal(id);
+                    String medalUrl = json.getJSONObject("assets").getString(medals[pos]);
+                    String medalName = HelperFunctions.getMadelName(medals[pos]);
+                    if (c.getCount() > 0) {
+                        c.moveToFirst();
+                        db.updateMedal(c.getLong(0), medalName, medalUrl);
+                    } else {
+                        db.addMedal(id, eventName, medalName, medalUrl);
+                    }
+                }
+            }
+
+            Intent intent = new Intent(this, GameCompleteActivity.class);
+            startActivity(intent);
+            soundPlayer.playGameComplete(this);
+            editor.putInt("hintsCount", hintCount + Constants.HINTS_PER_LEVEL);
+            editor.putFloat("advanceNoteCount", advanceNoteCount + Constants.ADVANCE_NOTE_PER_LEVEL);
+            editor.apply();
+            finish();
+            overridePendingTransition(R.anim.slide_up, R.anim.slide_down);
+        } catch (Exception ignore) {
+            finish();
+        }
     }
 
     private boolean isGameCompleted() {
@@ -925,5 +962,12 @@ public class GameActivity extends AppCompatActivity {
             }
         }
         updateOngoingDb();
+    }
+
+    private int isContain(int value, int[] array) {
+        for (int i = 0; i < array.length; i++) {
+            if (array[i] == value) return i;
+        }
+        return -1;
     }
 }

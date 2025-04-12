@@ -38,18 +38,21 @@ public class Database extends SQLiteOpenHelper {
                 "is_completed INTEGER DEFAULT 0," + //11
                 "date INTEGER," + //12
                 "created_at INTEGER," + // 13
-                "notes TEXT DEFAULT '0,0,0,0,0,0,0,0,0|0,0,0,0,0,0,0,0,0|0,0,0,0,0,0,0,0,0|0,0,0,0,0,0,0,0,0|0,0,0,0,0,0,0,0,0|0,0,0,0,0,0,0,0,0|0,0,0,0,0,0,0,0,0|0,0,0,0,0,0,0,0,0|0,0,0,0,0,0,0,0,0;0,0,0,0,0,0,0,0,0|0,0,0,0,0,0,0,0,0|0,0,0,0,0,0,0,0,0|0,0,0,0,0,0,0,0,0|0,0,0,0,0,0,0,0,0|0,0,0,0,0,0,0,0,0|0,0,0,0,0,0,0,0,0|0,0,0,0,0,0,0,0,0|0,0,0,0,0,0,0,0,0;0,0,0,0,0,0,0,0,0|0,0,0,0,0,0,0,0,0|0,0,0,0,0,0,0,0,0|0,0,0,0,0,0,0,0,0|0,0,0,0,0,0,0,0,0|0,0,0,0,0,0,0,0,0|0,0,0,0,0,0,0,0,0|0,0,0,0,0,0,0,0,0|0,0,0,0,0,0,0,0,0;0,0,0,0,0,0,0,0,0|0,0,0,0,0,0,0,0,0|0,0,0,0,0,0,0,0,0|0,0,0,0,0,0,0,0,0|0,0,0,0,0,0,0,0,0|0,0,0,0,0,0,0,0,0|0,0,0,0,0,0,0,0,0|0,0,0,0,0,0,0,0,0|0,0,0,0,0,0,0,0,0;0,0,0,0,0,0,0,0,0|0,0,0,0,0,0,0,0,0|0,0,0,0,0,0,0,0,0|0,0,0,0,0,0,0,0,0|0,0,0,0,0,0,0,0,0|0,0,0,0,0,0,0,0,0|0,0,0,0,0,0,0,0,0|0,0,0,0,0,0,0,0,0|0,0,0,0,0,0,0,0,0;0,0,0,0,0,0,0,0,0|0,0,0,0,0,0,0,0,0|0,0,0,0,0,0,0,0,0|0,0,0,0,0,0,0,0,0|0,0,0,0,0,0,0,0,0|0,0,0,0,0,0,0,0,0|0,0,0,0,0,0,0,0,0|0,0,0,0,0,0,0,0,0|0,0,0,0,0,0,0,0,0;0,0,0,0,0,0,0,0,0|0,0,0,0,0,0,0,0,0|0,0,0,0,0,0,0,0,0|0,0,0,0,0,0,0,0,0|0,0,0,0,0,0,0,0,0|0,0,0,0,0,0,0,0,0|0,0,0,0,0,0,0,0,0|0,0,0,0,0,0,0,0,0|0,0,0,0,0,0,0,0,0;0,0,0,0,0,0,0,0,0|0,0,0,0,0,0,0,0,0|0,0,0,0,0,0,0,0,0|0,0,0,0,0,0,0,0,0|0,0,0,0,0,0,0,0,0|0,0,0,0,0,0,0,0,0|0,0,0,0,0,0,0,0,0|0,0,0,0,0,0,0,0,0|0,0,0,0,0,0,0,0,0;0,0,0,0,0,0,0,0,0|0,0,0,0,0,0,0,0,0|0,0,0,0,0,0,0,0,0|0,0,0,0,0,0,0,0,0|0,0,0,0,0,0,0,0,0|0,0,0,0,0,0,0,0,0|0,0,0,0,0,0,0,0,0|0,0,0,0,0,0,0,0,0|0,0,0,0,0,0,0,0,0;'" + //14
+                "notes TEXT DEFAULT '0,0,0,0,0,0,0,0,0|0,0,0,0,0,0,0,0,0|0,0,0,0,0,0,0,0,0|0,0,0,0,0,0,0,0,0|0,0,0,0,0,0,0,0,0|0,0,0,0,0,0,0,0,0|0,0,0,0,0,0,0,0,0|0,0,0,0,0,0,0,0,0|0,0,0,0,0,0,0,0,0;0,0,0,0,0,0,0,0,0|0,0,0,0,0,0,0,0,0|0,0,0,0,0,0,0,0,0|0,0,0,0,0,0,0,0,0|0,0,0,0,0,0,0,0,0|0,0,0,0,0,0,0,0,0|0,0,0,0,0,0,0,0,0|0,0,0,0,0,0,0,0,0|0,0,0,0,0,0,0,0,0;0,0,0,0,0,0,0,0,0|0,0,0,0,0,0,0,0,0|0,0,0,0,0,0,0,0,0|0,0,0,0,0,0,0,0,0|0,0,0,0,0,0,0,0,0|0,0,0,0,0,0,0,0,0|0,0,0,0,0,0,0,0,0|0,0,0,0,0,0,0,0,0|0,0,0,0,0,0,0,0,0;0,0,0,0,0,0,0,0,0|0,0,0,0,0,0,0,0,0|0,0,0,0,0,0,0,0,0|0,0,0,0,0,0,0,0,0|0,0,0,0,0,0,0,0,0|0,0,0,0,0,0,0,0,0|0,0,0,0,0,0,0,0,0|0,0,0,0,0,0,0,0,0|0,0,0,0,0,0,0,0,0;0,0,0,0,0,0,0,0,0|0,0,0,0,0,0,0,0,0|0,0,0,0,0,0,0,0,0|0,0,0,0,0,0,0,0,0|0,0,0,0,0,0,0,0,0|0,0,0,0,0,0,0,0,0|0,0,0,0,0,0,0,0,0|0,0,0,0,0,0,0,0,0|0,0,0,0,0,0,0,0,0;0,0,0,0,0,0,0,0,0|0,0,0,0,0,0,0,0,0|0,0,0,0,0,0,0,0,0|0,0,0,0,0,0,0,0,0|0,0,0,0,0,0,0,0,0|0,0,0,0,0,0,0,0,0|0,0,0,0,0,0,0,0,0|0,0,0,0,0,0,0,0,0|0,0,0,0,0,0,0,0,0;0,0,0,0,0,0,0,0,0|0,0,0,0,0,0,0,0,0|0,0,0,0,0,0,0,0,0|0,0,0,0,0,0,0,0,0|0,0,0,0,0,0,0,0,0|0,0,0,0,0,0,0,0,0|0,0,0,0,0,0,0,0,0|0,0,0,0,0,0,0,0,0|0,0,0,0,0,0,0,0,0;0,0,0,0,0,0,0,0,0|0,0,0,0,0,0,0,0,0|0,0,0,0,0,0,0,0,0|0,0,0,0,0,0,0,0,0|0,0,0,0,0,0,0,0,0|0,0,0,0,0,0,0,0,0|0,0,0,0,0,0,0,0,0|0,0,0,0,0,0,0,0,0|0,0,0,0,0,0,0,0,0;0,0,0,0,0,0,0,0,0|0,0,0,0,0,0,0,0,0|0,0,0,0,0,0,0,0,0|0,0,0,0,0,0,0,0,0|0,0,0,0,0,0,0,0,0|0,0,0,0,0,0,0,0,0|0,0,0,0,0,0,0,0,0|0,0,0,0,0,0,0,0,0|0,0,0,0,0,0,0,0,0;'," + //14
+                "event_id TEXT DEFAULT 'none'" + // 15
                 ")");
         db.execSQL("CREATE TABLE failed(id INTEGER PRIMARY KEY AUTOINCREMENT, difficulty_name TEXT, level INTEGER, type TEXT DEFAULT 'match')");
+        db.execSQL("CREATE TABLE medals(id INTEGER PRIMARY KEY AUTOINCREMENT, event_id TEXT, event_name TEXT, medal_name TEXT, medal_url TEXT, created_at INTEGER)");
     }
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int i, int i1) {
         db.execSQL("DROP TABLE IF EXISTS games");
         db.execSQL("DROP TABLE IF EXISTS failed");
+        db.execSQL("DROP TABLE IF EXISTS medals");
     }
 
-    public long addNewGame(String level, int difficulty, String difficulty_name, int timer, String current_board_state, String question, String answer, String hints, int mistakes, String type, long date, String notes) {
+    public long addNewGame(String level, int difficulty, String difficulty_name, int timer, String current_board_state, String question, String answer, String hints, int mistakes, String type, long date, String notes, String eventId) {
         Calendar c = Calendar.getInstance();
         c.set(Calendar.HOUR_OF_DAY, 0);
         c.set(Calendar.MINUTE, 0);
@@ -68,13 +71,14 @@ public class Database extends SQLiteOpenHelper {
         contentValues.put("answer", answer);
         contentValues.put("is_completed", 0);
         contentValues.put("notes", notes);
+
+        contentValues.put("event_id", eventId);
         if (date == 0) {
             contentValues.put("date", String.valueOf(c.getTimeInMillis()));
         } else {
             contentValues.put("date", String.valueOf(date));
         }
         contentValues.put("created_at", String.valueOf(Calendar.getInstance().getTimeInMillis()));
-//        contentValues.put("hints", hints);
         return db.insert("games", null, contentValues);
     }
 
@@ -127,6 +131,21 @@ public class Database extends SQLiteOpenHelper {
     public Cursor getDailyMatch(long milli) {
         SQLiteDatabase db = this.getReadableDatabase();
         return db.rawQuery("SELECT * FROM games WHERE date=? AND is_completed=? AND type=?", new String[]{String.valueOf(milli), "0", Constants.TYPES[1]});
+    }
+
+    public Cursor getEventDetails(int level, String eventId) {
+        SQLiteDatabase db = this.getReadableDatabase();
+        return db.rawQuery("SELECT * FROM games WHERE level=? AND event_id=?", new String[]{String.valueOf(level), eventId});
+    }
+
+    public int getEventCompletedLevel(String eventId) {
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.rawQuery("SELECT MAX(level) FROM games WHERE event_id=? AND is_completed=?", new String[]{eventId, "1"});
+        if (cursor.getCount() > 0) {
+            cursor.moveToFirst();
+            return cursor.getInt(0);
+        }
+        return 0;
     }
 
     public void addFailedLevel(String difficulty_name, String level, String type) {
@@ -207,6 +226,36 @@ public class Database extends SQLiteOpenHelper {
     public Cursor getGameById(long id) {
         SQLiteDatabase db = this.getReadableDatabase();
         return db.rawQuery("SELECT * FROM games WHERE id=?", new String[]{String.valueOf(id)});
+    }
+
+    public void addMedal(String eventId, String eventName, String medalName, String medalUrl) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues contentValues = new ContentValues();
+        contentValues.put("event_id", eventId);
+        contentValues.put("event_name", eventName);
+        contentValues.put("medal_name", medalName);
+        contentValues.put("medal_url", medalUrl);
+        contentValues.put("created_at", String.valueOf(Calendar.getInstance().getTimeInMillis()));
+        db.insert("medals", null, contentValues);
+    }
+
+    public Cursor getMedals() {
+        SQLiteDatabase db = this.getReadableDatabase();
+        return db.rawQuery("SELECT * FROM medals ORDER BY created_at DESC", null);
+    }
+
+    public Cursor getEventMedal(String eventId) {
+        SQLiteDatabase db = this.getReadableDatabase();
+        return db.rawQuery("SELECT * FROM medals WHERE event_id=?", new String[]{eventId});
+    }
+
+    public void updateMedal(long id, String medalName, String medalUrl) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues contentValues = new ContentValues();
+        contentValues.put("medal_name", medalName);
+        contentValues.put("medal_url", medalUrl);
+        contentValues.put("created_at", String.valueOf(Calendar.getInstance().getTimeInMillis()));
+        db.update("medals", contentValues, "id=?", new String[]{String.valueOf(id)});
     }
 
     public void printRows() {
