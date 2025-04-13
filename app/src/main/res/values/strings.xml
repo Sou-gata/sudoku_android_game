@@ -96,6 +96,9 @@
     <string name="awards">Awards</string>
     <string name="event">Event</string>
     <string name="event_timer_placeholder">11 d 10 h 30 m</string>
+    <string name="highlight_notes">Highlight Notes</string>
+    <string name="no_event_medal">You have no medal yet.\nTake part in events and get medals.</string>
+    <string name="medal">Medal</string>
     <string-array name="pause_popup_titles">
         <item>@string/hint</item>
         <item>@string/erase</item>

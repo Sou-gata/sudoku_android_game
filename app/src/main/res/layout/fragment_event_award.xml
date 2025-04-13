@@ -1,15 +1,49 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/sv_event_award"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/white"
     tools:context=".fragments.EventAwardFragment">
 
     <LinearLayout
-        android:id="@+id/ll_medals_container"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:padding="15dp"/>
+        android:orientation="vertical">
 
+        <LinearLayout
+            android:id="@+id/ll_medals_container"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="15dp"
+            android:visibility="gone" />
+
+        <LinearLayout
+            android:id="@+id/ll_no_event_medal"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="#F6F7FB"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <ImageView
+                android:layout_width="150dp"
+                android:layout_height="150dp"
+                android:alpha="0.4"
+                android:contentDescription="@string/medal"
+                android:src="@drawable/ic_medal" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:text="@string/no_event_medal"
+                android:textAlignment="center"
+                android:textColor="@color/gray"
+                android:textSize="16sp" />
+        </LinearLayout>
+
+    </LinearLayout>
 </ScrollView>

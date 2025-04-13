@@ -135,6 +135,7 @@ public class HomeActivity extends AppCompatActivity {
         globalStore.setNumbersHighlight(sharedPreferences.getBoolean("numbersHighlight", Constants.HIGHLIGHT_NUMBERS));
         globalStore.setRegionHighlight(sharedPreferences.getBoolean("regionHighlight", Constants.HIGHLIGHT_REGION));
         globalStore.setAdvanceNoteEnable(sharedPreferences.getBoolean("advanceNote", Constants.ADVANCE_NOTE));
+        globalStore.setHighLightNotes(sharedPreferences.getBoolean("highLightNotes", Constants.HIGHLIGHT_NOTES));
         globalStore.setHintsCount(sharedPreferences.getInt("hintsCount", 2));
         globalStore.setAdvanceNoteCount(sharedPreferences.getFloat("advanceNoteCount", 1));
     }

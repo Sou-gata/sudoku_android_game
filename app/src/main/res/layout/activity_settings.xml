@@ -496,6 +496,56 @@
                     android:background="@color/settings_text" />
 
                 <LinearLayout
+                    android:id="@+id/ll_settings_notes_highlight"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal"
+                    android:paddingVertical="15dp">
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal">
+
+                        <ImageView
+                            android:layout_width="@dimen/settings_icon_size"
+                            android:layout_height="@dimen/settings_icon_size"
+                            android:contentDescription="@string/highlight_notes"
+                            android:padding="3dp"
+                            android:src="@drawable/ic_highlight_notes"
+                            app:tint="@color/settings_text" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="10dp"
+                            android:text="@string/highlight_notes"
+                            android:textColor="@color/settings_text"
+                            android:textSize="@dimen/settings_text_size"
+                            android:textStyle="bold" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="end">
+
+                        <com.google.android.material.materialswitch.MaterialSwitch
+                            android:id="@+id/ms_settings_notes_highlight"
+                            android:layout_width="wrap_content"
+                            android:layout_height="30dp"
+                            android:checked="true" />
+                    </LinearLayout>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="1px"
+                    android:background="@color/settings_text" />
+
+                <LinearLayout
                     android:id="@+id/ll_settings_region_highlight"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -539,10 +589,12 @@
                             android:checked="true" />
                     </LinearLayout>
                 </LinearLayout>
+
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="1px"
                     android:background="@color/settings_text" />
+
                 <LinearLayout
                     android:id="@+id/ll_settings_advance_note"
                     android:layout_width="match_parent"

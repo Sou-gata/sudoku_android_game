@@ -26,9 +26,9 @@ import com.sougata.sudoku.R;
 
 public class SettingsActivity extends AppCompatActivity {
 
-    LinearLayout playGuide, statistic, history, llSound, llVibrate, llRemoveNotes, llHighlightNumbers, llHighlightRegion, llMistakeLimit, llAdvanceNote, llStrategies;
+    LinearLayout playGuide, statistic, history, llSound, llVibrate, llRemoveNotes, llHighlightNumbers, llHighlightRegion, llMistakeLimit, llAdvanceNote, llStrategies, llHighlightNotes;
     ImageView backButton;
-    MaterialSwitch msSound, msVibrate, msRemoveNotes, msHighlightNumbers, msHighlightRegion, msAdvanceNote;
+    MaterialSwitch msSound, msVibrate, msRemoveNotes, msHighlightNumbers, msHighlightRegion, msAdvanceNote, msHighlightNotes;
     GlobalStore globalStore = GlobalStore.getInstance();
     SharedPreferences.Editor editor;
 
@@ -62,6 +62,8 @@ public class SettingsActivity extends AppCompatActivity {
         llAdvanceNote = findViewById(R.id.ll_settings_advance_note);
         msAdvanceNote = findViewById(R.id.ms_settings_advance_note);
         llStrategies = findViewById(R.id.ll_settings_strategies);
+        llHighlightNotes = findViewById(R.id.ll_settings_notes_highlight);
+        msHighlightNotes = findViewById(R.id.ms_settings_notes_highlight);
 
         msSound.setClickable(false);
         msVibrate.setClickable(false);
@@ -69,6 +71,7 @@ public class SettingsActivity extends AppCompatActivity {
         msHighlightNumbers.setClickable(false);
         msHighlightRegion.setClickable(false);
         msAdvanceNote.setClickable(false);
+        msHighlightNotes.setClickable(false);
 
         msSound.setChecked(globalStore.getSound());
         msVibrate.setChecked(globalStore.isVibrate());
@@ -76,6 +79,7 @@ public class SettingsActivity extends AppCompatActivity {
         msHighlightNumbers.setChecked(globalStore.getNumbersHighlight());
         msHighlightRegion.setChecked(globalStore.getRegionHighlight());
         msAdvanceNote.setChecked(globalStore.isAdvanceNoteEnable());
+        msHighlightNotes.setChecked(globalStore.isHighLightNotes());
 
         backButton.setOnClickListener(v -> {
             finish();
@@ -121,6 +125,13 @@ public class SettingsActivity extends AppCompatActivity {
             editor.apply();
             globalStore.setNumbersHighlight(isHighlightNumbersChecked);
         });
+        llHighlightNotes.setOnClickListener(v -> {
+            boolean isHighlightNotesChecked = !msHighlightNotes.isChecked();
+            msHighlightNotes.setChecked(isHighlightNotesChecked);
+            editor.putBoolean("highLightNotes", isHighlightNotesChecked);
+            editor.apply();
+            globalStore.setHighLightNotes(isHighlightNotesChecked);
+        });
         llHighlightRegion.setOnClickListener(v -> {
             boolean isHighlightRegionChecked = !msHighlightRegion.isChecked();
             msHighlightRegion.setChecked(isHighlightRegionChecked);
@@ -128,7 +139,7 @@ public class SettingsActivity extends AppCompatActivity {
             editor.apply();
             globalStore.setRegionHighlight(isHighlightRegionChecked);
         });
-        llAdvanceNote.setOnClickListener(v->{
+        llAdvanceNote.setOnClickListener(v -> {
             boolean isAdvanceNoteChecked = !msAdvanceNote.isChecked();
             msAdvanceNote.setChecked(isAdvanceNoteChecked);
             editor.putBoolean("advanceNote", isAdvanceNoteChecked);

@@ -2,7 +2,6 @@ package com.sougata.sudoku;
 
 import android.content.Context;
 import android.database.Cursor;
-import android.util.Log;
 
 import com.sougata.Constants;
 import com.sougata.GlobalStore;
@@ -111,7 +110,7 @@ public class StartNewGame {
         }
         if (eventId.isEmpty()) {
             Sudoku sudoku = new Sudoku(globalStore.getDifficulty());
-            SudokuQuestionAnswer questionAnswer = sudoku.getQuestionAnswer();
+            Sudoku.SudokuQuestionAnswer questionAnswer = sudoku.getQuestionAnswer();
             int[][] question = questionAnswer.question;
             int[][] currentBoardState = new int[question.length][question[0].length];
             for (int i = 0; i < question.length; i++) {

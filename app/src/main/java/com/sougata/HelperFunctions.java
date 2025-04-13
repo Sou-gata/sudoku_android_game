@@ -253,5 +253,10 @@ public class HelperFunctions {
         c.setTimeInMillis(millis);
         return HelperFunctions.padString(c.get(Calendar.DATE), 2) + "-" + HelperFunctions.padString(c.get(Calendar.MONTH) + 1, 2) + "-" + c.get(Calendar.YEAR);
     }
+
+    public static String getDailyDate(){
+        Calendar calendar = Calendar.getInstance();
+        return millisToDate(calendar.getTimeInMillis());
+    }
 }
 

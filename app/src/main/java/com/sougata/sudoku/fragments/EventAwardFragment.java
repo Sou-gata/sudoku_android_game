@@ -11,6 +11,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.ScrollView;
 import android.widget.TextView;
 
 import androidx.core.content.ContextCompat;
@@ -25,7 +26,8 @@ import com.sougata.sudoku.R;
 public class EventAwardFragment extends Fragment {
     Context context;
     Database db;
-    LinearLayout medalsContainer;
+    LinearLayout medalsContainer, noMedal;
+    ScrollView scrollView;
     int screenWidth;
 
     public EventAwardFragment() {
@@ -40,7 +42,6 @@ public class EventAwardFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
     }
 
     @Override
@@ -48,8 +49,15 @@ public class EventAwardFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_event_award, container, false);
 
         medalsContainer = view.findViewById(R.id.ll_medals_container);
+        noMedal = view.findViewById(R.id.ll_no_event_medal);
+        scrollView = view.findViewById(R.id.sv_event_award);
 
         createLayout();
+
+        scrollView.post(() -> {
+            int h = scrollView.getHeight();
+            noMedal.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, h));
+        });
         return view;
     }
 
@@ -59,6 +67,8 @@ public class EventAwardFragment extends Fragment {
         medalsContainer.removeAllViews();
         int w = screenWidth / 3;
         if (medalsCount > 0) {
+            medalsContainer.setVisibility(View.VISIBLE);
+            noMedal.setVisibility(View.GONE);
             cursor.moveToFirst();
             int rowNumber = ((medalsCount - 1) / 3) + 1;
             for (int i = 0; i < rowNumber; i++) {
@@ -121,6 +131,10 @@ public class EventAwardFragment extends Fragment {
                 }
                 medalsContainer.addView(row);
             }
+        }
+        else {
+            medalsContainer.setVisibility(View.GONE);
+            noMedal.setVisibility(View.VISIBLE);
         }
     }
 }

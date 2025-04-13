@@ -13,6 +13,7 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.cardview.widget.CardView;
 import androidx.core.content.ContextCompat;
@@ -45,14 +46,16 @@ public class MainFragment extends Fragment {
 
     Button newGame;
     LinearLayout resumeGame;
-    TextView resumeStatus, eventTitle, eventTimer, eventPlay;
-    ImageView settings, awards, eventIcon;
-    CardView event;
+    TextView resumeStatus, eventTitle, eventTimer, eventPlay, dailyDate;
+    ImageView settings, awards, eventIcon, dailyIcon;
+    CardView event, daily;
     GlobalStore globalStore = GlobalStore.getInstance();
     Database db;
     StartNewGame startNewGame;
     Context context;
     Timer eventTimerObj;
+
+    int[] cups = {R.drawable.cup_13, R.drawable.cup_14, R.drawable.cup_15, R.drawable.cup_16, R.drawable.cup_17, R.drawable.cup_18, R.drawable.cup_19, R.drawable.cup_20, R.drawable.cup_21, R.drawable.cup_22, R.drawable.cup_23, R.drawable.cup_24};
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -127,11 +130,15 @@ public class MainFragment extends Fragment {
         settings = view.findViewById(R.id.iv_home_settings);
         awards = view.findViewById(R.id.iv_home_cup);
         event = view.findViewById(R.id.btn_event);
+        daily = view.findViewById(R.id.cv_daily);
         eventIcon = view.findViewById(R.id.iv_home_event_icon);
         eventTitle = view.findViewById(R.id.tv_event_title);
         eventTimer = view.findViewById(R.id.tv_event_timer);
         eventPlay = view.findViewById(R.id.tv_home_event_play);
+        dailyIcon = view.findViewById(R.id.iv_home_daily_icon);
+        dailyDate = view.findViewById(R.id.tv_daily_date);
 
+        daily.setOnClickListener(v->dailyClicked());
         event.setOnClickListener(v -> {
             Intent intent = new Intent(context, EventActivity.class);
             startActivity(intent);
@@ -143,6 +150,13 @@ public class MainFragment extends Fragment {
         LinearLayout.LayoutParams params = (LinearLayout.LayoutParams) event.getLayoutParams();
         params.width = screenWidth / 3;
         event.setLayoutParams(params);
+        params = (LinearLayout.LayoutParams) daily.getLayoutParams();
+        params.width = screenWidth / 3;
+        params.rightMargin = HelperFunctions.dpToPx(10);
+        daily.setLayoutParams(params);
+
+        dailyIcon.setImageResource(cups[Calendar.getInstance().get(Calendar.MONTH)]);
+        dailyDate.setText(HelperFunctions.getDailyDate());
 
         settings.setOnClickListener(view1 -> {
             Intent intent = new Intent(context, SettingsActivity.class);
@@ -316,5 +330,9 @@ public class MainFragment extends Fragment {
             eventTimerObj.cancel();
             eventTimerObj = null;
         }
+    }
+
+    private void dailyClicked(){
+        Toast.makeText(context, "Daily Challenge.\nComing in next update", Toast.LENGTH_SHORT).show();
     }
 }

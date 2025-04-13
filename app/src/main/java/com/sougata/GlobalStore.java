@@ -11,7 +11,7 @@ public class GlobalStore {
     private int[][] board, solution, currentBoardState;
     private int[][][] notes;
     private int timer, mistakeLimit;
-    private boolean isPaused = false, sound, vibrate, autoRemoveNotes, numbersHighlight, regionHighlight, isAdvanceNoteEnable;
+    private boolean isPaused = false, sound, vibrate, autoRemoveNotes, numbersHighlight, regionHighlight, isAdvanceNoteEnable, highLightNotes;
     private JSONObject eventDetails;
 
     private GlobalStore() {
@@ -254,5 +254,13 @@ public class GlobalStore {
 
     public void setEventDetails(JSONObject eventDetails) {
         this.eventDetails = eventDetails;
+    }
+
+    public boolean isHighLightNotes() {
+        return highLightNotes;
+    }
+
+    public void setHighLightNotes(boolean highLightNotes) {
+        this.highLightNotes = highLightNotes;
     }
 }

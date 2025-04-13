@@ -143,4 +143,14 @@ public class Sudoku {
     public SudokuQuestionAnswer getQuestionAnswer() {
         return sudokuQuestionAnswer;
     }
+
+    public static class SudokuQuestionAnswer{
+        public int[][] question;
+        public int[][] answer;
+
+        SudokuQuestionAnswer(int[][] question, int[][] answer) {
+            this.question = question;
+            this.answer = answer;
+        }
+    }
 }

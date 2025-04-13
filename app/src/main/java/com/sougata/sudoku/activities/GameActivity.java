@@ -11,11 +11,12 @@ import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.GradientDrawable;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -48,7 +49,7 @@ import java.util.TimerTask;
 
 public class GameActivity extends AppCompatActivity {
 
-    int difficulty, mistakes, currentLevel, timer, hintCount;
+    int difficulty, mistakes, currentLevel, timer, hintCount, prevSelectedNum = -1;
     float advanceNoteCount;
     String difficultyName;
     int[][] answer, question, currentBoardState;
@@ -245,6 +246,7 @@ public class GameActivity extends AppCompatActivity {
                 textView.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT));
                 LinearLayout parentHint = new LinearLayout(this);
                 parentHint.setLayoutParams(childParams);
+                parentHint.setPadding(4, 4, 4, 4);
                 parentHint.setOrientation(LinearLayout.VERTICAL);
                 if (currentBoardState[i][j] != 0) {
                     textView.setText(String.valueOf(currentBoardState[i][j]));
@@ -262,7 +264,8 @@ public class GameActivity extends AppCompatActivity {
                                 num.setText("");
                             }
                             num.setLayoutParams(new LinearLayout.LayoutParams(0, LinearLayout.LayoutParams.WRAP_CONTENT, 1));
-                            num.setTextAlignment(TextView.TEXT_ALIGNMENT_CENTER);
+                            num.setPadding(0,0,0,HelperFunctions.dpToPx(2));
+                            num.setGravity(Gravity.CENTER);
                             num.setTextColor(ContextCompat.getColor(this, R.color.gray));
                             num.setTextSize(10f);
                             row.addView(num);
@@ -277,6 +280,14 @@ public class GameActivity extends AppCompatActivity {
                 }
                 textView.setTextSize(25);
                 textView.setGravity(Gravity.CENTER);
+
+                Animation animation = AnimationUtils.loadAnimation(this, R.anim.zoom_in);
+                animation.setStartOffset(((i + j) * 100) + 100);
+                textView.startAnimation(animation);
+
+                Animation animation2 = AnimationUtils.loadAnimation(this, R.anim.zoom_out_two);
+                animation2.setStartOffset(1500);
+                parentHint.startAnimation(animation2);
 
                 childLayout.addView(textView);
                 cellContainerLayout.addView(childLayout);
@@ -314,21 +325,45 @@ public class GameActivity extends AppCompatActivity {
                 FrameLayout cellContainerLayout1 = (FrameLayout) rowLayout1.getChildAt(j);
                 LinearLayout cellLayout1 = (LinearLayout) cellContainerLayout1.getChildAt(0);
                 String txt = textView.getText().toString();
+                if (globalStore.isHighLightNotes()) {
+                    LinearLayout parentHint = (LinearLayout) cellContainerLayout1.getChildAt(1);
+                    if (question[i][j] == 0 && prevSelectedNum != -1) {
+                        int rowIdx = (prevSelectedNum - 1) / 3;
+                        int colIdx = (prevSelectedNum - 1) % 3;
+                        LinearLayout r = (LinearLayout) parentHint.getChildAt(rowIdx);
+                        if (r != null) {
+                            TextView tv = (TextView) r.getChildAt(colIdx);
+                            tv.setTextColor(ContextCompat.getColor(this, R.color.gray));
+                            tv.setBackground(null);
+                        }
+                    }
+                    if (!txt.isEmpty() && question[i][j] == 0) {
+                        int idx = Integer.parseInt(txt) - 1;
+                        LinearLayout hintRow = (LinearLayout) parentHint.getChildAt(idx / 3);
+                        if (hintRow != null) {
+                            TextView hintCell = (TextView) hintRow.getChildAt(idx % 3);
+                            if (hintCell.getText().toString().equals(txt)) {
+                                hintCell.setTextColor(ContextCompat.getColor(this, R.color.white));
+                                hintCell.setBackgroundResource(R.drawable.btn_bg_solid);
+                            }
+                        }
+                    }
+                }
                 if (!txt.isEmpty() && currentBoardState[i][j] == Integer.parseInt(txt)) {
                     if (globalStore.getNumbersHighlight()) {
-                        cellLayout1.setBackground(createBorderDrawable("#c6cbe1"));
+                        cellLayout1.setBackground(createBorderDrawable("#C6CBE1"));
                     } else {
                         cellLayout1.setBackground(createBorderDrawable("#FFFFFF"));
                     }
                 } else {
                     if (globalStore.getRegionHighlight()) {
                         if (selectedBoxRow == currBoxRow && selectedBoxCol == currBoxCol) {
-                            cellLayout1.setBackground(createBorderDrawable("#e7eaf3"));
+                            cellLayout1.setBackground(createBorderDrawable("#E7EAF3"));
                         } else {
                             cellLayout1.setBackground(createBorderDrawable("#FFFFFF"));
                         }
                         if (i == row || j == col) {
-                            cellLayout1.setBackground(createBorderDrawable("#e7eaf3"));
+                            cellLayout1.setBackground(createBorderDrawable("#E7EAF3"));
                         }
                     } else {
                         cellLayout1.setBackground(createBorderDrawable("#FFFFFF"));
@@ -336,6 +371,7 @@ public class GameActivity extends AppCompatActivity {
                 }
             }
         }
+        prevSelectedNum = currentBoardState[row][col] != 0 ? currentBoardState[row][col] : -1;
         updateNumberRowUI();
         cellLayout.setBackground(createBorderDrawable("#c1d2fe"));
     }
@@ -361,7 +397,7 @@ public class GameActivity extends AppCompatActivity {
             textView1.setTextAlignment(TextView.TEXT_ALIGNMENT_CENTER);
             textView1.setTextColor(ContextCompat.getColor(this, R.color.game_number_row_text));
             int fi = i;
-            textView.setOnClickListener(view -> {
+            linearLayout.setOnClickListener(view -> {
                 if (!globalStore.isPaused()) {
                     numberClicked(fi);
                 }
@@ -463,7 +499,6 @@ public class GameActivity extends AppCompatActivity {
             if (!globalStore.isPaused()) {
                 timer++;
                 globalStore.setTimer(timer);
-                db.updateOngoingTimer(globalStore.getId(), timer);
                 ((Activity) gameTimer.getContext()).runOnUiThread(() -> gameTimer.setText(HelperFunctions.timerToString(timer)));
             }
         }
@@ -636,6 +671,7 @@ public class GameActivity extends AppCompatActivity {
 
     public void showPausePopup(View view) {
         isPopupOpened = true;
+        db.updateOngoingTimer(globalStore.getId(), timer);
         LinearLayout popupBg = findViewById(R.id.ll_popup_bg);
         popupBg.setVisibility(View.VISIBLE);
         LayoutInflater inflater = (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
@@ -906,7 +942,6 @@ public class GameActivity extends AppCompatActivity {
             FrameLayout container = (FrameLayout) bRow.getChildAt(c);
             LinearLayout notesLayout = (LinearLayout) container.getChildAt(1);
             if (notesLayout.getChildCount() > 0) {
-
                 LinearLayout notesRow = (LinearLayout) notesLayout.getChildAt(numRow);
                 TextView textView = (TextView) notesRow.getChildAt(numCol);
                 textView.setText("");
