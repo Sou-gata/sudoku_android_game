@@ -88,14 +88,6 @@ public class GameActivity extends AppCompatActivity {
 
         db = new Database(this);
 
-        if (!globalStore.getType().equals(Constants.TYPES[2])) {
-            Cursor c = db.getCompleted(globalStore.getDifficultyName(), globalStore.getType());
-            if (c.getCount() == 0) {
-                globalStore.setCurrentLevel(1);
-            } else {
-                globalStore.setCurrentLevel(c.getCount() + 1);
-            }
-        }
         globalStore.setPaused(false);
         answer = globalStore.getSolution();
         question = globalStore.getBoard();
@@ -264,10 +256,9 @@ public class GameActivity extends AppCompatActivity {
                                 num.setText("");
                             }
                             num.setLayoutParams(new LinearLayout.LayoutParams(0, LinearLayout.LayoutParams.WRAP_CONTENT, 1));
-                            num.setPadding(0,0,0,HelperFunctions.dpToPx(2));
                             num.setGravity(Gravity.CENTER);
                             num.setTextColor(ContextCompat.getColor(this, R.color.gray));
-                            num.setTextSize(10f);
+                            num.setTextSize(9.5f);
                             row.addView(num);
                         }
                         parentHint.addView(row);
@@ -392,10 +383,12 @@ public class GameActivity extends AppCompatActivity {
             textView.setTextAlignment(TextView.TEXT_ALIGNMENT_CENTER);
             textView.setTextColor(ContextCompat.getColor(this, R.color.game_number_row_text));
             textView.setTextSize(35);
+            textView.setClickable(false);
             TextView textView1 = new TextView(this);
             textView1.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT));
             textView1.setTextAlignment(TextView.TEXT_ALIGNMENT_CENTER);
             textView1.setTextColor(ContextCompat.getColor(this, R.color.game_number_row_text));
+            textView1.setClickable(false);
             int fi = i;
             linearLayout.setOnClickListener(view -> {
                 if (!globalStore.isPaused()) {
@@ -405,7 +398,7 @@ public class GameActivity extends AppCompatActivity {
             textView1.setText(String.valueOf(9 - numberCounts.get(i)));
             if (numberCounts.containsKey(i) && numberCounts.get(i) == 9) {
                 textView.setText("");
-                textView.setClickable(false);
+                linearLayout.setClickable(false);
                 textView1.setText("");
                 linearLayout.setBackground(null);
             }
@@ -483,7 +476,7 @@ public class GameActivity extends AppCompatActivity {
             if (numberCounts.get(num) == 9) {
                 TextView tv = (TextView) ll.getChildAt(0);
                 TextView tv1 = (TextView) ll.getChildAt(1);
-                tv.setClickable(false);
+                ll.setClickable(false);
                 tv.setText("");
                 tv1.setText("");
                 ll.setBackground(null);
@@ -526,7 +519,7 @@ public class GameActivity extends AppCompatActivity {
             LinearLayout ll = (LinearLayout) numberRow.getChildAt(currentBoardState[row][col] - 1);
             TextView tv = (TextView) ll.getChildAt(0);
             TextView tv1 = (TextView) ll.getChildAt(1);
-            tv.setClickable(true);
+            ll.setClickable(true);
             tv.setText(String.valueOf(currentBoardState[row][col]));
             tv1.setText(String.valueOf(9 - numberCounts.get(currentBoardState[row][col])));
         }
@@ -599,7 +592,7 @@ public class GameActivity extends AppCompatActivity {
             TextView tv1 = (TextView) ll.getChildAt(1);
             if (numberCounts.get(currentBoardState[row][col]) == 9) {
                 TextView tv = (TextView) ll.getChildAt(0);
-                tv.setClickable(false);
+                ll.setClickable(false);
                 tv.setText("");
                 tv1.setText("");
                 ll.setBackground(null);
@@ -770,7 +763,7 @@ public class GameActivity extends AppCompatActivity {
                 TextView tv = (TextView) ll.getChildAt(0);
                 TextView tv1 = (TextView) ll.getChildAt(1);
                 tv.setText(String.valueOf(i + 1));
-                tv.setClickable(true);
+                ll.setClickable(true);
                 tv1.setText((9 - numberCounts.get(i + 1)) + "");
                 ll.setBackgroundResource(R.drawable.number_bg);
             }
@@ -823,16 +816,14 @@ public class GameActivity extends AppCompatActivity {
     }
 
     private void countNumbers() {
-        numberCounts = new HashMap<>();
+        for (int i = 1; i <= 9; i++) {
+            numberCounts.put(i, 0);
+        }
         for (int i = 0; i < Constants.GRID_SIZE; i++) {
             for (int j = 0; j < Constants.GRID_SIZE; j++) {
                 int cellValue = currentBoardState[i][j];
                 if (cellValue != 0) {
-                    if (numberCounts.containsKey(cellValue)) {
-                        numberCounts.put(cellValue, numberCounts.get(cellValue) + 1);
-                    } else {
-                        numberCounts.put(cellValue, 1);
-                    }
+                    numberCounts.put(cellValue, numberCounts.get(cellValue) + 1);
                 }
             }
         }

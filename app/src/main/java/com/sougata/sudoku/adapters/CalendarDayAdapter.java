@@ -1,5 +1,6 @@
 package com.sougata.sudoku.adapters;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
@@ -102,7 +103,7 @@ public class CalendarDayAdapter extends BaseAdapter {
         }
 
         if (completedDays.contains(day)) {
-            dayLayout.setBackgroundResource(R.drawable.cups_daily);
+            dayLayout.setBackgroundResource(R.drawable.ic_medal);
             dayText.setText("");
         } else if (today != 1) {
             dayLayout.setBackgroundColor(ContextCompat.getColor(context, R.color.white));
@@ -186,6 +187,9 @@ public class CalendarDayAdapter extends BaseAdapter {
             new StartNewGame(context).createDailyGame(day);
             intent.putExtra("date", day);
             context.startActivity(intent);
+            if (context instanceof Activity) {
+                ((Activity) context).overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
+            }
         }
     }
 }

@@ -265,16 +265,16 @@ public class EventActivity extends AppCompatActivity {
                 bottomSheetDialog.cancel();
                 startActivity(intent);
             });
-//            if (isCompleted == 0) {
+            if (isCompleted == 0) {
                 continueTxt.setVisibility(View.VISIBLE);
                 continueTxt.setOnClickListener(view -> {
                     newGame.createEventGame(index + 1, id);
                     startActivity(intent);
                     bottomSheetDialog.cancel();
                 });
-//            } else {
-//                continueTxt.setVisibility(View.GONE);
-//            }
+            } else {
+                continueTxt.setVisibility(View.GONE);
+            }
             cancel.setOnClickListener(view -> {
                 bottomSheetDialog.cancel();
             });

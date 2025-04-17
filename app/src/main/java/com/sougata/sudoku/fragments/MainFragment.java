@@ -13,11 +13,12 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.cardview.widget.CardView;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 
 import com.bumptech.glide.Glide;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
@@ -82,11 +83,13 @@ public class MainFragment extends Fragment {
         super.onStop();
         stopTimer();
     }
+
     @Override
     public void onDestroy() {
         super.onDestroy();
         stopTimer();
     }
+
     @Override
     public void onPause() {
         super.onPause();
@@ -138,7 +141,7 @@ public class MainFragment extends Fragment {
         dailyIcon = view.findViewById(R.id.iv_home_daily_icon);
         dailyDate = view.findViewById(R.id.tv_daily_date);
 
-        daily.setOnClickListener(v->dailyClicked());
+        daily.setOnClickListener(v -> dailyClicked());
         event.setOnClickListener(v -> {
             Intent intent = new Intent(context, EventActivity.class);
             startActivity(intent);
@@ -271,15 +274,17 @@ public class MainFragment extends Fragment {
 
     private class Task extends TimerTask {
         JSONObject json;
-        Task(JSONObject json){
+
+        Task(JSONObject json) {
             this.json = json;
         }
+
         @Override
         public void run() {
             calculateTime(json);
         }
     }
-    
+
 
     private void calculateTime(JSONObject json) {
         try {
@@ -319,20 +324,43 @@ public class MainFragment extends Fragment {
         }
     }
 
-    private void startTimer(){
+    private void startTimer() {
         Task task = new Task(globalStore.getEventDetails());
         eventTimerObj = new Timer();
         eventTimerObj.schedule(task, 1000, 1000);
     }
 
-    private void stopTimer(){
-        if (eventTimerObj != null){
+    private void stopTimer() {
+        if (eventTimerObj != null) {
             eventTimerObj.cancel();
             eventTimerObj = null;
         }
     }
 
-    private void dailyClicked(){
-        Toast.makeText(context, "Daily Challenge.\nComing in next update", Toast.LENGTH_SHORT).show();
+    private void dailyClicked() {
+        Calendar c = HelperFunctions.getCalendar();
+        Cursor cursor = db.getDailyMatch(c.getTimeInMillis());
+        if (cursor.getCount() > 0) {
+            cursor.moveToFirst();
+            if (cursor.getInt(11) == 1) {
+                FragmentManager fragmentManager = requireActivity().getSupportFragmentManager();
+                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                fragmentTransaction.setCustomAnimations(R.anim.slide_in_right, R.anim.slide_out_left, R.anim.slide_in_left, R.anim.slide_out_right);
+                fragmentTransaction.replace(R.id.ll_tab_container, new DailyFragment());
+                fragmentTransaction.commit();
+                return;
+            }
+        }
+        globalStore.setDay(c.get(Calendar.DATE));
+        globalStore.setMonth(c.get(Calendar.MONTH));
+        globalStore.setYear(c.get(Calendar.YEAR));
+        new StartNewGame(context).createDailyGame(globalStore.getDay());
+        Intent intent = new Intent(context, GameActivity.class);
+        intent.putExtra("date", globalStore.getDay());
+        context.startActivity(intent);
+        if (getActivity() != null) {
+            getActivity().overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
+        }
+
     }
 }

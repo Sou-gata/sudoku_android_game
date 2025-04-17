@@ -10,14 +10,31 @@
     android:orientation="vertical"
     tools:context=".activities.SplashScreenActivity">
 
-    <com.airbnb.lottie.LottieAnimationView
-        android:id="@+id/lv_splash_screen"
+    <FrameLayout
         android:layout_width="200dp"
         android:layout_height="200dp"
-        android:alpha="1"
-        app:lottie_autoPlay="true"
-        app:lottie_cacheComposition="true"
-        app:lottie_speed="0.4" />
+        android:clipChildren="false"
+        android:clipToPadding="false"
+        android:gravity="center">
+
+        <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_gravity="center"
+            android:layout_margin="20dp"
+            app:cardCornerRadius="35dp"
+            app:cardElevation="10dp" />
+
+        <com.airbnb.lottie.LottieAnimationView
+            android:id="@+id/lv_splash_screen"
+            android:layout_width="200dp"
+            android:layout_height="200dp"
+            android:alpha="1"
+            app:lottie_autoPlay="true"
+            app:lottie_cacheComposition="true"
+            android:elevation="10dp"
+            app:lottie_speed="0.4" />
+    </FrameLayout>
 
     <TextView
         android:layout_width="match_parent"

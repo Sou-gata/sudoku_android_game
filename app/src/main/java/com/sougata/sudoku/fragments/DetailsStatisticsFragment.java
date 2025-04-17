@@ -81,7 +81,7 @@ public class DetailsStatisticsFragment extends Fragment {
     private int getLongestStreak(String difficultyName, String type) {
         Cursor failed = db.getFailedLevels(difficultyName, type);
         if (failed.getCount() == 0) {
-            return db.getMaxLevel(difficultyName, Constants.TYPES[0]);
+            return db.getMaxLevel(difficultyName, type);
         }
         int longestStreak = 0;
         int lastFailedLevel = 0;

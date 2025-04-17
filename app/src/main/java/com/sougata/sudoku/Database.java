@@ -25,7 +25,7 @@ public class Database extends SQLiteOpenHelper {
     public void onCreate(SQLiteDatabase db) {
         db.execSQL("CREATE TABLE games(" +
                 "id INTEGER PRIMARY KEY AUTOINCREMENT, " + //0
-                "level TEXT, " + //1
+                "level INTEGER, " + //1
                 "difficulty INTEGER, " + //2
                 "difficulty_name TEXT, " + //3
                 "timer INTEGER, " + //4
@@ -130,7 +130,7 @@ public class Database extends SQLiteOpenHelper {
 
     public Cursor getDailyMatch(long milli) {
         SQLiteDatabase db = this.getReadableDatabase();
-        return db.rawQuery("SELECT * FROM games WHERE date=? AND is_completed=? AND type=?", new String[]{String.valueOf(milli), "0", Constants.TYPES[1]});
+        return db.rawQuery("SELECT * FROM games WHERE date=? AND type=?", new String[]{String.valueOf(milli), Constants.TYPES[1]});
     }
 
     public Cursor getEventDetails(int level, String eventId) {

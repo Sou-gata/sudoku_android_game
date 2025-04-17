@@ -128,8 +128,17 @@ public class GameCompleteActivity extends AppCompatActivity {
         });
 
         goToHome.setOnClickListener(view -> {
-            Intent intent = new Intent(GameCompleteActivity.this, HomeActivity.class);
+            Intent intent;
+            intent = new Intent(GameCompleteActivity.this, HomeActivity.class);
+            if (globalStore.getType().equals(Constants.TYPES[1])) {
+                intent.putExtra("isDaily", true);
+                intent.putExtra("month", globalStore.getMonth());
+                intent.putExtra("year", globalStore.getYear());
+            } else if (globalStore.getType().equals(Constants.TYPES[2])) {
+                intent = new Intent(GameCompleteActivity.this, EventActivity.class);
+            }
             startActivity(intent);
+            overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
             finish();
             globalStore.emptyCurrentState();
         });
@@ -170,7 +179,7 @@ public class GameCompleteActivity extends AppCompatActivity {
         } else {
             gameLevel.setText(getString(R.string.daily_challenge));
         }
-        if (globalStore.getType().equals(Constants.TYPES[2])){
+        if (globalStore.getType().equals(Constants.TYPES[2])) {
             findViewById(R.id.ll_best_time).setVisibility(View.GONE);
         }
         gameMistake.setText(String.valueOf(globalStore.getMistakes()));

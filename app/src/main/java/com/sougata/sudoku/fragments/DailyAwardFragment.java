@@ -165,7 +165,7 @@ public class DailyAwardFragment extends Fragment {
 
         cell.setOnClickListener(v->{
             Intent intent = new Intent(context, HomeActivity.class);
-            intent.putExtra("fromAwards", true);
+            intent.putExtra("isDaily", true);
             intent.putExtra("month", month);
             intent.putExtra("year", year);
             startActivity(intent);
