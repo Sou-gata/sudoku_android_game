@@ -48,7 +48,7 @@ public class EventActivity extends AppCompatActivity {
     Button playButton;
     GlobalStore globalStore = GlobalStore.getInstance();
     String id;
-    int completedLevel = 0;
+    int completedLevel = 0, maxLevel = 0;
     Timer eventTimerObj;
     Database db;
 
@@ -91,11 +91,18 @@ public class EventActivity extends AppCompatActivity {
         svEvent.post(() -> {
             svEvent.smoothScrollTo(0, (int) ((scrollY * 0.96) - ((float) HelperFunctions.getScreenHeight(this) / 2.0) - HelperFunctions.dpToPx(65)));
         });
-        String btnText = "LEVEL " + (completedLevel + 1);
+        String btnText;
+        if (completedLevel == maxLevel) {
+            btnText = "COMPLETED";
+        } else {
+            btnText = "LEVEL " + (completedLevel + 1);
+        }
         playButton.setText(btnText);
-        playButton.setOnClickListener(v -> {
-            levelClicked(completedLevel);
-        });
+        if (completedLevel < maxLevel) {
+            playButton.setOnClickListener(v -> {
+                levelClicked(completedLevel);
+            });
+        }
     }
 
     private void createLevels(ArrayList<Pos> poses, String currentColor, String lockColor) {
@@ -157,7 +164,8 @@ public class EventActivity extends AppCompatActivity {
 
             Glide.with(this).load(assets.getString("activity_background")).signature(new ObjectKey(json.getString("id"))).into(eventBg);
             ArrayList<Pos> poses = new ArrayList<>();
-            for (int i = 0; i < positions.length(); i++) {
+            maxLevel = positions.length();
+            for (int i = 0; i < maxLevel; i++) {
                 JSONObject obj = positions.getJSONObject(i);
                 int x = (int) (obj.getInt("x") * wr);
                 int y = (int) (obj.getInt("y") * hr);
@@ -176,7 +184,13 @@ public class EventActivity extends AppCompatActivity {
                 createLevels(poses, currentColor, lockColor);
                 eventTitle.setText(name);
             });
-            return positions.getJSONObject(completedLevel).getInt("y");
+            int scrollY;
+            if (completedLevel < maxLevel) {
+                scrollY = positions.getJSONObject(completedLevel).getInt("y");
+            } else {
+                scrollY = positions.getJSONObject(maxLevel - 1).getInt("y");
+            }
+            return scrollY;
         } catch (Exception ignored) {
             finish();
             return 0;
@@ -264,12 +278,16 @@ public class EventActivity extends AppCompatActivity {
                 globalStore.setNotes(new int[9][9][9]);
                 bottomSheetDialog.cancel();
                 startActivity(intent);
+                overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
+                finish();
             });
             if (isCompleted == 0) {
                 continueTxt.setVisibility(View.VISIBLE);
                 continueTxt.setOnClickListener(view -> {
                     newGame.createEventGame(index + 1, id);
                     startActivity(intent);
+                    overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
+                    finish();
                     bottomSheetDialog.cancel();
                 });
             } else {
@@ -280,7 +298,10 @@ public class EventActivity extends AppCompatActivity {
             });
         } else {
             newGame.createEventGame(index + 1, id);
+            globalStore.setCurrentLevel(index + 1);
             startActivity(intent);
+            overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
+            finish();
         }
     }
 }

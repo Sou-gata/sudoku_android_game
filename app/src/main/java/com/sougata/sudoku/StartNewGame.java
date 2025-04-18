@@ -121,8 +121,10 @@ public class StartNewGame {
             globalStore.setCurrentBoardState(currentBoardState);
         }
         cursor = db.getCompleted(globalStore.getDifficultyName(), globalStore.getType());
-        int lvl = cursor.getCount();
-        globalStore.setCurrentLevel(lvl + 1);
+        if (eventId.isEmpty()){
+            int lvl = cursor.getCount();
+            globalStore.setCurrentLevel(lvl + 1);
+        }
         globalStore.setMistakes(0);
         globalStore.setTimer(0);
         globalStore.setNotes(new int[Constants.GRID_SIZE][Constants.GRID_SIZE][Constants.GRID_SIZE]);

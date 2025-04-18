@@ -996,4 +996,15 @@ public class GameActivity extends AppCompatActivity {
         }
         return -1;
     }
+
+//    For testing purpose
+    private void autoComplete() {
+        for (int i = 0; i < 9; i++) {
+            for (int j = 0; j < 9; j++) {
+                if (currentBoardState[i][j] == 0) {
+                    currentBoardState[i][j] = answer[i][j];
+                }
+            }
+        }
+    }
 }
