@@ -44,7 +44,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/year_placeholder"
-                android:textColor="@color/white"
+                android:textColor="@color/fill_btn_text"
                 android:textSize="16sp" />
 
             <TextView
@@ -54,7 +54,7 @@
                 android:layout_marginTop="-2dp"
                 android:text="@string/month_placeholder"
                 android:textAlignment="center"
-                android:textColor="@color/white"
+                android:textColor="@color/fill_btn_text"
                 android:textSize="25sp"
                 android:textStyle="bold" />
 
@@ -80,7 +80,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="10dp"
                     android:layout_marginTop="-2dp"
-                    android:textColor="@color/white"
+                    android:textColor="@color/fill_btn_text"
                     android:textSize="16sp" />
             </LinearLayout>
         </LinearLayout>
@@ -142,7 +142,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/play"
-                    android:textColor="@color/white"
+                    android:textColor="@color/fill_btn_text"
                     android:textSize="18sp" />
 
                 <TextView

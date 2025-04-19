@@ -6,5 +6,7 @@
         <item>@drawable/ic_note</item>
         <item>@drawable/ic_advance_note</item>
         <item>@drawable/ic_statistics</item>
+        <item>@drawable/ic_moon</item>
+        <item>@drawable/ic_medal_2</item>
     </array>
 </resources>

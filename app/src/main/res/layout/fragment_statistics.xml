@@ -10,7 +10,7 @@
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="200dp"
-        android:background="#F6F7FC"
+        android:background="@color/statistic_banner_bg"
         android:gravity="center"
         android:orientation="vertical"
         android:padding="40dp">
@@ -26,7 +26,7 @@
         android:id="@+id/tl_statistic"
         android:layout_width="match_parent"
         android:layout_height="70dp"
-        android:background="#F6F7FC"
+        android:background="@color/statistic_banner_bg"
         app:tabMode="auto"
         app:tabTextAppearance="@style/TabTextStyle"
         app:tabTextColor="@color/bottom_nav_colors">

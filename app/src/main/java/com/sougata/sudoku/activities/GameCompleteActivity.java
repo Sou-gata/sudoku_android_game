@@ -316,7 +316,7 @@ public class GameCompleteActivity extends AppCompatActivity {
         shareNote.setLayoutParams(params);
         shareNote.setText(R.string.share_note);
         shareNote.setTextAlignment(View.TEXT_ALIGNMENT_CENTER);
-        shareNote.setTextColor(ContextCompat.getColor(this, R.color.white));
+        shareNote.setTextColor(ContextCompat.getColor(this, R.color.fill_btn_text));
         shareNote.setTextSize(TypedValue.COMPLEX_UNIT_SP, 16);
 
         topContainer.addView(shareNote);
@@ -336,7 +336,7 @@ public class GameCompleteActivity extends AppCompatActivity {
         params = new LinearLayout.LayoutParams(0, LinearLayout.LayoutParams.WRAP_CONTENT, 1.0f);
         bottomText.setLayoutParams(params);
         bottomText.setText(R.string.keep_your_mind_sharp);
-        bottomText.setTextColor(ContextCompat.getColor(this, R.color.white));
+        bottomText.setTextColor(ContextCompat.getColor(this, R.color.fill_btn_text));
         bottomText.setTextSize(TypedValue.COMPLEX_UNIT_SP, 20);
         bottomText.setTypeface(bottomText.getTypeface(), Typeface.BOLD);
 

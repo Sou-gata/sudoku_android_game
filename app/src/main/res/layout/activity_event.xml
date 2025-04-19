@@ -64,7 +64,8 @@
                 android:layout_width="35dp"
                 android:layout_height="35dp"
                 android:contentDescription="@string/back"
-                android:src="@drawable/ic_arrow_back" />
+                android:src="@drawable/ic_arrow_back"
+                app:tint="@color/black"/>
         </FrameLayout>
 
         <LinearLayout
@@ -102,7 +103,6 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@drawable/event_button_bg"
-            android:text="LEVEL 1"
             android:textColor="#FFCE6161"
             android:textStyle="bold"
             app:backgroundTint="@null" />

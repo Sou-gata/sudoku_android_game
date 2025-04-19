@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_marginBottom="7dp"
-    android:backgroundTint="@color/white"
+    android:backgroundTint="@color/history_item_bg"
     app:cardCornerRadius="10dp">
 
     <LinearLayout
@@ -192,7 +192,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
                 android:text="Play again"
-                android:textColor="@color/white" />
+                android:textColor="@color/fill_btn_text" />
         </LinearLayout>
     </LinearLayout>
 </androidx.cardview.widget.CardView>

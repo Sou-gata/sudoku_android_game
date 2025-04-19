@@ -21,6 +21,7 @@ public final class Constants {
     public static final boolean HIGHLIGHT_REGION = true;
     public static final boolean ADVANCE_NOTE = true;
     public static final boolean HIGHLIGHT_NOTES = true;
+    public static final boolean DARK_MODE = false;
     public static final int HINTS_PER_LEVEL = 2;
     public static final float ADVANCE_NOTE_PER_LEVEL = 0.5f;
 }

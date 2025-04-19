@@ -100,10 +100,8 @@ public class StartNewGame {
             globalStore.setDifficultyName(cursor.getString(3));
             globalStore.setTimer(cursor.getInt(4));
             globalStore.setCurrentBoardState(HelperFunctions.parseTwoDimArray(cursor.getString(5)));
-            if (!eventId.isEmpty()) {
-                globalStore.setBoard(HelperFunctions.parseTwoDimArray(cursor.getString(6)));
-                globalStore.setSolution(HelperFunctions.parseTwoDimArray(cursor.getString(7)));
-            }
+            globalStore.setBoard(HelperFunctions.parseTwoDimArray(cursor.getString(6)));
+            globalStore.setSolution(HelperFunctions.parseTwoDimArray(cursor.getString(7)));
             globalStore.setMistakes(cursor.getInt(9));
             globalStore.setNotes(HelperFunctions.parseThreeDimArr(cursor.getString(14)));
             return;
@@ -121,7 +119,7 @@ public class StartNewGame {
             globalStore.setCurrentBoardState(currentBoardState);
         }
         cursor = db.getCompleted(globalStore.getDifficultyName(), globalStore.getType());
-        if (eventId.isEmpty()){
+        if (eventId.isEmpty()) {
             int lvl = cursor.getCount();
             globalStore.setCurrentLevel(lvl + 1);
         }

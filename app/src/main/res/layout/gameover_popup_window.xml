@@ -31,7 +31,7 @@
             android:layout_marginTop="10dp"
             android:text="@string/you_lost"
             android:textAlignment="center"
-            android:textColor="#888888"
+            android:textColor="@color/gray"
             android:textSize="18sp" />
 
         <LinearLayout
@@ -49,14 +49,14 @@
                 android:layout_height="25dp"
                 android:layout_marginEnd="15dp"
                 android:src="@drawable/ic_restart_bottom"
-                app:tint="@color/white" />
+                app:tint="@color/fill_btn_text" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/restart_game"
                 android:textAlignment="center"
-                android:textColor="@color/white"
+                android:textColor="@color/fill_btn_text"
                 android:textSize="20sp"
                 android:textStyle="bold" />
         </LinearLayout>

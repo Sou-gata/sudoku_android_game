@@ -31,7 +31,8 @@
                 android:layout_width="30dp"
                 android:layout_height="30dp"
                 android:contentDescription="@string/back"
-                android:src="@drawable/ic_arrow_back" />
+                android:src="@drawable/ic_arrow_back"
+                app:tint="@color/black"/>
 
             <TextView
                 android:id="@+id/tv_game_level"
@@ -339,7 +340,7 @@
         android:id="@+id/ll_popup_bg"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="#80000000"
+        android:background="#a0000000"
         android:orientation="horizontal"
         android:visibility="gone" />
 </FrameLayout>

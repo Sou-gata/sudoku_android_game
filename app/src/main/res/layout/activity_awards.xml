@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -33,7 +34,8 @@
                 android:layout_width="35dp"
                 android:layout_height="35dp"
                 android:contentDescription="@string/back"
-                android:src="@drawable/ic_arrow_back" />
+                android:src="@drawable/ic_arrow_back"
+                app:tint="@color/black"/>
         </FrameLayout>
 
         <LinearLayout
@@ -41,7 +43,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="5dp"
             android:paddingTop="5dp"
-            android:background="#F6F7FB"
+            android:background="@color/awards_bg"
             android:gravity="center">
 
             <LinearLayout
@@ -55,7 +57,7 @@
                     android:id="@+id/ll_awards_daily"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:background="@drawable/event_level_bg_white"
+                    android:background="@drawable/awards_toggle_bg"
                     android:gravity="center_vertical"
                     android:paddingHorizontal="25dp"
                     android:paddingVertical="5dp">
@@ -90,7 +92,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical"
-            android:background="#F6F7FB"/>
+            android:background="@color/awards_bg"/>
 
     </LinearLayout>
 </FrameLayout>

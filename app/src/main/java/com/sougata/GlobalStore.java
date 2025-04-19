@@ -12,6 +12,7 @@ public class GlobalStore {
     private int[][][] notes;
     private int timer, mistakeLimit;
     private boolean isPaused = false, sound, vibrate, autoRemoveNotes, numbersHighlight, regionHighlight, isAdvanceNoteEnable, highLightNotes;
+    private boolean isDarkMode = false;
     private JSONObject eventDetails;
 
     private GlobalStore() {
@@ -262,5 +263,13 @@ public class GlobalStore {
 
     public void setHighLightNotes(boolean highLightNotes) {
         this.highLightNotes = highLightNotes;
+    }
+
+    public boolean isDarkMode() {
+        return isDarkMode;
+    }
+
+    public void setDarkMode(boolean darkMode) {
+        isDarkMode = darkMode;
     }
 }

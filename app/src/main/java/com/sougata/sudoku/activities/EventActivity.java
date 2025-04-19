@@ -17,6 +17,7 @@ import android.widget.TextView;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.content.res.AppCompatResources;
 import androidx.core.content.ContextCompat;
 
 import com.bumptech.glide.Glide;
@@ -88,9 +89,7 @@ public class EventActivity extends AppCompatActivity {
         float hr = (screenWidth * 8.032f) / (float) h;
 
         int scrollY = loadJson(wr, hr);
-        svEvent.post(() -> {
-            svEvent.smoothScrollTo(0, (int) ((scrollY * 0.96) - ((float) HelperFunctions.getScreenHeight(this) / 2.0) - HelperFunctions.dpToPx(65)));
-        });
+        svEvent.post(() -> svEvent.smoothScrollTo(0, (int) ((scrollY * 0.96) - ((float) HelperFunctions.getScreenHeight(this) / 2.0) - HelperFunctions.dpToPx(65))));
         String btnText;
         if (completedLevel == maxLevel) {
             btnText = "COMPLETED";
@@ -99,9 +98,7 @@ public class EventActivity extends AppCompatActivity {
         }
         playButton.setText(btnText);
         if (completedLevel < maxLevel) {
-            playButton.setOnClickListener(v -> {
-                levelClicked(completedLevel);
-            });
+            playButton.setOnClickListener(v -> levelClicked(completedLevel));
         }
     }
 
@@ -121,19 +118,19 @@ public class EventActivity extends AppCompatActivity {
                 LinearLayout.LayoutParams params2 = new LinearLayout.LayoutParams(inner, inner);
                 ll2.setLayoutParams(params2);
                 ll2.setGravity(Gravity.CENTER);
-                GradientDrawable d = (GradientDrawable) getDrawable(R.drawable.event_level_color_bg);
-                d.setColor(Color.parseColor(currentColor));
-                ll2.setBackground(d);
+                GradientDrawable d = (GradientDrawable) AppCompatResources.getDrawable(this, R.drawable.event_level_color_bg);
+                if (d != null) {
+                    d.setColor(Color.parseColor(currentColor));
+                    ll2.setBackground(d);
+                }
                 TextView tv = new TextView(this);
                 tv.setText(String.valueOf(i + 1));
-                tv.setTextColor(ContextCompat.getColor(this, R.color.white));
+                tv.setTextColor(ContextCompat.getColor(this, R.color.fill_btn_text));
                 tv.setTextSize(20);
                 ll2.addView(tv);
                 ll.addView(ll2);
                 int finalI = i;
-                ll.setOnClickListener((v) -> {
-                    levelClicked(finalI);
-                });
+                ll.setOnClickListener((v) -> levelClicked(finalI));
             } else {
                 ImageView iv = new ImageView(this);
                 iv.setImageResource(R.drawable.ic_lock);
@@ -293,9 +290,7 @@ public class EventActivity extends AppCompatActivity {
             } else {
                 continueTxt.setVisibility(View.GONE);
             }
-            cancel.setOnClickListener(view -> {
-                bottomSheetDialog.cancel();
-            });
+            cancel.setOnClickListener(view -> bottomSheetDialog.cancel());
         } else {
             newGame.createEventGame(index + 1, id);
             globalStore.setCurrentLevel(index + 1);

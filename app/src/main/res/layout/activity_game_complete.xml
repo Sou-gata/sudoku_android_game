@@ -5,7 +5,8 @@
     android:id="@+id/fl_congratulation_screen"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    tools:context=".activities.GameCompleteActivity">
 
     <FrameLayout
         android:layout_width="match_parent"
@@ -45,7 +46,7 @@
                 android:layout_height="wrap_content"
                 android:text="@string/congratulations"
                 android:textAlignment="center"
-                android:textColor="@color/white"
+                android:textColor="@color/fill_btn_text"
                 android:textSize="30sp" />
 
             <LinearLayout
@@ -252,7 +253,7 @@
                     android:id="@+id/btn_new_game"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:backgroundTint="@color/white"
+                    android:backgroundTint="@color/fill_btn_text"
                     android:paddingVertical="15dp"
                     android:text="@string/new_game"
                     android:textColor="@color/colorPrimary"
@@ -279,14 +280,14 @@
                             android:layout_height="wrap_content"
                             android:contentDescription="@string/main_menu"
                             android:src="@drawable/ic_home"
-                            app:tint="#FFF" />
+                            app:tint="@color/fill_btn_text" />
 
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginStart="10dp"
                             android:text="@string/main_menu"
-                            android:textColor="@color/white"
+                            android:textColor="@color/fill_btn_text"
                             android:textSize="20sp" />
                     </LinearLayout>
 
@@ -304,14 +305,14 @@
                             android:layout_height="30dp"
                             android:contentDescription="@string/save"
                             android:src="@drawable/download_solid"
-                            app:tint="#FFF" />
+                            app:tint="@color/fill_btn_text" />
 
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginStart="10dp"
                             android:text="@string/save"
-                            android:textColor="@color/white"
+                            android:textColor="@color/fill_btn_text"
                             android:textSize="20sp" />
                     </LinearLayout>
 
@@ -329,14 +330,14 @@
                             android:layout_height="wrap_content"
                             android:contentDescription="@string/save"
                             android:src="@drawable/ic_share"
-                            app:tint="#FFF" />
+                            app:tint="@color/fill_btn_text" />
 
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginStart="10dp"
                             android:text="@string/share"
-                            android:textColor="@color/white"
+                            android:textColor="@color/fill_btn_text"
                             android:textSize="20sp" />
                     </LinearLayout>
                 </LinearLayout>

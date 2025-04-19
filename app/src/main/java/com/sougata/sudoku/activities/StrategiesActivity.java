@@ -103,7 +103,7 @@ public class StrategiesActivity extends AppCompatActivity {
         cardParams.setMargins(15, 10, 15, 10);
         cardView.setLayoutParams(cardParams);
         cardView.setRadius(25);
-        cardView.setCardBackgroundColor(ContextCompat.getColor(this, R.color.white));
+        cardView.setCardBackgroundColor(ContextCompat.getColor(this, R.color.statistic_card_bg));
 
         LinearLayout linearLayout = new LinearLayout(this);
         LayoutParams linearLayoutParams = new LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, HelperFunctions.dpToPx(70));
@@ -117,7 +117,7 @@ public class StrategiesActivity extends AppCompatActivity {
         textView.setLayoutParams(textParams);
         textView.setText(strategy.getTitle());
         textView.setTextSize(TypedValue.COMPLEX_UNIT_SP, 18);
-        textView.setTextColor(Color.BLACK);
+        textView.setTextColor(ContextCompat.getColor(this, R.color.black));
 
         TextView button = new TextView(this);
         LayoutParams buttonParams = new LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);

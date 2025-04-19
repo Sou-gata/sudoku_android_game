@@ -138,6 +138,7 @@
                 android:textSize="16sp"
                 android:textColor="#888888"
                 android:layout_marginTop="10dp"
+                android:textAlignment="center"
                 android:text="@string/use_hints_when_you_get_stuck" />
         </LinearLayout>
 
@@ -145,25 +146,25 @@
             android:id="@+id/ll_pause_resume"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
+            android:layout_marginTop="15dp"
             android:background="@drawable/btn_bg_solid"
             android:gravity="center"
             android:orientation="horizontal"
-            android:paddingVertical="10dp">
+            android:paddingVertical="15dp">
 
             <ImageView
                 android:layout_width="25dp"
                 android:layout_height="25dp"
                 android:layout_marginEnd="15dp"
                 android:src="@drawable/ic_resume"
-                app:tint="@color/white" />
+                app:tint="@color/fill_btn_text" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/resume_game"
                 android:textAlignment="center"
-                android:textColor="@color/white"
+                android:textColor="@color/fill_btn_text"
                 android:textSize="20sp"
                 android:textStyle="bold" />
         </LinearLayout>

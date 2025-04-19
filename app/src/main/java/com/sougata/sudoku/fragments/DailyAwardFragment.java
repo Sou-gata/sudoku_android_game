@@ -22,6 +22,7 @@ import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 
 import com.sougata.Constants;
+import com.sougata.GlobalStore;
 import com.sougata.HelperFunctions;
 import com.sougata.sudoku.Database;
 import com.sougata.sudoku.R;
@@ -150,7 +151,7 @@ public class DailyAwardFragment extends Fragment {
         String text = completedDays + "/" + totalDays;
         wins.setText(text);
         wins.setTextAlignment(TextView.TEXT_ALIGNMENT_CENTER);
-        wins.setTextColor(ContextCompat.getColor(context, R.color.black));
+        wins.setTextColor(ContextCompat.getColor(context, GlobalStore.getInstance().isDarkMode() ? R.color.white: R.color.black));
         wins.setTextSize(TypedValue.COMPLEX_UNIT_SP, 12);
         trophyContainer.addView(wins);
         cell.addView(trophyContainer);

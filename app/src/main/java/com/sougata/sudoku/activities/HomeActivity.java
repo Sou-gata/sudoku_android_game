@@ -70,8 +70,6 @@ public class HomeActivity extends AppCompatActivity {
             }
         });
 
-        loadSettings();
-
         Intent intent = getIntent();
         if (intent.getBooleanExtra("isDaily", false)) {
             int month = intent.getIntExtra("month", -1);
@@ -118,25 +116,5 @@ public class HomeActivity extends AppCompatActivity {
             }
         }
         return -1;
-    }
-
-    @Override
-    public void onRestart() {
-        super.onRestart();
-        loadSettings();
-    }
-
-    private void loadSettings() {
-        SharedPreferences sharedPreferences = getSharedPreferences(Constants.SHARED_PREF_NAME, MODE_PRIVATE);
-        globalStore.setMistakeLimit(sharedPreferences.getInt("mistakeLimit", Constants.ALLOWED_MISTAKES));
-        globalStore.setSound(sharedPreferences.getBoolean("sound", Constants.SOUND));
-        globalStore.setVibrate(sharedPreferences.getBoolean("vibrate", Constants.VIBRATE));
-        globalStore.setAutoRemoveNotes(sharedPreferences.getBoolean("removeNotes", Constants.REMOVE_NOTES));
-        globalStore.setNumbersHighlight(sharedPreferences.getBoolean("numbersHighlight", Constants.HIGHLIGHT_NUMBERS));
-        globalStore.setRegionHighlight(sharedPreferences.getBoolean("regionHighlight", Constants.HIGHLIGHT_REGION));
-        globalStore.setAdvanceNoteEnable(sharedPreferences.getBoolean("advanceNote", Constants.ADVANCE_NOTE));
-        globalStore.setHighLightNotes(sharedPreferences.getBoolean("highLightNotes", Constants.HIGHLIGHT_NOTES));
-        globalStore.setHintsCount(sharedPreferences.getInt("hintsCount", 2));
-        globalStore.setAdvanceNoteCount(sharedPreferences.getFloat("advanceNoteCount", 1));
     }
 }

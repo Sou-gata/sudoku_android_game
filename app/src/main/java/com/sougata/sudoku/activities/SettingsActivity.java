@@ -18,6 +18,7 @@ import android.widget.TextView;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatDelegate;
 
 import com.google.android.material.materialswitch.MaterialSwitch;
 import com.sougata.Constants;
@@ -26,9 +27,9 @@ import com.sougata.sudoku.R;
 
 public class SettingsActivity extends AppCompatActivity {
 
-    LinearLayout playGuide, statistic, history, llSound, llVibrate, llRemoveNotes, llHighlightNumbers, llHighlightRegion, llMistakeLimit, llAdvanceNote, llStrategies, llHighlightNotes;
+    LinearLayout playGuide, statistic, history, llSound, llVibrate, llRemoveNotes, llHighlightNumbers, llHighlightRegion, llMistakeLimit, llAdvanceNote, llStrategies, llHighlightNotes, llDarkMode;
     ImageView backButton;
-    MaterialSwitch msSound, msVibrate, msRemoveNotes, msHighlightNumbers, msHighlightRegion, msAdvanceNote, msHighlightNotes;
+    MaterialSwitch msSound, msVibrate, msRemoveNotes, msHighlightNumbers, msHighlightRegion, msAdvanceNote, msHighlightNotes, msDarkMode;
     GlobalStore globalStore = GlobalStore.getInstance();
     SharedPreferences.Editor editor;
 
@@ -64,6 +65,8 @@ public class SettingsActivity extends AppCompatActivity {
         llStrategies = findViewById(R.id.ll_settings_strategies);
         llHighlightNotes = findViewById(R.id.ll_settings_notes_highlight);
         msHighlightNotes = findViewById(R.id.ms_settings_notes_highlight);
+        llDarkMode = findViewById(R.id.ll_settings_dark_mode);
+        msDarkMode = findViewById(R.id.ms_settings_dark_mode);
 
         msSound.setClickable(false);
         msVibrate.setClickable(false);
@@ -72,6 +75,7 @@ public class SettingsActivity extends AppCompatActivity {
         msHighlightRegion.setClickable(false);
         msAdvanceNote.setClickable(false);
         msHighlightNotes.setClickable(false);
+        msDarkMode.setClickable(false);
 
         msSound.setChecked(globalStore.getSound());
         msVibrate.setChecked(globalStore.isVibrate());
@@ -80,6 +84,7 @@ public class SettingsActivity extends AppCompatActivity {
         msHighlightRegion.setChecked(globalStore.getRegionHighlight());
         msAdvanceNote.setChecked(globalStore.isAdvanceNoteEnable());
         msHighlightNotes.setChecked(globalStore.isHighLightNotes());
+        msDarkMode.setChecked(globalStore.isDarkMode());
 
         backButton.setOnClickListener(v -> {
             finish();
@@ -145,6 +150,18 @@ public class SettingsActivity extends AppCompatActivity {
             editor.putBoolean("advanceNote", isAdvanceNoteChecked);
             editor.apply();
             globalStore.setAdvanceNoteEnable(isAdvanceNoteChecked);
+        });
+        llDarkMode.setOnClickListener(v -> {
+            boolean isDarkModeChecked = !msDarkMode.isChecked();
+            msDarkMode.setChecked(isDarkModeChecked);
+            editor.putBoolean("isDarkMode", isDarkModeChecked);
+            editor.apply();
+            globalStore.setDarkMode(isDarkModeChecked);
+            if (isDarkModeChecked){
+                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
+            } else {
+                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
+            }
         });
         llMistakeLimit.setOnClickListener(this::openPopup);
         llStrategies.setOnClickListener(v -> {

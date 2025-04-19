@@ -159,6 +159,7 @@ public class GameActivity extends AppCompatActivity {
             }
             globalStore.setPaused(true);
             finish();
+            overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
         });
         pauseGame.setOnClickListener(view -> {
             showPausePopup(view);
@@ -175,7 +176,7 @@ public class GameActivity extends AppCompatActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        popupWindow.dismiss();
+        if (popupWindow != null) popupWindow.dismiss();
         globalStore.setPaused(true);
         gameTimerObj.cancel();
         popupWindow = null;
@@ -208,7 +209,7 @@ public class GameActivity extends AppCompatActivity {
                 FrameLayout cellContainerLayout = new FrameLayout(this);
                 LinearLayout childLayout = new LinearLayout(this);
                 cellContainerLayout.setLayoutParams(childParams);
-                cellContainerLayout.setBackground(createBorderDrawable("#FFFFFF"));
+                cellContainerLayout.setBackground(createBorderDrawable(String.format("#%08X", ContextCompat.getColor(this, R.color.cell_bg))));
                 int margin = 2;
                 if (i % 3 == 0 && j % 3 == 0) {
                     childParams.setMargins(margin, margin, 0, 0);
@@ -285,14 +286,14 @@ public class GameActivity extends AppCompatActivity {
                 cellContainerLayout.addView(parentHint);
                 parentLayout.addView(cellContainerLayout);
             }
-            parentLayout.setBackgroundColor(Color.BLACK);
+            parentLayout.setBackgroundColor(ContextCompat.getColor(this, globalStore.isDarkMode() ? R.color.cell_border : R.color.black));
             gameBoard.addView(parentLayout);
         }
     }
 
     private GradientDrawable createBorderDrawable(String background) {
         GradientDrawable border2 = new GradientDrawable();
-        border2.setStroke(1, ContextCompat.getColor(this, R.color.box_border_color));
+        border2.setStroke(1, ContextCompat.getColor(this, R.color.cell_border));
         border2.setColor(Color.parseColor(background));
         return border2;
     }
@@ -342,29 +343,29 @@ public class GameActivity extends AppCompatActivity {
                 }
                 if (!txt.isEmpty() && currentBoardState[i][j] == Integer.parseInt(txt)) {
                     if (globalStore.getNumbersHighlight()) {
-                        cellLayout1.setBackground(createBorderDrawable("#C6CBE1"));
+                        cellLayout1.setBackground(createBorderDrawable(String.format("#%08X", ContextCompat.getColor(this, R.color.highlight_number_bg))));
                     } else {
-                        cellLayout1.setBackground(createBorderDrawable("#FFFFFF"));
+                        cellLayout1.setBackground(createBorderDrawable(String.format("#%08X", ContextCompat.getColor(this, R.color.cell_bg))));
                     }
                 } else {
                     if (globalStore.getRegionHighlight()) {
                         if (selectedBoxRow == currBoxRow && selectedBoxCol == currBoxCol) {
-                            cellLayout1.setBackground(createBorderDrawable("#E7EAF3"));
+                            cellLayout1.setBackground(createBorderDrawable(String.format("#%08X", ContextCompat.getColor(this, R.color.highlight_cell_bg))));
                         } else {
-                            cellLayout1.setBackground(createBorderDrawable("#FFFFFF"));
+                            cellLayout1.setBackground(createBorderDrawable(String.format("#%08X", ContextCompat.getColor(this, R.color.cell_bg))));
                         }
                         if (i == row || j == col) {
-                            cellLayout1.setBackground(createBorderDrawable("#E7EAF3"));
+                            cellLayout1.setBackground(createBorderDrawable(String.format("#%08X", ContextCompat.getColor(this, R.color.highlight_cell_bg))));
                         }
                     } else {
-                        cellLayout1.setBackground(createBorderDrawable("#FFFFFF"));
+                        cellLayout1.setBackground(createBorderDrawable(String.format("#%08X", ContextCompat.getColor(this, R.color.cell_bg))));
                     }
                 }
             }
         }
         prevSelectedNum = currentBoardState[row][col] != 0 ? currentBoardState[row][col] : -1;
         updateNumberRowUI();
-        cellLayout.setBackground(createBorderDrawable("#c1d2fe"));
+        cellLayout.setBackground(createBorderDrawable(String.format("#%08X", ContextCompat.getColor(this, R.color.selected_cell_bg))));
     }
 
     private void createNumberInputRow() {
@@ -997,7 +998,7 @@ public class GameActivity extends AppCompatActivity {
         return -1;
     }
 
-//    For testing purpose
+    //    For testing purpose
     private void autoComplete() {
         for (int i = 0; i < 9; i++) {
             for (int j = 0; j < 9; j++) {

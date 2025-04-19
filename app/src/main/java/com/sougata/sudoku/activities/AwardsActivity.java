@@ -53,7 +53,7 @@ public class AwardsActivity extends AppCompatActivity {
         fragmentTransaction.commit();
 
         dailyAwards.setOnClickListener(v -> {
-            dailyAwards.setBackgroundResource(R.drawable.event_level_bg_white);
+            dailyAwards.setBackgroundResource(R.drawable.awards_toggle_bg);
             eventAwards.setBackground(null);
             TextView tv = (TextView) eventAwards.getChildAt(0);
             tv.setTextColor(ContextCompat.getColor(this, R.color.gray));
@@ -67,7 +67,7 @@ public class AwardsActivity extends AppCompatActivity {
         });
 
         eventAwards.setOnClickListener(v -> {
-            eventAwards.setBackgroundResource(R.drawable.event_level_bg_white);
+            eventAwards.setBackgroundResource(R.drawable.awards_toggle_bg);
             dailyAwards.setBackground(null);
             TextView tv = (TextView) dailyAwards.getChildAt(0);
             tv.setTextColor(ContextCompat.getColor(this, R.color.gray));

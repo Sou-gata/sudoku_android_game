@@ -88,7 +88,7 @@ public class CalendarDayAdapter extends BaseAdapter {
                 dayText.setClickable(true);
                 if (c2.equals(c)) {
                     today = 1;
-                    dayText.setTextColor(ContextCompat.getColor(context, R.color.white));
+                    dayText.setTextColor(ContextCompat.getColor(context, R.color.fill_btn_text));
                     dayLayout.setBackgroundResource(R.drawable.btn_bg_solid);
                 } else {
                     dayText.setTextColor(ContextCompat.getColor(context, R.color.black));

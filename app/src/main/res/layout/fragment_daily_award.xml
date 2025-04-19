@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#F6F7FB"
+    android:background="@color/awards_bg"
     android:paddingTop="15dp"
     tools:context=".fragments.DailyAwardFragment">
 

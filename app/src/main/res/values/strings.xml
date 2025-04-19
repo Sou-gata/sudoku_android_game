@@ -90,7 +90,7 @@
     <string name="share_note">Play with Friends\nSolve the same Sudoku puzzle together</string>
     <string name="keep_your_mind_sharp">Keep Your Mind Sharp</string>
     <string name="share">Share</string>
-    <string name="share_message">Can you solve this? Check out your skill here\nhttps://github.com/Sou-gata/sudoku_android_game/releases/download/V_1.1.1/Sudoku_V_1.1.1.apk\nChallenge your brain now</string>
+    <string name="share_message">Can you solve this? Check out your skill here\nhttps://github.com/Sou-gata/sudoku_android_game/releases/download/V_1.1.2/Sudoku_V_1.1.2.apk\nChallenge your brain now</string>
     <string name="event_url">https://raw.githubusercontent.com/Sou-gata/sudoku_android_game/refs/heads/main/event/event.json</string>
     <string name="coming_soon">Coming soon</string>
     <string name="awards">Awards</string>
@@ -99,12 +99,15 @@
     <string name="highlight_notes">Highlight Notes</string>
     <string name="no_event_medal">You have no medal yet.\nTake part in events and get medals.</string>
     <string name="medal">Medal</string>
+    <string name="dark_mode">Dark Mode</string>
     <string-array name="pause_popup_titles">
         <item>@string/hint</item>
         <item>@string/erase</item>
         <item>@string/note</item>
         <item>@string/advance_note</item>
         <item>@string/statistic</item>
+        <item>@string/dark_mode</item>
+        <item>@string/event</item>
     </string-array>
     <string-array name="pause_popup_description">
         <item>@string/use_hints_when_you_get_stuck</item>
@@ -112,5 +115,7 @@
         <item>Want to add a note? Turn it on!</item>
         <item>Add notes automatically.</item>
         <item>Track your progress</item>
+        <item>Add more fun to your game with\ndark mode</item>
+        <item>Participate in events to win\nspecial medals!</item>
     </string-array>
 </resources>
