@@ -21,6 +21,7 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.signature.ObjectKey;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.sougata.GlobalStore;
 import com.sougata.HelperFunctions;
@@ -254,7 +255,7 @@ public class MainFragment extends Fragment {
                 String iconUrl = json.getJSONObject("assets").getString("large_icon");
                 requireActivity().runOnUiThread(() -> {
                     eventTitle.setText(title);
-                    Glide.with(context).load(iconUrl).into(eventIcon);
+                    Glide.with(context).load(iconUrl).signature(new ObjectKey(id)).into(eventIcon);
                     GradientDrawable drawable = (GradientDrawable) eventPlay.getBackground();
                     drawable.setColor(Color.parseColor(bgColor));
                     eventPlay.setTextColor(Color.parseColor(textColor));

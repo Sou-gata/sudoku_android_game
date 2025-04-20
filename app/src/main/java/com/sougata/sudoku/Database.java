@@ -223,6 +223,11 @@ public class Database extends SQLiteOpenHelper {
         return db.rawQuery("SELECT * FROM games ORDER BY id DESC", null);
     }
 
+    public Cursor getDifficultyGame(String difficulty_name) {
+        SQLiteDatabase db = this.getReadableDatabase();
+        return db.rawQuery("SELECT * FROM games WHERE difficulty_name=? AND type=?", new String[]{difficulty_name, Constants.TYPES[0]});
+    }
+
     public Cursor getGameById(long id) {
         SQLiteDatabase db = this.getReadableDatabase();
         return db.rawQuery("SELECT * FROM games WHERE id=?", new String[]{String.valueOf(id)});

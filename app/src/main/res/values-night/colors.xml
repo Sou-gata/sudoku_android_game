@@ -2,7 +2,7 @@
 <resources>
     <color name="black">#FFFFFFFF</color>
     <color name="white">#FF15181F</color>
-    <color name="colorPrimary">#455ACF</color>
+    <color name="colorPrimary">#8C6FFB</color>
     <color name="colorPrimaryTransparent">@color/white</color>
     <color name="colorPrimaryDark">#00579E</color>
     <color name="danger">#DC3545</color>
@@ -11,7 +11,7 @@
     <color name="home_icon_tint">#E2E2E2</color>
     <color name="settings_text">#DFDFDF</color>
     <color name="game_board_icon_tint">#A2A2A2</color>
-    <color name="game_number_row_text">#3F589B</color>
+    <color name="game_number_row_text">@color/colorPrimary</color>
     <color name="box_border_color">@color/gray</color>
     <color name="fill_btn_text">@color/black</color>
     <color name="statistic_card_bg">#FF232532</color>
@@ -24,13 +24,15 @@
     <color name="highlight_cell_bg">#1F212E</color>
     <color name="highlight_number_bg">#242F6D</color>
     <color name="cell_bg">#2A2F42</color>
-    <color name="selected_cell_bg">#311854</color>
+    <color name="selected_cell_bg">#352A57</color>
     <color name="cell_border">@color/gray</color>
-    <color name="tips_bg">#393F59</color>
-    <color name="popup_bg">#262524</color>
+    <color name="tips_bg">#322B3D</color>
+    <color name="popup_bg">#41394E</color>
     <color name="bottom_sheet_difficulty_bg">@color/statistic_card_bg</color>
-    <color name="number_btn_bg">@color/statistic_card_bg</color>
     <color name="rounded_icon_bg">#30303E</color>
     <color name="rounded_icon_bg_2">#384240</color>
     <color name="rounded_icon_bg_3">#3E3937</color>
+    <color name="number_btn_bg">#393A4E</color>
+    <color name="num_row_border">@color/number_btn_bg</color>
+    <color name="history_indicator_bg">#4F8C6FFB</color>
 </resources>

@@ -71,3 +71,17 @@ width="200" hspace="10" vspace="10">
 width="200" hspace="10" vspace="10">
 <img src="https://raw.githubusercontent.com/Sou-gata/sudoku_android_game/refs/heads/main/screenshots/6.jpg" align="left"
 width="200" hspace="10" vspace="10">
+<br/>
+<br>
+<img src="https://raw.githubusercontent.com/Sou-gata/sudoku_android_game/refs/heads/main/screenshots/7.jpg" align="left"
+width="100" hspace="5" vspace="5">
+<img src="https://raw.githubusercontent.com/Sou-gata/sudoku_android_game/refs/heads/main/screenshots/8.jpg" align="left"
+width="100" hspace="5" vspace="5">
+<img src="https://raw.githubusercontent.com/Sou-gata/sudoku_android_game/refs/heads/main/screenshots/9.jpg" align="left"
+width="100" hspace="5" vspace="5">
+<img src="https://raw.githubusercontent.com/Sou-gata/sudoku_android_game/refs/heads/main/screenshots/10.jpg" align="left"
+width="100" hspace="5" vspace="5">
+<img src="https://raw.githubusercontent.com/Sou-gata/sudoku_android_game/refs/heads/main/screenshots/11.jpg" align="left"
+width="100" hspace="5" vspace="5">
+<img src="https://raw.githubusercontent.com/Sou-gata/sudoku_android_game/refs/heads/main/screenshots/12.jpg" align="left"
+width="100" hspace="5" vspace="5">

@@ -335,7 +335,7 @@ public class GameActivity extends AppCompatActivity {
                         if (hintRow != null) {
                             TextView hintCell = (TextView) hintRow.getChildAt(idx % 3);
                             if (hintCell.getText().toString().equals(txt)) {
-                                hintCell.setTextColor(ContextCompat.getColor(this, R.color.white));
+                                hintCell.setTextColor(ContextCompat.getColor(this, R.color.fill_btn_text));
                                 hintCell.setBackgroundResource(R.drawable.btn_bg_solid);
                             }
                         }
@@ -644,6 +644,8 @@ public class GameActivity extends AppCompatActivity {
             soundPlayer.playGameComplete(this);
             editor.putInt("hintsCount", hintCount + Constants.HINTS_PER_LEVEL);
             editor.putFloat("advanceNoteCount", advanceNoteCount + Constants.ADVANCE_NOTE_PER_LEVEL);
+            globalStore.setHintsCount(hintCount + Constants.HINTS_PER_LEVEL);
+            globalStore.setAdvanceNoteCount(advanceNoteCount + Constants.ADVANCE_NOTE_PER_LEVEL);
             editor.apply();
             finish();
             overridePendingTransition(R.anim.slide_up, R.anim.slide_down);

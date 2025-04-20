@@ -29,8 +29,10 @@
     <color name="tips_bg">#EEF5FD</color>
     <color name="popup_bg">@color/white</color>
     <color name="bottom_sheet_difficulty_bg">#F5F6F8</color>
-    <color name="number_btn_bg">@color/white</color>
     <color name="rounded_icon_bg">#E3E8FB</color>
     <color name="rounded_icon_bg_2">#DDF2ED</color>
     <color name="rounded_icon_bg_3">#FEEFEC</color>
+    <color name="number_btn_bg">@color/white</color>
+    <color name="num_row_border">@color/colorPrimary</color>
+    <color name="history_indicator_bg">#4F327AE8</color>
 </resources>

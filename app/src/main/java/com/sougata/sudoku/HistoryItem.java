@@ -1,12 +1,12 @@
 package com.sougata.sudoku;
 
 public class HistoryItem {
-    private String difficulty, date, time, timer;
+    private String difficulty, date, time, timer, type;
     private int hint, mistake;
     private long id;
     private boolean isCompleted;
 
-    public HistoryItem(long id, String difficulty, String timer, int hint, int mistake, String date, String time, boolean isCompleted) {
+    public HistoryItem(long id, String difficulty, String timer, int hint, int mistake, String date, String time, boolean isCompleted, String type) {
         this.id = id;
         this.difficulty = difficulty;
         this.date = date;
@@ -15,6 +15,7 @@ public class HistoryItem {
         this.hint = hint;
         this.mistake = mistake;
         this.isCompleted = isCompleted;
+        this.type = type;
     }
 
     public String getDifficulty() {
@@ -79,5 +80,13 @@ public class HistoryItem {
 
     public void setId(long id) {
         this.id = id;
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
     }
 }

@@ -100,6 +100,7 @@
     <string name="no_event_medal">You have no medal yet.\nTake part in events and get medals.</string>
     <string name="medal">Medal</string>
     <string name="dark_mode">Dark Mode</string>
+    <string name="match_type">Match type</string>
     <string-array name="pause_popup_titles">
         <item>@string/hint</item>
         <item>@string/erase</item>
@@ -117,5 +118,11 @@
         <item>Track your progress</item>
         <item>Add more fun to your game with\ndark mode</item>
         <item>Participate in events to win\nspecial medals!</item>
+    </string-array>
+    <string-array name="match_types">
+        <item>All</item>
+        <item>Classic</item>
+        <item>@string/daily</item>
+        <item>@string/event</item>
     </string-array>
 </resources>
