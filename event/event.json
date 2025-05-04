@@ -1,235 +1,235 @@
 {
-    "id": "8e04f7a8-4f57-4c1f-8bd3-8148789d918c",
-    "name": "Happy Easter",
-    "assets": {
-        "large_icon": "https://raw.githubusercontent.com/Sou-gata/sudoku_android_game/refs/heads/main/event/images/banner_icon.png",
-        "activity_background": "https://raw.githubusercontent.com/Sou-gata/sudoku_android_game/refs/heads/main/event/images/bg_checkpoint.jpg",
-        "bronze_medal": "https://raw.githubusercontent.com/Sou-gata/sudoku_android_game/refs/heads/main/event/images/icon_bronze_001.png",
-        "silver_medal": "https://raw.githubusercontent.com/Sou-gata/sudoku_android_game/refs/heads/main/event/images/icon_silver_001.png",
-        "gold_medal": "https://raw.githubusercontent.com/Sou-gata/sudoku_android_game/refs/heads/main/event/images/icon_gold_001.png"
-    },
-    "medal_levels": [10, 20, 30],
+    "id": "7c9e6679-7425-40de-944b-e07fc1f90ae7",
+    "name": "International Families Day",
     "medal_names": ["bronze_medal", "silver_medal", "gold_medal"],
-    "start_date": 1742754600000,
-    "end_date": 1748759400000,
+    "medal_levels": [10, 20, 30],
+    "colors": {
+        "banner_text_color": "#FFF16208",
+        "current_color": "#FF1792FF",
+        "lock_color": "#FFFE903A",
+        "banner_bg_color": "#FFFFECD6"
+    },
+    "start_date": 1746426600000,
+    "end_date": 1748586600000,
+    "assets": {
+        "large_icon": "https://raw.githubusercontent.com/Sou-gata/sudoku_android_game/refs/heads/main/event/images/banner_icon_002.png",
+        "activity_background": "https://raw.githubusercontent.com/Sou-gata/sudoku_android_game/refs/heads/main/event/images/bg_checkpoint_002.jpg",
+        "bronze_medal": "https://raw.githubusercontent.com/Sou-gata/sudoku_android_game/refs/heads/main/event/images/icon_bronze_002.png",
+        "silver_medal": "https://raw.githubusercontent.com/Sou-gata/sudoku_android_game/refs/heads/main/event/images/icon_silver_002.png",
+        "gold_medal": "https://raw.githubusercontent.com/Sou-gata/sudoku_android_game/refs/heads/main/event/images/icon_gold_002.png"
+    },
     "bg_width": 1125,
     "bg_height": 9036,
-    "colors": {
-        "lock_color": "#FF607F5F",
-        "banner_bg_color": "#FFE2FFD2",
-        "banner_text_color": "#FF4F7E4B",
-        "current_color": "#FFFF4D04"
-    },
     "level_origin": [
         {
-            "x": 490,
-            "y": 8404,
             "difficulty": 0,
-            "puzzle": "qJi5+91ihx/Clc7XodJs3IjqB80rss1OANjOFuJJ+wqdjG9uiCyHNm04YheLxykf7Yr75o1T22cO\nxSxMkz/K4S9ihjoS8TqAUu7VNeaF3YSTCJDdhSGZxFHXrgRP/ZCg9G8lVRThNHjljYnCtmV89suA\n52iMmVgYaiXqwWepYCmU7k1qAeLaY2iOwhdMYpF9vVziw83RnWeN4mXv1uy8eb0/RyzxiAIFYiP2\ntRScc0o=\n",
-            "solution": "owdADUqgyXG4aux5vTU3inY1ldztsauoz4lbeZ3Xp3AJ9UE7ld+hcZuRRh5XMqTwaXSyfOR1v/NY\ndVZWeBK4ZzX6V30q/JzJVGYkTMeEbc4mgl1XolKW1pSBjj47Ug3Yjg2QWjXWPqeu74ffbQk0y2WX\n2QLL9NQQPRnouMbpTdPKRakGu7qCAHxTmZIZ+AtwS+gEFrs/XnTGtxPre4mmSlXBdfUzChqPc1ga\nTydUWXw=\n"
+            "solution": "7Hl9cciHDMF5r2XqkIRrK+sVYLbGPY6FUieADosTa3bDOc1LKoINul6Ww8fF1qKwtaLPDjRx8G+lO/O2dT3VbRYuE2OBpCd4E0z9c9vTbUf7rIwLZe3TZr5LniSNf/egPd02tt/ql1dXNpLly7RN7tp/tNESSUdqZglt6jAah8ZKLICwTuNX718rKeG4gOwVFaSeS38K32/5djdBg2fpQD8XjBo2a3NEJ4c9wD2Ezts=",
+            "puzzle": "7Hl9cciHDMF5r2XqkIRrK+sVYLbGPY6FUieADosTa3bDOc1LKoINul6Ww8fF1qKwtaLPDjRx8G+lO/O2dT3VbRYuE2OBpCd4E0z9c9vTbUf7rIwLZe3TZr5LniSNf/egPd02tt/ql1dXNpLly7RN7tp/tNESSUdqZglt6jAah8ZKLICwTuNX718rKeG4gOwVFaSeS38K32/5djdBg2fpQD8XjBo2a3NEJ4c9wD2Ezts=",
+            "x": 490,
+            "y": 8404
         },
         {
+            "difficulty": 0,
+            "solution": "LQfF9gkxWvUJS/MxXEDOVsVjs3tsLq0+SKvH2b3CEDN9sgyQhDh0TwdPw0Ip1RRG5wxLAXG/WlEA11VsbmBxa5alQXhSMQQ1/jQFq19UESzhRHcHlI70IU1Ri06470unFpnv4dkpzB4mhGrN7WcDx/yu5IPxxKo1gzdCQrC/JuXNzmtXdbxBSG+V1UWGbXrqLXmVuKun4LoLqmr21ZFYLLZonlfUoclRsGs2RQNtMso=",
+            "puzzle": "LQfF9gkxWvUJS/MxXEDOVsVjs3tsLq0+SKvH2b3CEDN9sgyQhDh0TwdPw0Ip1RRG5wxLAXG/WlEA11VsbmBxa5alQXhSMQQ1/jQFq19UESzhRHcHlI70IU1Ri06470unFpnv4dkpzB4mhGrN7WcDx/yu5IPxxKo1gzdCQrC/JuXNzmtXdbxBSG+V1UWGbXrqLXmVuKun4LoLqmr21ZFYLLZonlfUoclRsGs2RQNtMso=",
             "x": 918,
-            "y": 8005,
-            "difficulty": 0,
-            "puzzle": "Y9UFKV1Estxw833/UACYmsrjNqTwgzwvgxXCFvbiNT4yKzV3Ngqabw0E+VXTFJZqe53fRLS85S9r\nRaADuiv0EiF+turwfODrJub92hjgMkuiMpxSdGlcpyU9mMFJayub2ljb1JdJWqGbOHurdJuIqy+a\ntT602qc+01GDaH5GADuuPQaoeiq2B2J3SnAEXFrjflk9zX/L2FzmPLwDupDUsJubMlEcOyBkvtKc\n9HOMfYw=\n",
-            "solution": "3oGEcA6Xw87LVc5eXpY4EtGYGu1ypYAUVP/hGVEGOZeqjpHhUONFtBFKqGjEs6j9zNK3T+ZWpjz/\nIyw6B8NxTzTLL/gFCGDFrqkiH+BILQDtiWayEmyrhI5EBewCRjhwlx+Kc/aAi/9r5hKVSC6HivrU\nyI6/jwsQqejTBoudoqwJqCsHBRwY41WeWTdIQNdtGcuR1QuIDb/OKQLLoiF8ggVIy8ItT2XUmuSv\nYQnrvFc=\n"
+            "y": 8005
         },
         {
+            "difficulty": 0,
+            "solution": "dv9/N43tbIyr21lQoa6RF6xY/BCgA/rZAfIY3kvWtUmtzPvB54bJy3v43nlTinBwuNLIyzj6rb/IinVtRSCpeCzRNFbXiN+cxVaUXHMRaX98QpKINlj0/Cmi52Mcz66w9YM97PCYy4jhK9teYVJ3mQXBntAgJlygLCyMMcrDOrzZuORUjuLUq6CWO6wJBX5UR0OEgE+hEKmYujUR5pTtcM/slsCh/Q8SGMSCCG89ulg=",
+            "puzzle": "dv9/N43tbIyr21lQoa6RF6xY/BCgA/rZAfIY3kvWtUmtzPvB54bJy3v43nlTinBwuNLIyzj6rb/IinVtRSCpeCzRNFbXiN+cxVaUXHMRaX98QpKINlj0/Cmi52Mcz66w9YM97PCYy4jhK9teYVJ3mQXBntAgJlygLCyMMcrDOrzZuORUjuLUq6CWO6wJBX5UR0OEgE+hEKmYujUR5pTtcM/slsCh/Q8SGMSCCG89ulg=",
             "x": 705,
-            "y": 7669,
-            "difficulty": 0,
-            "puzzle": "wxJPjC297FtcxRNT8mtc4NIAbhCUvOHWXZoUr15IAzCbzUvo94hBKsNFOE5LoZelN2fRwXxQ4Q9t\nhOHcsag93Wj7SP8Pn4lvNi+43tOpEhTXdJzvgVCLNBmC7ffXFNLpt+48oTvFBMzJCjg2PENBQNa8\n+RSgiI0+6yHxbq4b3jRki5dfX7R4wjlcWHEUUD5UUS5KcKdTEVnG3n6L1X/QYjoBb5HG+qwHOwvH\nb5oqr0A=\n",
-            "solution": "5czVinSRW07JYzKBdudLTg5Ui07DwKoncY6Ut9aOE2c3XFZY0UVr2fHxuev4gRf0TnWLOnNOSpA5\nTEEJWI72lE1bydpGKbT/YP/8IxV/586FuOtTp6vvGTERxve86YD9kijiZuMTPj4dO28miVxFxtxE\nii53AUlQrAcF7hcc8IQotp8manO3fTaA3+IzoPdbEGlOqYKfHtupgpaKU+LjdC8lEcwlazs7jE72\nDHF9fq4=\n"
+            "y": 7669
         },
         {
+            "difficulty": 0,
+            "solution": "Qi5nYw0ykR4NXaVE8VyP+lk6H8l9BQ4eRz2mO3PMqZmQdYkoaoOsZZRgBOvqZ1OI7ZcpHzoPB+fLWBX/HwfVDjjQHcXfXmQed8q7ZPvmlajXtVTeAy+VjZFTX9kuwvor0tX7FsaYiBhZrLeZ87+ZYwI4TazhlXTZalz4cAIwcOy2k3s+bbx3n5R4QpX3AJhZxRqwPSvWPeluR83LP6GSgCQghTEmmC/RuTbJK1UF8tM=",
+            "puzzle": "Qi5nYw0ykR4NXaVE8VyP+lk6H8l9BQ4eRz2mO3PMqZmQdYkoaoOsZZRgBOvqZ1OI7ZcpHzoPB+fLWBX/HwfVDjjQHcXfXmQed8q7ZPvmlajXtVTeAy+VjZFTX9kuwvor0tX7FsaYiBhZrLeZ87+ZYwI4TazhlXTZalz4cAIwcOy2k3s+bbx3n5R4QpX3AJhZxRqwPSvWPeluR83LP6GSgCQghTEmmC/RuTbJK1UF8tM=",
             "x": 276,
-            "y": 7521,
-            "difficulty": 0,
-            "puzzle": "a+P2Ie8EUFVe7zDAQTC1dd7KJ4NkWapZaNEqTDkrTVlhwJ7PRUSOLOTxbF07Ps4Oi1e+BpcwUERK\nkvQ3XuRxzI5ttL6uIwRADhbdChmEN9q+sKc7KcR83k9Tq9kvgXjGXCJATwtfyBgWxhFKyUHfZ/dO\nufA2o21JCsnqabghHYxCqIMInNiBSXhR0BCZ7CBqcvnrI3yYxJmKC8J2JqP2e/Fj7E7sNsFOGSXv\nv2eFdGs=\n",
-            "solution": "Mx2+Y7ku6Ad4+ivvmcG3wHQ0ZakobxSpF06OMrZ//dkf7uj4VFt08bfhRtEak01t6j8jWDcMYgcJ\nPiQ/Y5owtdFFz+6uIfAs9ueJQ4BWhU0GxuSRAQL3ZkXZPWGTg7qMfxe2rim9p/fZoflqY2E9p+Ap\nQYrC3V6uNof8evXH5lNJH+G3Tcz3Sdzku0BTTTRQZEjVX8p2bggAA/ogMN6LWDA5k6d4HNMo3mnU\nh8blvLk=\n"
+            "y": 7521
         },
         {
+            "difficulty": 1,
+            "solution": "8wh2xtMqLITkCwHEGCsOTOTlA3MY8lFlw9fmg4Xm8P7lXrcSjkzbybycif+ZA8Q1zQ1e99JOputuMq/KJNuyG2jc67bjZzkqU8Q1mGe8DJpzounnM8441WKuDQJzpnKKUjJcGJHKb72akj5dx8PxF2VMHQT9vxgCBMOLM1pLhMTKOHOGZMJq0iUDOY+rZ0OHtdiA6YLb7+sZPYEpwJ7hTg2kUIVTg1GZSoNgSCti1f8=",
+            "puzzle": "8wh2xtMqLITkCwHEGCsOTOTlA3MY8lFlw9fmg4Xm8P7lXrcSjkzbybycif+ZA8Q1zQ1e99JOputuMq/KJNuyG2jc67bjZzkqU8Q1mGe8DJpzounnM8441WKuDQJzpnKKUjJcGJHKb72akj5dx8PxF2VMHQT9vxgCBMOLM1pLhMTKOHOGZMJq0iUDOY+rZ0OHTRdRC2nKReZBX1sXKJFlwPQt79b7I/9LLLyJI8tWcnc=",
             "x": 66,
-            "y": 7185,
-            "difficulty": 1,
-            "puzzle": "iHuZ03YrB5YImvhoVw86cK50ZXYMF9zGLGCcySd9TGjpU+8tvnby9vsrOJR/9M4cRNYwBN19T0RY\naCMKFp3At8sn5RwcV0A/f5Blv0/pyYZV/yINgHTCCUxLMt38P01kvFahnVRci9N+CaDvrEGiIgB1\nTmISaEhu+lyrNNyeXCiI0hcBupUJz4ACDiyd1Dt3zIyizDYx+mXReN/tZs+SYbkZFaMhCCkRsRSk\nW8Y09lg=\n",
-            "solution": "VFVCVJzhFeFEtXX4Xpadu/WQFhSuotgFFm2jb138VvJa3B3Kf3OLC3O3GqR+se3ZtzDoh7KUufV4\nmWWAUQhBs0HHQkT+IplEq6iNuA6oh/5dTGdOqax4JXHa82XgS8HziJ5/rHRH7Pl5YhMqLL/K5G7X\nUL1A2O9T8AmfLILoQqkaDSs/YykVRWvvYqfzZhOrOWGSwBXYaeBaj28YuMaF9xgLpIN0MBWZSp3x\n6Xk6pSY=\n"
+            "y": 7185
         },
         {
+            "difficulty": 1,
+            "solution": "dR64T/DTDnswKbH/ToUPsQf5npfM2xJLrcgdSH5Y/9dmEK3SoawUKD4E1nDSZeDVn9foC/3DRRRkJH99Ch0Jly4ZEGmCUeG1qNZUiTuChT9ALsJcv0SQsG1qSt1Mt5BGo5Y/2xsttbZ5MgoZl00UGZ345DNrkcHrGKEYAG3rLg/tW9dAabwmT5TIcwWNQjiYsfCba/F41sMHhM4Fw9F+mcrW+So+1SwWHl2F47uVN34=",
+            "puzzle": "dR64T/DTDnswKbH/ToUPsQf5npfM2xJLrcgdSH5Y/9dmEK3SoawUKD4E1nDSZeDVQni5kPsS9kup+gjPMUNs3J1wRKMDHatJrb2+zGR6CLHpLP7F+zJoWhhgUANLj+oeMfuyD9o9OVed3pGVJF0tCCPkaJmUKtTKxYs8d9USx3swOOH+wfv/2NhWokRlP3i48vUi4VVb9FqNDoyJ/m0SEh+gowA6nuu9qEWp7fyZX0U=",
             "x": 276,
-            "y": 6849,
-            "difficulty": 1,
-            "puzzle": "jBR77rDhrdaEUYPml5G8IueJqHx/ukXzLEgAhdlRq0qbTi1W2kfub49Pp/EFb3uHGW3nDYfbo+hA\nXj+9SeEbphDEZQ5hwkdU1oY6uVyG47r5RfFeRwHZBLJJdisjgXQV4VphWa0OHkO3AA75/QQJJzcb\niHJhYDredT3xBr0IWZbvT1r3XG2nnzsX6Lq8JETLkbe3MDk/zlgQVgzbuIzli6AXzRK0Q3gPhAk+\nLm+aAK8=\n",
-            "solution": "+DGcNCnJPj+xEwYtx0QcmJn3YWVWmY2npt/JK8qyexAGl7/tvO2N4pX2omIGX5Q9xe8KpMxdwU18\nkEMNV22Z83OQqumO2cLA+feUTIyepDyMhJ8vTVJKD9myPwUi4gHo7rnXdOchb9DUSEO+ot/fRKhP\n76ayVt76N4gE58vaVoGNt9eRe/6v2+OTqYfvOAKXuKNgwp/0qctqSKlHacpw4R48/ufH1SO8FgQP\nyfw3hrA=\n"
+            "y": 6849
         },
         {
+            "difficulty": 1,
+            "solution": "ofl1v8QdSZRzWAIIyUG1OBiF6a8ZyiL6BrS9yzBv9gLDnYdIxOZJersk2FSW0Qde3eaWdyXGfg5145aedioUmLQg/baYEsMPmBpShS5P16XdjMLsTmn1PCxQuPz0ei8+mkZ17Ld2mUMMnspCN/WWRotJ1WjtYf7+7JuV2oQbyqAchbM8U1nsGFSwxAh/kOKZpmK5QKZHsA5iJEiHLgNx/AeLt2oR2nT7s6Aj4Tny93s=",
+            "puzzle": "ofl1v8QdSZRzWAIIyUG1OLvUE8UWRpmGHY3v+1i5ZRUxvf0EXREMgKFMD/1FeOdTVYrTQX57/zjI++RyDw8SQmEjQoIvYrHOK1hOUSCQG6ukG1kKf0FRDxdAwGJ2i7uOFMIftPrsQURFY5eJ9Lrv/Dqw3PErkR4kL2IAdG7xyEl8NJX/gKrt3Z5ztVwBQKVDYmMvO2kz4/75mPRswmCzX8uKN08amH1hYIQTvC2p1sc=",
             "x": 705,
-            "y": 6706,
-            "difficulty": 1,
-            "puzzle": "H9HDCdPVOl/1ydG0H9yqjyGZo12M9EGoi8BBTif497UXDbQLL/KTmRodmAu3V6Mr922hjuqSZAKJ\nYuLaqtMQWFPyTe8VjJgI5MCTkkpa8jwDM+oqZE/vAw/KTKwQ9wKNU22OpPhlN/5qp4hj8BkqX1hy\nIun1T/R4MupD1MicLZnPihwF51ofWLEpHTGAs3h900JeGhfSEuQBfkvNsKaszn2mP3IWbkKEJFxJ\nxDUkJ+E=\n",
-            "solution": "VHJfdJxE8zJN4GPASW1/V4HiJGxQxRdoVIUlokmOWUV+0xqpzjoaMb76WK56HbdhkD1YouAUlRna\nr0pS16+sh4vGagCpjoNGb3ECOwEkWKGglBX5MJp+Z8mYfhPiYxyXK2qFF5BQ81HGYBbOKaMtD0KP\ndunEyrIglBTKlCEg06+zjf3LiaVtW4+8QfgQspuGDpGl7UhtMQGs+oFlyTpnR2bLtrLyMDMdnfu6\n2kQqTMo=\n"
+            "y": 6706
         },
         {
+            "difficulty": 2,
+            "solution": "fLnphyBWPYUkCJQBtZlzBUTFl0xl0uPZzOcI4w76qCquua8yNvZvLbLgcng4oPGDEB3eMwMrb5gVYEgDalMbIKukPgYWC9R4LurqIKqGBqRRqNqSZ7ivpC9Hr5nxGkWCxgd+WyUDN4R5JLmrGiOUTd8LyKKqAZBPPpo/lOOrr62Fch7zimZNx6g2WfYQnZPfnHoBQhTz03HdIZb7EvgM9pcDmLkiohyCYfl4swDcTzA=",
+            "puzzle": "fLnphyBWPYUkCJQBtZlzBUTFl0xl0uPZzOcI4w76qCq/URRgqvsrqV2Y7JhH2L4erra7fg4+ZHUwMvsc1X4Du9RPX/oiRuFm5Lm1/C0iTI5DINK9jLM2/MmeStzJ40s9mez0Pl4v9UFpmGbpsFhxSJZpCvX+uEESCqWOEZ/rRIWKwqZmHWOkyYP/yQVWmgmT5EcQ2Ltl4QI5Il6XJ8uUtdeCWBJO8zcsN69sqTTykzA=",
             "x": 915,
-            "y": 6370,
-            "difficulty": 2,
-            "puzzle": "zmE/ZZYZOXSz8JFakm6nPraKlgnUf7IlGyC3SkMB2eIbGC/nkrRmeZr6OFvfNqDqtu9LawwGdCo6\nhXbTGaZ9tEqOB1p28nsfnjDqeoey6oXF5HGIjdEaJzp5E0kz5xYQ64VpruNZZ7QEsIKzQH+TJsEJ\n7m2dMAOpkEYMRhmvc5UawwwPATpu9+QUhukzGUEuUGrSXLbtb63UK4o0cWn6Gmc8dJGt1hSbBY0n\n0AufqWA=\n",
-            "solution": "ZugQxrLas4AMJunsoHyAjiFAhu80i9zEZbqziQUO6eBgwW4qRFo/9GLOV7S0uAgPcKuvZzLgz74u\n/jzI2c+d99d7AGNZCsH5fkbCCtn4j+e+migkP22961Ayu1lX7w3k7jgvxNsYzcJloCFO94n6tylM\nWba5Nu2yyBxz8NoEhanVFFcXxrAukGd8wq2RUoUNW4LFDottUnOLaHFM6nguswZq7lYmcS3TIA2O\ndU3EW5w=\n"
+            "y": 6370
         },
         {
+            "difficulty": 2,
+            "solution": "sRsdTOPaZCXaEqEjHyOZ8bDfjFsYHLFZ3MdPmGrin1vIwmA5R33GhL6WZPOHhkffBha+v6xMuJvTo1ospXsUqUsai339jNQeazcp8L88+9bEqhdsAhANdMZ8tNFsF70CVAljWDGTVZ3zpWEisbroPL79HDcPulGlU39dPntqw5VpIlZpP7atmqfp9Glr8NNie/Ebw0MJQQQQplTWnUycy5V/upLe57iJfLzskV4ViJE=",
+            "puzzle": "sRsdTOPaZCXaEqEjHyOZ8bDfjFsYHLFZ3MdPmGrin1vIwmA5R33GhL6WZPOHhkffBha+v6xMuJvTo1ospXsUqUsai339jNQeazcp8L88+9bEqhdsAhANdMZ8tNFsF70CMRqqgHmBYsmllD2pqCI0dROwzq3nHrgT49svUnUGl2vgOsjPRta/7L+ZjpZMitFRLW3FrQ3ztv8diG7XJl5OPPYbPIG60PFfJrAPCRWpkDQ=",
             "x": 705,
-            "y": 6034,
-            "difficulty": 2,
-            "puzzle": "HOuA/DqLnVPmrf2fsu94rVcIqD+6F1f0iuT+rm9E5bQKOebjAJBRfcSXDvrkJW1whqjspCTqbKjX\nYyJGmYPgiFg05E5yWBEk1hx9LVRidEa1p3mctH536fmUYa5OJikIfy68w5aAbHYJGqq9Q8b/oLAT\n6q9CUUXbW8NcvqPLWGfOod8gIHuDyOvhr/CFn31YBDSn4IuAtNVKGc9OZIMJdQnF1iz/s3IQcm/d\nkAo9mYk=\n",
-            "solution": "1a1J+zY5dWr5GbuF2hBKMQORt6aAe8rrx5nT/q8ir590TRtITP6mp4H7ckz07xKfQUTWRwm98bSY\nJXsV85/wkF6b6+Hgd4GVW9zwk1+JX29D4afH61xolJ5Nt15SFpoafLaL+uM4znyKXXX2SrOA4Vk4\nXjyD4lYh0MoUoeMk7YOlOLUuFKS+EUyZNSrBaXUYPcrBD2Y6v4aJGerkKWNzIF2I4/0AN34Drm2/\nnp0TWIk=\n"
+            "y": 6034
         },
         {
+            "difficulty": 2,
+            "solution": "ZHcju22fQGmcPfxb8HYEBfDMbct78XApINm+z/jexKSCU05abXqUn+bIE4hd/dki87jSSpEVreGuqtHPj+My+uIR5MIOYgAn9k6lkXo2v0KyAVpI5XCvBlfIr73xsLoaeZgUMS0LKeRZe0VjZsWyPkMEgsqvvQ4V2DhS55msP71NrtRtDR1mBvd0cAH//iTy0i4N2s+/g4rkNEdkurzhCriRe653MxCx/57T5eUod3A=",
+            "puzzle": "Aq5rXFRhLeDVNMkL8PbQBtD+bAhYtH2RfQQsCF/MyqFj11ijaGWZ4hwoolXUkWP4VbzfSPLeGo2ZS/xQk1oeXIoVsijry1HLtcQcJBRDZkeKqt60N67BbGTT/f+oFCnP0bnHpok5KxARfLFziaX7NDWSw1HXBrh0TasysdGmp4v50BUjLY7oGXdxyIhyQ3AMgbLBLGfecNjaUkwJ4oJBNrrQXR9R8URXYQtduftIJ+4=",
             "x": 276,
-            "y": 5886,
-            "difficulty": 2,
-            "puzzle": "gASpLdw/6yALKcbSRw+asc5p9X6/XAMb1XFGWeq9SyHgRkcou9Oap9hBHPij/Tc9CBjxoynHHBkF\nhitNv90NO5Kx3Fx59azk753xFguUmpieH75nt5Pi1e4J39O/N7c+z+o6MsFxM64KK82WYelU+JTC\nYP/R41rZbMw0eUzbe7zh2w4lW8aO+dq3S4imBhC8zYxVGn9IcJx5raZwEnut7NgwRC1OJLWCI+OH\nnPjTzG0=\n",
-            "solution": "8YMlSSifDvbivsCajdvsuu9QZCFeMN7gv0N6N0gscz7e3tOMEeIfVvAy1A1I9KVZ4se8l4ZsijhN\nhMOw1J8Z24nYu73+u+28go0VzcbZ/gQtEbEpA4mRt6VsBmsnO4+Q3PHE9kwn42WMriYWswoQl+FC\n5Jkuvm+UX8ju2bgC4U+iCtGfUdmfeBbmd/6TNx6rrn5yR0oY1gjcjhrN4ElI98vWPUlJqtqgbQVC\nc5a6QbI=\n"
+            "y": 5886
         },
         {
+            "difficulty": 0,
+            "solution": "PWusGCUURk56tgrGQ9IQrs5ysz969ZotQjYHQrVeFlTRIvcv7zNW3QGvGIyr+YJiqOKKeT9SfVY0dCwcC+G6iUmi+8JtXmrMpnMZy/1Exb2Y8pArM4nKz/SmUZ6CTguFgq4wLFWaXDQOrkicjiza7SxBSV5Lxw6uaS4Ev1Xe4CEiAgasbZ8Iax2e6oEbiDrNv5zuY10lCIBJL/HwmFFy19RSvmELPPwaY70VYfsD8UE=",
+            "puzzle": "PWusGCUURk56tgrGQ9IQrs5ysz969ZotQjYHQrVeFlTRIvcv7zNW3QGvGIyr+YJiqOKKeT9SfVY0dCwcC+G6iUmi+8JtXmrMpnMZy/1Exb2Y8pArM4nKz/SmUZ6CTguFgq4wLFWaXDQOrkicjiza7SxBSV5Lxw6uaS4Ev1Xe4CEiAgasbZ8Iax2e6oEbiDrNv5zuY10lCIBJL/HwmFFy19RSvmELPPwaY70VYfsD8UE=",
             "x": 66,
-            "y": 5550,
-            "difficulty": 0,
-            "puzzle": "HXStDc+k1jK0WhUjt1IQUInSsLVfcH1yr2U+9Rv3kKp9p6I8/gltEdl9d1lxZyGIFhqi583YXUOD\nq1Mn9sPLlSvkomPl4tlJAOdM5Be56azSb03uHaZKADD6w1dkWb1hB8wfSRMOpmUhrb8eXSilQre8\nSm+VrC9/MXPnRqbyyJ3yTf4JRxGEP5k+PeIQCWTkFkHNiQYcP5MQ3mjDhbCOyPhqqCeF3hROLrUY\nDAdaF+M=\n",
-            "solution": "1rrokvQeyWjV9h5hLX6MnjiHX3DNDdn/tXss92ROqT77kdjpblYBQdXixUc/+h863sdmz5bcQVlo\nhG3Kys16oqixh+MTLbUm0pZMz+cm9fYk5RqLitYkAhX3+MoEfLdKiXdY68fqyda2IFTAhue7TrAG\nKXqv9iq7bm3X7foMI8tqRpaKqHOrASQVIKTzYTZvNm2EqbVQG7Lv4JQUSkvdSW2hHHYguWiyPpd2\nncA3YCA=\n"
+            "y": 5550
         },
         {
+            "difficulty": 0,
+            "solution": "0Dpif08UZKNYL+lA41CBRkOovZ3MAdrgKHZJYnYRXrLJCpV+udBn0XXtq6/GXJCsSD8C+b5b1ieZ8ijAwvNXL6hqsbXkEPz7eXCmmINJS1XQn2itK+B/YZwanDQD+aMWoSg62sd1hzZvZH5yUTFKhVp9CKlPKF81xjK61XBfCIZsP3pmtAFztXGAGE/7mh6OaDsue7FEyynRhmg0XAw66vGKQSsAqZiMsgp6rFBPXto=",
+            "puzzle": "0Dpif08UZKNYL+lA41CBRkOovZ3MAdrgKHZJYnYRXrLJCpV+udBn0XXtq6/GXJCsSD8C+b5b1ieZ8ijAwvNXL6hqsbXkEPz7eXCmmINJS1XQn2itK+B/YZwanDQD+aMWoSg62sd1hzZvZH5yUTFKhVp9CKlPKF81xjK61XBfCIZsP3pmtAFztXGAGE/7mh6OaDsue7FEyynRhmg0XAw66vGKQSsAqZiMsgp6rFBPXto=",
             "x": 276,
-            "y": 5214,
-            "difficulty": 0,
-            "puzzle": "yVqq2fonqMmE52MDPc4TchQ+aXhS9YuhJvaTr7RLo4eiSfceSsNqoRCkSj+ooFguORO343SdPm+t\nyMfzZlJ37aeeouiHedyT19VT6Tmlf93+kQi/gcMTI9SSPz5xVTU0K6ZoH3N3gi2Y09IKKLslmmzv\nBupz/RxWuq3xlJ6cUnmUNoBc/L22j32XN0o3nB5CKrjJoOfxVP57L3AogO+ffdben2eiSdvtUuWp\n1pCiP9Y=\n",
-            "solution": "RdHmsUqQAgVoUwLYtsn982XHdlg1/eJiSc1KYpR9Q5xZ545XxKpMYn9pIozcTgpC+wY3Z2Z/Ix4e\nvzkP/oY6XHL5LKmrvWdDRvtRVtxDO3/EecRabl4LZICTvwMnEEcSxGJsyy5X4Z+x+HDEXLvBzMga\nkCztukPtJ+/utiujzScPcjDcbZxid82sFDNSRdRiusAYCkAWrvbGi3F9gWpeZzq9nGebXKgpg+ub\nXPvgiqo=\n"
+            "y": 5214
         },
         {
+            "difficulty": 0,
+            "solution": "+sd2PLItDFin3S20detIOHsiIbyNouPw7W82vRtdRWjzov0hrtyaGCUFZs69bI1KU2vrNpAGAxHN5x6lsVVqwoCcBhhvlE0MVPQsqq9Rz/8wQiFSynNaxTLtHWAirtCc9dTRDeiXOcOCNuRkOyXw3i5Ui0+3e1zIQcVaKPw5chN6W3beYsOmXOfyBSzArkwfki7UsjJLzPUC6+vLp3hgs5YJA5H6PmSU2EsCIYyGptc=",
+            "puzzle": "+sd2PLItDFin3S20detIOHsiIbyNouPw7W82vRtdRWjzov0hrtyaGCUFZs69bI1KU2vrNpAGAxHN5x6lsVVqwoCcBhhvlE0MVPQsqq9Rz/8wQiFSynNaxTLtHWAirtCc9dTRDeiXOcOCNuRkOyXw3i5Ui0+3e1zIQcVaKPw5chN6W3beYsOmXOfyBSzArkwfki7UsjJLzPUC6+vLp3hgs5YJA5H6PmSU2EsCIYyGptc=",
             "x": 705,
-            "y": 5071,
-            "difficulty": 0,
-            "puzzle": "woncdDMyKDpBOWC1vuimETCLiMLhA+7xifRJ5mnOUOUsc47qfCU+m4jT34mvPqlceB5xoXvx/4su\nXxXqSRLGVV0RviReE696ExZOGgBpZeklHxeK/ZYhGYWlHruMyuEmceN232EvdKHo6eYDmwnRhiiw\nkg9lWE2D6Ks+bd6Jtm0H59K+wT4acI821GffJksRV7bSw7c+cnoMn7kWzp5MSmEDSbW8tKFOF8Ks\nPe9g0TQ=\n",
-            "solution": "EsAVcjxTgb+ZHc4cSTYWwkCylgl1spCtYgJ0H7/0lWUoS5vO8cjfNuwFMoFD4809RubDG5EroduX\nQQAeUaJKmu89exZXw3fjm7wTG4VdoCiB/37WxZQGDa/F/KaC8/icZZMiGl4Kl1RD1IBJcz8C+lfa\n6sU1YpGiPxEhwo22/EquCbPDZxlRDv7Xv6MYIBNobncrliJwaX92iH4SdPOx5NZWYs62N2KN/7/0\nnnxTSuk=\n"
+            "y": 5071
         },
         {
+            "difficulty": 0,
+            "solution": "kvhZyKhuPIjcKGxbt5URQDWeWlpiadw+Z9Zodhtal4T2v3ucl53koP3JDfx5dP37SS8yYfIDAqvWLBpEvLkZIKIce+VsvrloI6S4uXpLiTwkqbNymsBb9k7HrgBKXzqAB+pB+NVj27di6LZuDxq2bYCtFx+Je/XQzf9aMTVk5BqB2PA+T83iQgRhd2w2dpr/O2hPzr/Bv+JY5yAzLHA9FohZ5lXqrqS1SXpsXhb+Jpw=",
+            "puzzle": "kvhZyKhuPIjcKGxbt5URQDWeWlpiadw+Z9Zodhtal4T2v3ucl53koP3JDfx5dP37SS8yYfIDAqvWLBpEvLkZIKIce+VsvrloI6S4uXpLiTwkqbNymsBb9k7HrgBKXzqAB+pB+NVj27di6LZuDxq2bYCtFx+Je/XQzf9aMTVk5BqB2PA+T83iQgRhd2w2dpr/O2hPzr/Bv+JY5yAzLHA9FohZ5lXqrqS1SXpsXhb+Jpw=",
             "x": 915,
-            "y": 4735,
-            "difficulty": 0,
-            "puzzle": "JutRzpnfaDZQ7/L41jKAxUjTx4PrajNjqUk2kRGjO6PT1QBsMH7FnS6bNDoVd/GhDS++SVeJ+frG\nTsL+SHlDLdR7jTBnbiMSlr4o5JD5CuW9umx9fZU8rCxyN3r3SvQrPU2RMPztcuhndfDnVw4XQ7G8\nSotxiqs1JozzTqZkckly95z5JrxPlJmlIdRmtUeUx6qxqY0Qd8IofVzFVFSTa3dSh8quN/f0iSFM\nQpVsolE=\n",
-            "solution": "hQf5PSDubfnMtyohNwnKqZF5pAGda1xUv9lhrpIUKNxRzuPWaULgsGJMF47sdxoWAaP0JR81DCwZ\nMELct9MLNuWbGD1k4byFCaKbjqd4+tbEJiXrWE8eZO7UEGyXMdEQhs7K6InYWSNQxdxleXeIXh+3\nIXS3k+bAigqK4cscigB4QVNhcT8HWNXLxpVGv01mO2I1tRSYnFQoEkhX2wDAt6I0+NvRDSW6j40a\nnVHs/Fk=\n"
+            "y": 4735
         },
         {
+            "difficulty": 1,
+            "solution": "uQmALEtqyu0PStUqqnyZkRlKmaRB59RMool13XPk2uRduUEJSKqaZSzvzMkDVaREK7sSQOixTQHNTCXk06CBUXPgLaR9MVPGVX/JOxA4WaxkBb3o41xXkf4BEg/2lsx9MeLW0FrTf8LwiY07376Nl2av2Hb3Nfb66fI8sPsHj9bl9rIInOIw2Kyqkt3t0/m2Yr6V56uImHmN4tYtGJ3h5IFw5hqew3Wl8/3wX6e8PnU=",
+            "puzzle": "uQmALEtqyu0PStUqqnyZkRlKmaRB59RMool13XPk2uRduUEJSKqaZSzvzMkDVaREK7sSQOixTQHNTCXk06CBUXPgLaR9MVPGVX/JOxA4Wazie5rGTYtDpt/+e8IH1dawsM79fcpceVCkxRrYKhRzvmoVMPoniOyZJT+es6ahLDmqKsAetXSxoAL1eWoft9k23F904mukciDqrAeSU+i0wOE8+eVWQCMSpg9K+dFynYU=",
             "x": 705,
-            "y": 4399,
-            "difficulty": 1,
-            "puzzle": "7bf/GSVTA8polwi7PLlCN9hKnuHiP0Z3ktRXoHditOO9lptlqDeU19xzW4tlChenjCeTCSozQ0Kk\n61n1ZQojxOFv0otqpiqVl8j8ewu/QRsNtEVRAvf2GqJziumCVPdwHm5oorKQVrNFD+80y6aZf/qy\nS70gQQJr3hJtHOQYPpitNCtMryvwFQqdYLnf3KAf4sC3kuK5xtBmjO1aM12pCZlEkyVkJwjs/B8Z\nUOHPjOA=\n",
-            "solution": "yjWzeTX/L8Me/1ycMc75g/JHaMLGDDF4tmow6j0Yk4mnxxu1IehZrMG8/0PKj5UW3/sA5jGBI1tB\na1OusG/A+f2jy6Jdwnsg8kMgYmnIKgqQReqZay2IAxPiztj9te5zn82qOhDiIMo9vZFN2H7nyLSw\nyxPt7j4lSrSbaSrS+uKU6K73NN9eeMCCrL1EnRk81lIHAtay6/U9rUyrbFwrWtAwP2c7qzDpayjm\nAMA4rBk=\n"
+            "y": 4399
         },
         {
+            "difficulty": 1,
+            "solution": "+Zn+w15bgPinyI5vOSONAWfJ19vX/KDfApnU7SYAxjQTDOpYx0mHyLlT02i0AZNXtpooanSQnpB13FPWd41ChUN4gsF6BJeHNJ1bSARctbyXkQ56n+Gh97o0HkjLV4AEOCZoXngjYLfAtHDmZu9ChLRXHzR3KLyMZGoC3iMsFSTNzKOlZUFOHOw75cl0GHcNvj6qG9Fhw/Nr82Zn7UNjQ5ot5HPhngKj9beyTOql+y4=",
+            "puzzle": "+Zn+w15bgPinyI5vOSONAWfJ19vX/KDfApnU7SYAxjQTDOpYx0mHyLlT02i0AZNXtpooanSQnpB13FPWd41ChUN4gsF6BJeHNJ1bSARctbyXkQ56n+Gh97o0HkjLV4AEOCZoXngjYLfAtHDmZu9ChLRXHzR3KLyMZGoC3iMsFSTNzKOlZUFOHOw75cl0GHcNy+qRcE6FEnXQmxodyl0NZQysybN8SMoKhTM18QOLnFs=",
             "x": 276,
-            "y": 4251,
-            "difficulty": 1,
-            "puzzle": "TY2GnkFEqeIZu6Ke2l/35PQYwNGeofnwhGsHv+CEaoc1J0drFdJKBFLsm2vNec2kLyB52+A8Yqz1\n8zEPN2AxSbJOmeZMz/EK9fWuRPdEsl0sNxix6Xg5esSkkhbHTnkT8/sjVNd39izuNc/MEu1I5kLS\n0KTtqSCDeBNvvSNJsWVUKWZjinN0Q0g8qCZANxTcjUDhoYpygwomPjoMfe/9oL1ZA8nAhUsohugY\nbxXhFrU=\n",
-            "solution": "7lu7OX7ZTWqIP17MfibAb4qt404AFC1tGvuZl7UmIkOm0QKXyphZ1kL/ooMDwKWLbBwqpcfSKeET\nhpRuJ2xL4uUnKShQGsLOAzOecyW3CD469aJTbT8G4Rr6KNTVW3T8pnZNMI+BQeUDgmLBGD9s9jsu\nWfrmln/qZPeft4C4So/AZeIyr/QXP5kNR4x4bCgi+GA9cy0XLPscAHO4ctsm1Ga5xsTbT7Uo+T7T\nHk7g6MA=\n"
+            "y": 4251
         },
         {
+            "difficulty": 1,
+            "solution": "EthDsYFa/inwTdEW7HN4ciKIsaiPgwsWtbuuZQ9+G0IQqIMjNwluopmdQpgEPoPr4O6Lqo/fW8RJHvPI3hOXBBZ4zq2YTVJY+w4wFpOz5Ue53B5NaDU9EkYsq+i8xBKvMMjDm8fxi/5T4ig0kjLhTBymK/Oh6jlINOnlE5a67r3Mt+77KRV+Ymf6jIGs5I2jGVS3icUQ+KARpKau0DlLTyctDWCoFf+MESpH34K7c1I=",
+            "puzzle": "EthDsYFa/inwTdEW7HN4ciKIsaiPgwsWtbuuZQ9+G0IQqIMjNwluopmdQpgEPoPr4O6Lqo/fW8RJHvPI3hOXBBZ4zq2YTVJY+w4wFpOz5UcSDRZwY5vrxZHzujQzaanGHeQoYAFPbvlogtnXuv2W9CRU8+CgxPWPNlx9jTY3DtYqdtHO74vBcDG5hEXJzOtAHiCvbNSCPoB+vTvPO8aWlpCNKlldULFtTRuI7RgLyLY=",
             "x": 66,
-            "y": 3915,
-            "difficulty": 1,
-            "puzzle": "Mt3nkSBIS5V4fn3B+QiCaN8z6hxkk1LepIYaG/mo77jIX3SYOYmv4y1NZXwt4ReTaMzVrzWUZfZY\npK0cYPA0/dO+uZb5hYXno1+Ak0e5hozmF4Uz/hDCUnZuLHHEUFPmVCAFipwde5yKuMPhijfaHgGi\n5mHrQsGi8ooavF9SeKa7pmcNmeeVu3IxY2iCtuBhAJLKQQgGTCqtDopqQXrJU27b2pkXR/MoHeR/\n/ae7dgQ=\n",
-            "solution": "Qlx2CsMjDN1cttM9RD8Wlpb9cPj34nARcBGwHNYu4BXfSz5pj+GMCFT0GxITv0s8hjmm5VmmTEcq\nKehkTQatoVCbVxw0zQM1GUEGCI28HrMvfiYslqwJPO/k5rQ+vAaoF5+8+LLyG9bey2yVkuwS1oJl\nkS7oVefy31nesfncYyuUsicHgpe7Zd6BFMJH93xmdyZkG7SrKzF1NeKK+s+qL1jbqT7PTo9rXyns\nW9tt//k=\n"
+            "y": 3915
         },
         {
+            "difficulty": 2,
+            "solution": "AIFN5k7krNdvtIJTOU5prlCbtetPReLLFHPcXTCLhPdXksWqk3Do0VFK0UlcxYZ6mZwb83EprRb1j87iqEBii3OwfSmF346DG8V31Hj5e0r3skYqixQ1QFXYV6PWIPhvaMKpcJ/OShhjZfgJoWj9pH6z5z0MgObFWRyzQoqW7h8/TuM0PvPXL26RsJwYlOI7MfHUjXPgATEsvnhpxFHWztDEvbGBcKXz2bHZJpE/NRY=",
+            "puzzle": "garFOng/WNMSOxSobJz6DMCMlWgNbUTRzz3qYTbx70YQDSgbFsAhlsJIzCdnr8QXVd4nSxEJg7RYXy7uSqWuf9uhCVUfaQwCopcLZKGCAk/jul+IRxmQG7I/joetNcGskA+fpseqKZH1l2ycRor0z4IQXudGypivBqMnFAhGLH4G1MV+zPC89Qry7RTOI2j/k/yhZdVQmwkdi2tnN/UwelLqokOqlnZbWI3OMRgMgKE=",
             "x": 276,
-            "y": 3579,
-            "difficulty": 2,
-            "puzzle": "b6KgWpSDK/h4J4VdyrGGKO9S1l6eFNNDpktLvOeuy3gZxoqmk2cV1vi4EaunfmtS1OJYtMMJc6/T\nh2M/2y/khOwNGTV03A8Nn9lBnMoNOuVSBjS+mYOd7/RzsXb5QTCypDLm5O/OvnPECwT+GbthSSE+\nmmse/IUduro9U93EaFUvfB2p2tiDpHQjkJnHEkWo3vr1g5iLdZHIyi5mn0AU8bYHjVpGiR8Yr9b3\ne7lFwxg=\n",
-            "solution": "3q6HOmM/aT4K4olCwydYLM+SG3T1IXOPLnvM7VnYPl4NmjHc756gqg0ynEiuHykcxxebm2UrUAEB\nn3xWpRwKJqz7sG4R1JSvi6K4W0BZYOuQBWIbqGzFoIc4mk2rhsTQgu5okgOJrUIeJDD0EsTERMTa\nwnhXT/DHAOW/aUSWcKywa0NxCQ1++/+lG0Ic7gaHAV59HxxpEUvMookhx+KmXqxqetVcgJudLJgs\nOPjspEk=\n"
+            "y": 3579
         },
         {
+            "difficulty": 2,
+            "solution": "Ts3A3Ccgjih4nfNNsEons99daAR9XpiCxnr4Q+UnFQzPGUL/SRCpY7dMVsoGZySq2jKAMlzi6IcwQWnZfgUXFeoq6J3gGukx/cTrQXU42HhN62TrnlGFc7zSTBbPlq+lHxwft0/pndhc7h6Tt0OvsCvmrJTNH7l7Wv9jBuoMgdWSeHHYCg1rNJ30Ajcuvnk8ehmub40vMLRu+H+vpi/1hemYa3k4a3uGkX5Klzfy8Kw=",
+            "puzzle": "Ts3A3Ccgjih4nfNNsEons99daAR9XpiCxnr4Q+UnFQzPGUL/SRCpY7dMVsoGZySq2jKAMlzi6IcwQWnZfgUXFeoq6J3gGukx/cTrQXU42HhN62TrnlGFc7zSTBbPlq+llUOIMMWfZGHHz0DaAatr/X1PBnSI4IY5UbA016PIcbl5GR4dw4m77kh7vGCUPvslUL5/X1ZoNMelFxOCiOrFJZsSK0QH3rex1d7yBhVZnbA=",
             "x": 705,
-            "y": 3436,
-            "difficulty": 2,
-            "puzzle": "N1vuZVWQPAPu8d/uLPvPlD3PRQP4ngyjdqf5bI8sdv5V7Ez2L/ES5aAW48G3V/Mu80fbNOPOFYk/\naLkWvCbskAGsD2KcLdKSM9hwmDcoh8oH40dEHWiICA3/Wuclpt6q/psIznjDeil36KNbRIF++l5S\nC0nlFZMA2Q7aGqVvJ1/sRrtIApN3dF+aaYiPH3Ya4mcqqqG0QmCvZBjP8SAFbmnz7ONakO2lrR70\nI4vBYo8=\n",
-            "solution": "eQjHVm54nmmjxjX1YGHyaDBL8UcHS9RnvCWKWnNVBH6wxkbchoV5OgNvNVlMF1j0MEjnrjmZkMwM\nZZxh3+upB5Q3YN9yus6ng8j9oNjTN3XuKBZO1PMVd2ssqB/H+kajLF3SExnLWuWBYmKl50icg/bO\nYz8zc1j+DZUs85mSJEBzVElBDgXqzI0NcJK9vSteTRCHLOygcgjbhrSruEyggLBsPWhxYvPx3UL8\nUVOOK3c=\n"
+            "y": 3436
         },
         {
+            "difficulty": 2,
+            "solution": "7yPz4KBHaTldN6xPtn6ZGroUbxioUl8tS8/WTPn2AwznlTUHvk6zSinY3mX6MuODMV5JX8cEIoic1gwt2T4K92yeVrAmBLn/90faPrK23+9ZU8PERhtNPmiE032uhIQzkc3r/vuq8JdcQhDloc5clMlclsxV4Ag7c5xyy/cXDQvpFChtbyHNovCMoTuyR5HcFNj/OcdB2kTeshK6WIFa3l1DfoMY81AMEvm8GQOTaIo=",
+            "puzzle": "7yPz4KBHaTldN6xPtn6ZGroUbxioUl8tS8/WTPn2AwznlTUHvk6zSinY3mX6MuODMV5JX8cEIoic1gwt2T4K92yeVrAmBLn/90faPrK23+9ZU8PERhtNPmiE032uhIQz6i7i2/DyDt7Mu9TrLtE2q4QgkkjFVUF2wir2CabUyAQmdOXUiZ0iOGeQ4ylBWbzD57AwOfRxyJZktGDOqDwaI/joJ3kmzvtdY3Iu42elnHI=",
             "x": 915,
-            "y": 3100,
-            "difficulty": 2,
-            "puzzle": "lhJkQKLJUDdEO2b0MjQgVEnV32YDXCpl4OLMHfaMr9rsAm0xzVW92WF+VD4sPwZ6uX8v6WCxVxSj\nB+cCRcDcoDOYZMW3vJaaFIDLl7RfDZCuMD6tFXYYm2m4W7BNPQwJWF4+QGNTpXZaSKQRSS/SJAjn\njXpcDHpMbOmhlvn+h8Y76BPFhp4+fkZEfPY6WkYyYEobz34nZKrg6Q5p6gEtxHqaY8U2C/JAXa2W\nbTp3aus=\n",
-            "solution": "+z294KG48VSN/j10z4n0eX4Jm+O1LdBYJTyMS0C+TK/TdPuPv04xPfULJRXQiX6bn01A4D9AYKy1\nz65/mbUj2oBTupDWk6s6GN6R3WfPY7HL+34mx2toi0YyJrw30sVH32Q56MD76Tonk5Dh6S32ut7C\nTTb1GY9z0INuqCDJaaZZEg1C4oE4NPDVdpfRNkOQDqlGT42Kbcr2vpb/4R6EAq3LGE+lVP2ZbDei\nYO54TYM=\n"
+            "y": 3100
         },
         {
+            "difficulty": 0,
+            "solution": "YNaDyQwDfC30UXP38TagCuAbcxP4BU/PD/SBkYd+/6RENo9J1l9jLyZnVNHTIp+4D6kETQBUJ4SRD1zT5YfpeU4NGS4/VhWY0Shvs0qfdUi960ZrIDD4JFDcBvmA9XLSe0JA6gYVA3EOS8nlD4fZY6T/PdVvRQi3LETYY+gHtwemQuaUwiNk9aNHj8YtPbA7ZUPystsDBmx+z3r10OIOgWcb9bkYqLzNF2laxSoU2Po=",
+            "puzzle": "YNaDyQwDfC30UXP38TagCuAbcxP4BU/PD/SBkYd+/6RENo9J1l9jLyZnVNHTIp+4D6kETQBUJ4SRD1zT5YfpeU4NGS4/VhWY0Shvs0qfdUi960ZrIDD4JFDcBvmA9XLSe0JA6gYVA3EOS8nlD4fZY6T/PdVvRQi3LETYY+gHtwemQuaUwiNk9aNHj8YtPbA7ZUPystsDBmx+z3r10OIOgWcb9bkYqLzNF2laxSoU2Po=",
             "x": 705,
-            "y": 2764,
-            "difficulty": 0,
-            "puzzle": "x5Zkfu8r5Ov4hC8FeIb+xUEFxPfG6XjqwOlxLyh6kOJfGBsTXml/MfD4GIU3tt1b4oHdZ3+bPBSJ\n9/iLwrNt2+A9UDYpoCMZHUIASKUj3C/JN31b34Rz/X7YrM2bqAIW4zGl1eK6EWaJFDDuRCLZ+rfH\nJffgswUJPA+xIMi77niNN/Kbdo/5Ke7Osj17OIwZ/6Scz1bHSqzt14vWbaWRJMu15tkO1c1MaRpV\nU93Dqh0=\n",
-            "solution": "pIklUb4mK5T9yGYj4hXHjsyCm8OTeQy03zEhTBQ1KtbU2mKDXqFrJNkduOkeygF3tofRZJD/wN1k\nFh13jFTjkPKwJMZKXflg2MIagmZ22k2E7gQl/AGAGDK34Rgvqy6eeHjPaMdrjxWYq753zrhSPJvY\nhWag68Lb17bIOjhSJaprfjW+vO+Bg/V6vdI8Ert8+JBMeH1YL8w0TqI00FM/poVVKDmO2+3GMvup\nDhMwjzc=\n"
+            "y": 2764
         },
         {
+            "difficulty": 0,
+            "solution": "QJEJBxcNDnt4PVL9nyNYmFhGa9ObjVYoRyO2/P1FKHLemJgLEkyKmpPtvl0emwdnm2w3pjBoXmdq5Izfpm6Go+pgOXuZkMkHlrAEWjO4h9cqo5oRjmps27BhvLSxgRVDIRx7tzijyrO6DOc6F3h9hkpLlaMQmXF1C7GfINcnnr/6NCvuMbFngJzp3sRBfo6fFDlsOZut3x1KbMRXNTpQSlvibQ6DKTO08qYB7BlkMF4=",
+            "puzzle": "QJEJBxcNDnt4PVL9nyNYmFhGa9ObjVYoRyO2/P1FKHLemJgLEkyKmpPtvl0emwdnm2w3pjBoXmdq5Izfpm6Go+pgOXuZkMkHlrAEWjO4h9cqo5oRjmps27BhvLSxgRVDIRx7tzijyrO6DOc6F3h9hkpLlaMQmXF1C7GfINcnnr/6NCvuMbFngJzp3sRBfo6fFDlsOZut3x1KbMRXNTpQSlvibQ6DKTO08qYB7BlkMF4=",
             "x": 276,
-            "y": 2616,
-            "difficulty": 0,
-            "puzzle": "UUggUMqb+2I4L/kj5tc7P/ZiYZbU7Y4+EMba9TtggyQ3zcDGevIp/7wgFxcQH6C6svMeGJyu+iq2\nM3Y+CkFz4ar3hW7bPb4yi3n5tDpt7MemqaF1r1RuBeFdEFwQJNXVIA3PKsKIh8Gvc0Zf499M38Ik\nJnA0WLx8lzLQsXxG1DuEsl/aXPwc4WhgJkF3Xb2SsD8Epna7+ld1rLWB6d3L9TnFS0+RJAmkv3yF\nK4Qct+s=\n",
-            "solution": "ZzJ5WmYwiykUg032tYPH8ipnsnVAKZ4fccAXdrLYwLXlFIIta99mkzSzG0+URpPy738yB2hT2WYv\n7iljcrtOpgtY4t8j1eDhApwobLh7PnZGF9DoOy8UymvhGWzeWPXogNihRulnvjLGSCP7Bgrha3id\n+n+uTjKz2l/o+sTMYfuJQ7C73GkJ8A+GDPRclFmepXCDUkjF5GsK5I7faiZYyOPUnZr02kAde6cA\nAJyRKUQ=\n"
+            "y": 2616
         },
         {
+            "difficulty": 0,
+            "solution": "IpN86m10sS/cym5KSap7KwRofsIOQfSf5gsFW4DZoYkosTL2+u5vx/M1N3FEvAYJO5eXzgVVPC09wHwzbtzcoxINeG7C6r8CUGhOEp3dchnmBXAvZtzCOvI4rPWh2425sEscHwMZcHQbiOS60T7F1U2MQWG7z1Rfphpec1g6fse3VUiKU+CjxtX3mVUbn5rqWWL51JGhk/UCdSS121V5ZbArtizkwtmVrAj+RmH9+NU=",
+            "puzzle": "IpN86m10sS/cym5KSap7KwRofsIOQfSf5gsFW4DZoYkosTL2+u5vx/M1N3FEvAYJO5eXzgVVPC09wHwzbtzcoxINeG7C6r8CUGhOEp3dchnmBXAvZtzCOvI4rPWh2425sEscHwMZcHQbiOS60T7F1U2MQWG7z1Rfphpec1g6fse3VUiKU+CjxtX3mVUbn5rqWWL51JGhk/UCdSS121V5ZbArtizkwtmVrAj+RmH9+NU=",
             "x": 66,
-            "y": 2280,
-            "difficulty": 0,
-            "puzzle": "kOn7cQZlAJLsyNLJHJCWtErnRp5hPpT4Hd78TZ8ge/9ZhJPiqOE6mZYsKe2emjkmPaxRHan37ML2\nBBTYLSosmT4NqX5ozLLbMekq2FdL0SE/uUDcPBeF36MJWsn08hd8J6LgUO0fGfGvlH2Hf9Oqlga8\nOJpIdV+L3Ck/ihSxm1GBcBiTa6YVBy2KIPHYth9kE6V0PFZrwYH26crWkpupxeu1xHvvxDa1FTPQ\n2qNREWg=\n",
-            "solution": "HjpAOLXv9bQ9pOdM0Mf1SQGrwUXaJQB6tVfPRCSs6aFcvcgNuAFpp9qWf/HQorhJiGu5/8/obt86\nrJ+7J2Qk1E9bDdOAUQF+hcWdjWIcRIzuxgD2H4Yj6y1lYMmyIqOYbXJWDJo3SW49rqaxAII0V/4W\n9Y1swaTSI8ZQ50TEgsx+XigWqzioFCGYONiXqFxURwZF6LngZaOd36tR04F3im6OzXmaykE9YeXn\nOepPa3Q=\n"
+            "y": 2280
         },
         {
+            "difficulty": 0,
+            "solution": "6g/TYbG8Rdz9J6YBD+wvvdDuPU9NI1+kxRHc6+2EjGGs778fYrPXMEDKlJDPDL45z6jv6UNcPco1jy3sj5ler0iWdirbc/egkGqE1mHwUB0GAjMdO0181IeKSHcjxwRsvAliOgL89yBVznyIQDK/QC9SRj5HobyDpZMSNB3gGsOLLmDZ7nlWhrlJ1jSf3yUdZA6kQwL1m1vLZkIXPU/J2mzGRl0r720Qb5edjtpxs+k=",
+            "puzzle": "6g/TYbG8Rdz9J6YBD+wvvdDuPU9NI1+kxRHc6+2EjGGs778fYrPXMEDKlJDPDL45z6jv6UNcPco1jy3sj5ler0iWdirbc/egkGqE1mHwUB0GAjMdO0181IeKSHcjxwRsvAliOgL89yBVznyIQDK/QC9SRj5HobyDpZMSNB3gGsOLLmDZ7nlWhrlJ1jSf3yUdZA6kQwL1m1vLZkIXPU/J2mzGRl0r720Qb5edjtpxs+k=",
             "x": 276,
-            "y": 1944,
-            "difficulty": 0,
-            "puzzle": "sNXuGF7HeKzAH3lN+Kh0cZ4PEH9ERAgQJjyMtEj4RWK3jrZcuGPO9RTONIdgXrR7D8aMdJujuJhU\nCietdtu/8Ildd6XyeNL4/h0le5nE4935CpluzyEAOMmMm3k+SUswJJR9OR4s/hFzg9izT87IV59y\nkSerhVCgaqrL2APymBgXqKdfXrO9BwO4tdcrYGWfCNlm8oV9KWZhyBj1ufVMwKTikkGYdGKcdbx3\nVNpNeUs=\n",
-            "solution": "iNjlFEynOCrNfac412ip15W56L3cjMb92D3xh2QtuYTREHaTzcQKACZdkgcf3u5tBGsCFyuedemV\nLsh92Kl6GHKCXL2CL4knXt8CBfFzuDsPXkxxjQgAdyENyGvwQIFiIFssKQUwXIJkrmndMHzff5KQ\nkRkFaXaGQsw8eIsdlj4Nsl6noSnX4YAK2m1tH0Gcf62/xIn3eEjrfYDlFKwvyUOU/7r14hZv8S50\nnqWGvJY=\n"
+            "y": 1944
         },
         {
-            "x": 705,
-            "y": 1801,
             "difficulty": 1,
-            "puzzle": "nM5BeuJJfVa2t2fXOs7vnwYYJsHHzpj3PL0EJTV/EyYUSXdZG3TCOFEK1FpcVPEJkdju53Sbypr1\nGelui2qahPJXI079FprINAjK50YcybvQDjpxhlSo/AYHQsL+1jr0+NTWBslzOodRyejgqc4Y8KD9\nnmpKzsvRwQZD7hKM71/zZOzJiui3vcFXc6iYyzzPRIpeYkfzTWWb7M2UzaQkANPrcRK1PBeSotRR\ng0cDkZQ=\n",
-            "solution": "/Z2JIn0sqH/EqdZONQD/WInyscHGqcNPJ1b0M8s0l6GC46iCBw9Hpaw9z1fvK3cMvUiN0oRDmV2q\nku17XwzevJKl1v2pdNZKyMxfqSxWjgSQyUavJBDyPniSTq73jVqKwUWRzJeoYzAICw1mt6dMKH5r\n27iFdaWK5DSHWRwbqtwq6ZOdWrdWZKk5yUKAYJVz5N12/5a7oscJNPAmG5pbBE49PLR3gbRM46Cl\nRuNzU3M=\n"
+            "solution": "/6Vor4f1MXxZyhrfIM85pGxLVnqrYXB2qc3ftinH6u5be7ouoYilikKdk6ktQqF0vw0Odyuv24+X0OXpqnaViDZRLJ4/4SGPaTYEc2WNbsIgRuUOIc1qpaB5dtJkhWyogoxCyYKKoKq4Emk9eqyhTFHhWdwA10zodYYtFCrN9C7KPyIX4t+VWHhDk9+ipdxsgJQqYFjidHjs4yuMpuz5OwboDXmq4WQt4uzleEoDoGg=",
+            "puzzle": "/6Vor4f1MXxZyhrfIM85pGxLVnqrYXB2qc3ftinH6u5be7ouoYilikKdk6ktQqF0vw0Odyuv24+X0OXpqnaViDZRLJ4/4SGPaTYEc2WNbsIgRuUOIc1qpaB5dtJkhWyogoxCyYKKoKq4Emk9eqyhTDFM6S1heN9dlV+JOVeFija9+OYrP9GuZppIO9KjIryJdlp8wvJ6f6sbB2ppmAnvhi6sNVDYf+Xk3HG1tbdnFRs=",
+            "x": 705,
+            "y": 1801
         },
         {
+            "difficulty": 1,
+            "solution": "LcKmbGLRWRr/APsxda3PzEgEE6sxCLNEmDBmR8inf+4JqQij2F1lpnYhiiZlEJ8vCNoQfCUPI3UFPWohBxEjo0PMinsWnbZWcGkmwisoRCsJlUQmE9uYWd8Ahp2us9DHuBjkeX7mL3IAa5DS2rioYFGYz3USJ8YLV7K/Box7KlgOqb92w89IPYrqql01l1MOnP9j9wyxsOPq5S5n4lOwCZyxFGiC2i4Lvx9Mh20Ekmo=",
+            "puzzle": "LcKmbGLRWRr/APsxda3PzEgEE6sxCLNEmDBmR8inf+4JqQij2F1lpnYhiiZlEJ8vCNoQfCUPI3UFPWohBxEjo4eGaXnSqI0BVT1higsM9+bfBXO4W5cfAuLo+IlYzMdf68870pYxZcSW3tyqDWt5qjD/qUrYUYy2J3o1hoO5tPiR79qbB5wdYMg2eWVpeP4Qx/e1uEfxlbp0k9v+PT/5McaJE6SdwKpA2baj5XJlzoU=",
             "x": 915,
-            "y": 1465,
-            "difficulty": 1,
-            "puzzle": "zvmL4yMRfiykJq4/WE1Cq5fiEjlQExCNxJfC1Kzvz2Q9fZJkGP7l6LFB1sjc/ItzSY/1dWVB/9V5\nZ7sz6B22mxI2LdXyVnfTgoAVrYIwUp2LTPKQNjNz62NfqZoYGJoQhb56My/BTeoyFqsQVnUWefnk\nz4/qgRlKDmRsUtaB4NpFjIjZABS/oHVdRZtFO6taNQF13wfHl57S8TG0MeE7ZeID9M5dWMvJdsoL\nCX1bsuk=\n",
-            "solution": "lnSTLiLiUIhNjrLj4RSScDxixzYoUcvdEn1aKuoCZ8Wuxwa0SQo++usDBEZrB4h7FUXN8CLk3zUV\nVEJGz102gjBMa5OOupxaCvrNPoKaDN6+7aMtZaOTdosZz0OwcSgO+zbomjhqRym6vFEKDhihrhVU\nv/I1eig+BT1eDKDTegn9SakieYHBF3uOWgqZu5piYIiUpe/L6htQStThEodCPj+LUIXA+xqi+4lD\nqeinewo=\n"
+            "y": 1465
         },
         {
+            "difficulty": 1,
+            "solution": "Jn+U/NyRkxB0/lzbZ6BuT4pG73YKk9058mEfHymgXyuB/cSHZ+TsYYpouuQewXICB5KT/unFEF/W8IUNTi21X1/KD7pu6q6kPPE+RSuR/FLqdqCYgfMl7wW8AiyT/BaNvpKOtigvbZPq9lfP+cddEFoi8SqEKJIcS5efB8cfqSVn5EgztQ4XY8TbxIvzM459fAUKkDyojBq2hcr1OS3us6VCSaEs1plfUhsnfEqOHx0=",
+            "puzzle": "Jn+U/NyRkxB0/lzbZ6BuT4pG73YKk9058mEfHymgXyuB/cSHZ+TsYYpouuQewXICB5KT/unFEF/W8IUNTi21X1/KD7pu6q6kPPE+RSuR/FLqdqCYgfMl7wW8AiyT/BaNvpKOtigvbZPq9lfP+cddEFoi8SqEKJIcS5efB8cfqSVn5EgztQ4XY8TbxIvzM4590vbnlFlVyV+3nkvYvak5qa+VZJSzGpawxqN364wN8Rk=",
             "x": 705,
-            "y": 1129,
-            "difficulty": 1,
-            "puzzle": "MW1pQrPHdUrrFQDUKVREULHc5yH3D0q6bBV6q9uGGCo/Ge+Eshm528IBPX6EYvC6Z7mxbTUryo0O\nzH4bidfZUKkUwWKb5bgfeXFnFQshX1H5NyATvd8NVOKoa8gcpIbNoAFnu9gSp7SDHOYRwKEvNtPV\n9CCvR6gLDKNCgXlVtT4/ICXa2wqW5JuBqt0s4LSiwKAeiISS3+ulsNOgefGWGJxkoJN0vveM5PWi\n9wjzgL4=\n",
-            "solution": "4QhdDwkz5Nyb1WZzmE5roa0s2e76oO/WW0WptdWQ4n7vrI41N9EWvMlXaaAV9rihlPoJOaz1UoMZ\n8LwplWAklIMF8bQG7wNJDXbbgGb9NSlbUYevO7WWRr7EDBOJERVmNmk0V1P9ZJXKXP4cqEh54JcT\nGqcgOH3AHLJi+2hULh90jDvb0iNlkvsCNCqK8UwKAI9ycvdiqLDZRf2M2r8S8CyK6ZO9HwlVD1xK\n+KgRVcw=\n"
+            "y": 1129
         },
         {
+            "difficulty": 2,
+            "solution": "tAGo31i+Dl+QYRGXhIboEMAxv1IY/qn62DnUz7L+FpwuYOrqFcUBeQLvzgS6J5isE0fK0H9AseU6dq0d9NZboQpchmFJTs419FBJxxs9IBFhUE08GmejzTWavICNB+vSF+quRS4abOQ0GaVRDQX4L5kf8cBl3Zck0Eq8ks1J5JeGCF9syShP6XcJR2mwUoATmCiQ1ZWPXVM3gW9W4XR+/nHpJpGyz2A6k7LjrYZHMRc=",
+            "puzzle": "TFcjoRPhV8GXq9c8pBPot3sfrif0fQxLLxT3DPh0oTcYNiBmy4VAvWmMHGXvf0NSMSiDrxvBXA9+bWS7kG0hS49nZbKty4Off+ML/+AR7CGjC+9nLAohkuHY2LzjyILkjvNS/Fi4x2uYpXcNQIqi0y8hkayCnGDgaYPiQJd28tx48k9rkBd6WeLq/5hjEYVkXS4SC5Rh7AoGebPfTdppVUHM95FFQ6WxqMgQiLKOjno=",
             "x": 276,
-            "y": 981,
-            "difficulty": 2,
-            "puzzle": "irMBGzdV9PSzB+tIWdx0kuDS6XN+87kecaNn9da8Uk2BX3Yf11wCiEm9Ub7oL0HhCjuoktm3q3Ek\nsJ5lQcfqmKR58ifzOtNTjsBl3u2Wl4NZTQPV4gzDpLyRhFmZiSVRy619lZLO1YRVDI5TsnYHz1wH\nEw+J/yC3ftEobpEeGEbQvZroBD1FL4pDWcJEIf8lkCIGh77rOz1sQWeUs7shbSMDOJ8k+XW7+2I8\nH/z2E98=\n",
-            "solution": "19QdGmc49FaDllnSYN6ThkzyvWc0Tc7PoppO3Lg3uCBopb5yqktlqdk0+aW/u0dv6r07a4KPwln+\nCPlXwBOMrB/Rya3eIc/MAWz2rIIpCqogEbeTIdnrISE77v4oQYyVwWwKqp92dF+hJ70x8C9oWwJj\nqMKqeCN6vSBhbmW7pm2cheDpXwSe92F4wP+e6E8kObTCPussQY3rAAzwYvmrVs61PcdQSCddZfKi\ndny16t8=\n"
+            "y": 981
         },
         {
+            "difficulty": 2,
+            "solution": "D3V6gBceoiL0NXL55tonop55uOh7F4+NPcJ/uNZ+D7ZhH2Bqj8z7wKd3kMkY8XU3gjjjbzDidvVi9V5md3W1AMLAzs5u+MRirIq9TDgEK8JSizojttuO15is+HxpRWVjbZPw1q7tRDyCwq8yWZ4SWr6P7vjdynQXpn7OGitcn0Nyz0OZXq1Wank08x9MVInRVeFQ/vSJ0edFJ/hUpS61vyin36h0fcLWxk0Vi8ehI/Q=",
+            "puzzle": "KIja4etK3NAcdVxEqDekwdJ1i/xkiYDR1JyE5iRA069443qvNcJLwAvBsHhOsbdoHb1BmDugql+E1N/njHLXvLlxnwWCkD9Vf3c0iGCfxN66YDvCvtqjhnvEHw40PmNB3tnYV3thqV8wfk+Nw76B/COPUQpUIXfizIvkQeKRIeLsHKojizgulPYP7dlTarT9C6irkWiVlV9opYzmcZOS7u4qBrIT2J1zftMRP52TRLY=",
             "x": 66,
-            "y": 645,
-            "difficulty": 2,
-            "puzzle": "Y/C34xtWa/lw+WeMH+tUS5lgkLXzp7cUNO9/8faR5XStP2bMGp327Rj4xzMTqh0K64MBKG80+qn9\n4UJDTH5XJfdxRX5vKOTIEnaujZyBhZlPMS/HxoK1I98R8/JIeCJwzeg1rYqsinMMuez/167PEVlK\nxlzZHuyF3tXechcoExUPt8UlqX79Rl6iuObhGwIQRGvpG5D1Rm6vmn0isgU06OFSXElIaN3ocrmu\nL5Baxl4=\n",
-            "solution": "CMSJbaG+PnMLEBSK2rtvzttAzChGUxW0RF+LAyw7++IktEW6rmFwo813Zo3v4NaVP8PEiQemR1ap\n8HbMQjlgMORkVm6LdR9hp/Z9gEeaKD1vc4ns1TJZMOqPWn86F4UfcidVt9Bjx1p6JJtEEH4bo7Fo\nDD2A84tYBbjgWuwqpN2sSNTtfIYtcC/FLL4mIe3szkRG079O7OlOkBBDjajmxwxjNlWDBNjW0zuu\niZE6JPo=\n"
+            "y": 645
         },
         {
+            "difficulty": 2,
+            "solution": "873KCvGcNg60yX3OzZ68etoZ/WB3U1mzgCgpGUVTxSkGFYzoyr6W+AOkKUnDr3vKLptPnmrEzDD1cJmfmZROuG9m0kPgjTdf+QwmgA/77BxjROXcF29w+D632DzpRKUwZFM8nmiwPFon0o83mDH+766kZkyI3c+OGiSubB/jmjgbZsLJGU2mS6wwHjL5CC5jjqchd4sRSf/xWZ5SV9F2OhmRi5h2NKZ/tVxTS4eIw34=",
+            "puzzle": "873KCvGcNg60yX3OzZ68el+fDKyS0UpA/DEwpz1P7wfKovWctIlsTlNA8q+m/6czZuF2qnZVHexEOhy7zTIwiytF8FstWEHiwiJcIPkPhlgDqDNT4zo6fAP5Pgm0m6/YnrwulxWSL3RJ0R+GwEQ3fXT6O/MkzdcoEyxoovp4VcGQGQgZfLAG91QgjQRnjLNO7duhfZ1w80mrofncPqqJN3bOO6sQAB9acfM/lytw4wU=",
             "x": 490,
-            "y": 246,
-            "difficulty": 2,
-            "puzzle": "WzcycUACzRXJ4R11lE/G0vJPxAZVpMPtLxuFTJyvWgbp80f15PkkXcY4o8tQJskbkmpVWeqcYCPx\nLXGzQe9z0sWxhOkhTgKxsKxoYyuTrSnZrj8JpKEHhzDfqcjKAj2BMkkA2X7/kYSH0S/r5Pb8zchz\nWB9NCdzR0ss1ufI6pVEv2jUSIHsNUZiLpUosLPEyzO1fiY9n3IU35/QcILpAvn++9JqPb0z2CVAo\nCmkIMgY=\n",
-            "solution": "9s3rzZ6ls7jwY9sZFdnjabOK+suLIrLcQTnW4AlgKiXc2IF1uJ4rabtPFns84rWaY/1RMvab+u9G\nReq2QWWUsrcxtHWpdY1UaJPJehggYMCzhDjPOOCEmH56Xoj1BU2Wu35+FcewbE2xh0AtIKgsNT8o\nokNCy3oyYd18VbAKdmZjoLPNnO+Q3tPsrzDDEPMYeQFJY2CcEZW7/J0LHrAIITjtx1KCJEmHtSt4\nBStyWHM=\n"
+            "y": 246
         }
     ]
 }
