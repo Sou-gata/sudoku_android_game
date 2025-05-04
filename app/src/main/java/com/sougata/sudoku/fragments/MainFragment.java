@@ -6,6 +6,7 @@ import android.database.Cursor;
 import android.graphics.Color;
 import android.graphics.drawable.GradientDrawable;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -68,7 +69,6 @@ public class MainFragment extends Fragment {
     public void onResume() {
         super.onResume();
         loadOngoingDb();
-//        loadEventData();
         startTimer();
     }
 
@@ -102,17 +102,20 @@ public class MainFragment extends Fragment {
         Cursor c = db.getOngoingMatch();
         c.moveToFirst();
         if (c.getCount() != 0) {
+            if (globalStore.getId() != c.getLong(0)) {
+                globalStore.setTimer(c.getInt(4));
+            }
             globalStore.setId(c.getLong(0));
             globalStore.setCurrentLevel(c.getInt(1));
             globalStore.setDifficulty(c.getInt(2));
             globalStore.setDifficultyName(c.getString(3));
-            globalStore.setTimer(c.getInt(4));
             globalStore.setCurrentBoardState(HelperFunctions.parseTwoDimArray(c.getString(5)));
             globalStore.setBoard(HelperFunctions.parseTwoDimArray(c.getString(6)));
             globalStore.setSolution(HelperFunctions.parseTwoDimArray(c.getString(7)));
             globalStore.setMistakes(c.getInt(9));
             globalStore.setType(c.getString(10));
-            globalStore.setNotes(HelperFunctions.parseThreeDimArr(c.getString(14)));
+            if (c.getString(14).equals("0")) globalStore.setNotes(new int[9][9][9]);
+            else globalStore.setNotes(HelperFunctions.parseThreeDimArr(c.getString(14)));
             resumeGame.setVisibility(View.VISIBLE);
             String resumeStatusText = HelperFunctions.timerToString(globalStore.getTimer()) + " - " + globalStore.getDifficultyName();
             resumeStatus.setText(resumeStatusText);
@@ -298,12 +301,15 @@ public class MainFragment extends Fragment {
             long diffMillis;
             if (today.before(start)) {
                 diffMillis = start.getTimeInMillis() - today.getTimeInMillis();
-                eventPlay.setText("Coming");
+                eventPlay.setText(ContextCompat.getString(context, R.string.coming));
+                event.setClickable(false);
             } else if (today.after(start) && today.before(end)) {
                 diffMillis = end.getTimeInMillis() - today.getTimeInMillis();
-                eventPlay.setText("Play");
+                eventPlay.setText(ContextCompat.getString(context, R.string.play));
+                event.setClickable(true);
             } else {
                 diffMillis = -1;
+                event.setClickable(false);
             }
             String time;
             if (diffMillis != -1) {

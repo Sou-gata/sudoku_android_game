@@ -71,7 +71,7 @@
             <androidx.cardview.widget.CardView
                 android:id="@+id/cv_daily"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:layout_marginEnd="20dp"
                 android:backgroundTint="@color/white"
                 android:visibility="visible"
@@ -125,7 +125,7 @@
             <androidx.cardview.widget.CardView
                 android:id="@+id/btn_event"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:backgroundTint="@color/white"
                 android:visibility="visible"
                 app:cardCornerRadius="10dp"

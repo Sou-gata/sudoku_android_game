@@ -6,6 +6,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 
 import androidx.activity.EdgeToEdge;
 import androidx.activity.OnBackPressedCallback;
@@ -32,6 +33,7 @@ public class HistoryActivity extends AppCompatActivity implements ButtonClickLis
 
     ImageView backBtn;
     RecyclerView historyRecyclerView;
+    LinearLayout noRecordContainer;
     AppCompatSpinner matchTypes, classicType;
 
     @Override
@@ -48,11 +50,13 @@ public class HistoryActivity extends AppCompatActivity implements ButtonClickLis
         historyRecyclerView = findViewById(R.id.rv_history);
         matchTypes = findViewById(R.id.sp_type);
         classicType = findViewById(R.id.sp_classic_type);
+        noRecordContainer = findViewById(R.id.ll_no_record_container);
 
         db = new Database(this);
 
         loadHistory();
 
+        checkRecord();
         historyRecyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
         HistoryRecyclerViewAdapter adapter = new HistoryRecyclerViewAdapter(items, this, this);
         historyRecyclerView.setAdapter(adapter);
@@ -115,7 +119,22 @@ public class HistoryActivity extends AppCompatActivity implements ButtonClickLis
                             items.add(item);
                         }
                     }
+                } else if (position == 4) {
+                    items.clear();
+                    for (HistoryItem item : allItems) {
+                        if (item.isCompleted()) {
+                            items.add(item);
+                        }
+                    }
+                } else if (position == 5) {
+                    items.clear();
+                    for (HistoryItem item : allItems) {
+                        if (!item.isCompleted()) {
+                            items.add(item);
+                        }
+                    }
                 }
+                checkRecord();
                 adapter.notifyDataSetChanged();
             }
 
@@ -135,8 +154,9 @@ public class HistoryActivity extends AppCompatActivity implements ButtonClickLis
                         }
                     }
                 } else {
-                    addDataToList(db.getDifficultyGame(Constants.LEVEL_NAME[position - 1]), items);
+                    addDataToList(db.getDifficultyGame(Constants.LEVEL_NAME[position - 1]));
                 }
+                checkRecord();
                 adapter.notifyDataSetChanged();
             }
 
@@ -148,7 +168,7 @@ public class HistoryActivity extends AppCompatActivity implements ButtonClickLis
 
     private void loadHistory() {
         Cursor cursor = db.getAllGames();
-        addDataToList(cursor, items);
+        addDataToList(cursor);
         allItems.clear();
         allItems.addAll(items);
     }
@@ -159,7 +179,7 @@ public class HistoryActivity extends AppCompatActivity implements ButtonClickLis
         overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
     }
 
-    private void addDataToList(Cursor cursor, ArrayList<HistoryItem> items) {
+    private void addDataToList(Cursor cursor) {
         items.clear();
         if (cursor.getCount() == 0) return;
         cursor.moveToFirst();
@@ -177,6 +197,16 @@ public class HistoryActivity extends AppCompatActivity implements ButtonClickLis
             String time = HelperFunctions.get12hClock(calendar.get(Calendar.HOUR_OF_DAY), calendar.get(Calendar.MINUTE));
             items.add(new HistoryItem(id, difficulty, timer, hint, mistake, date, time, isCompleted, type));
             cursor.moveToNext();
+        }
+    }
+
+    private void checkRecord(){
+        if (items.isEmpty()) {
+            noRecordContainer.setVisibility(View.VISIBLE);
+            historyRecyclerView.setVisibility(View.GONE);
+        } else {
+            noRecordContainer.setVisibility(View.GONE);
+            historyRecyclerView.setVisibility(View.VISIBLE);
         }
     }
 }

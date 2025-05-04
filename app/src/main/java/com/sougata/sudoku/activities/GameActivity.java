@@ -158,8 +158,13 @@ public class GameActivity extends AppCompatActivity {
                 popupWindow.dismiss();
             }
             globalStore.setPaused(true);
-            finish();
-            overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
+            try {
+                Thread.sleep(200);
+            } catch (InterruptedException ignored) {
+            } finally {
+                finish();
+                overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
+            }
         });
         pauseGame.setOnClickListener(view -> {
             showPausePopup(view);

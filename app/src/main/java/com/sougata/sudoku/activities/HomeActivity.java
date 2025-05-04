@@ -1,7 +1,6 @@
 package com.sougata.sudoku.activities;
 
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.graphics.Point;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
@@ -19,8 +18,6 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
-import com.sougata.Constants;
-import com.sougata.GlobalStore;
 import com.sougata.sudoku.R;
 import com.sougata.sudoku.fragments.DailyFragment;
 import com.sougata.sudoku.fragments.MainFragment;
@@ -28,8 +25,7 @@ import com.sougata.sudoku.fragments.StatisticsFragment;
 
 public class HomeActivity extends AppCompatActivity {
     LinearLayout tabContainer;
-    int currentPosition = 0;
-    GlobalStore globalStore = GlobalStore.getInstance();
+    int currentPosition = -1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -74,9 +70,11 @@ public class HomeActivity extends AppCompatActivity {
         if (intent.getBooleanExtra("isDaily", false)) {
             int month = intent.getIntExtra("month", -1);
             int year = intent.getIntExtra("year", -1);
-            replaceFragment(new DailyFragment(month, year), currentPosition);
+            currentPosition = -1;
+            replaceFragment(new DailyFragment(month, year), 1);
+            bottomNavigationView.setSelectedItemId(R.id.bm_daily);
         } else {
-            replaceFragment(new MainFragment(), currentPosition);
+            replaceFragment(new MainFragment(), 0);
         }
         bottomNavigationView.setOnItemSelectedListener(item -> {
             int position = getMenuItemPosition(bottomNavigationView, item.getItemId());
@@ -92,6 +90,7 @@ public class HomeActivity extends AppCompatActivity {
     }
 
     private void replaceFragment(Fragment fragment, int position) {
+        if (position == currentPosition) return;
         FragmentManager fragmentManager = getSupportFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
 

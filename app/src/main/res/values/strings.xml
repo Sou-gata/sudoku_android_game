@@ -35,6 +35,7 @@
     <string name="restart">Restart</string>
     <string name="day_placeholder">1</string>
     <string name="cup">Cup</string>
+    <string name="coming">Coming</string>
     <string name="play">Play</string>
     <string name="games">Games</string>
     <string name="game_started">Game Started</string>
@@ -101,6 +102,7 @@
     <string name="medal">Medal</string>
     <string name="dark_mode">Dark Mode</string>
     <string name="match_type">Match type</string>
+    <string name="no_record_found">No record found</string>
     <string-array name="pause_popup_titles">
         <item>@string/hint</item>
         <item>@string/erase</item>
@@ -124,5 +126,7 @@
         <item>Classic</item>
         <item>@string/daily</item>
         <item>@string/event</item>
+        <item>Complete</item>
+        <item>Incomplete</item>
     </string-array>
 </resources>
